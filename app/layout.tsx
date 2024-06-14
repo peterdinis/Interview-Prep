@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import 'react-vertical-timeline-component/style.min.css';
 import ChakraUiProvider from './component/shared/ChakraUiProvider';
 import Navbar from './component/shared/Navbar';
 
