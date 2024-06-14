@@ -40,7 +40,7 @@ const LandingInfo: FC = () => {
     const isDesktop = useBreakpointValue({ base: false, md: true });
 
     return (
-        <Container maxWidth='7xl' p={{ base: 2, sm: 10 }}>
+        <Container id="description" maxWidth='7xl' p={{ base: 2, sm: 10 }}>
             <Header text='How InterviewPrep Works' />
             {milestones.map((milestone) => (
                 <Flex key={milestone.id} mb='10px'>
