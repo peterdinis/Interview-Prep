@@ -4,32 +4,20 @@ import { FC } from 'react';
 import { Box } from '@chakra-ui/react';
 import {
     AppShell,
-    Sidebar,
-    SidebarSection,
-    NavItem,
-    Navbar,
-    NavbarBrand,
-    NavbarContent,
-    NavbarItem,
-    SearchInput,
 } from '@saas-ui/react';
+import DashboardContent from './DashboardContent';
+import DashboardSidebar from './DashboardSidebar';
 
 const DashboardWrapper: FC = () => {
     return (
         <AppShell
             variant='static'
             minH='$100vh'
-            sidebar={
-                <Sidebar position='sticky' top='56px' toggleBreakpoint='sm'>
-                    <SidebarSection>
-                        <NavItem>Home</NavItem>
-                        <NavItem>Settings</NavItem>
-                    </SidebarSection>
-                </Sidebar>
-            }
+            maxW={'6xl'} mt={20}
+            sidebar={<DashboardSidebar />}
         >
             <Box as='main' flex='1' py='2' px='4'>
-                Your application content
+                <DashboardContent />
             </Box>
         </AppShell>
     );
