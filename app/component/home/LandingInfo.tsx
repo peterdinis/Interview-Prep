@@ -1,11 +1,7 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 const LandingInfo: FC = () => {
-    return (
-        <>
-            INFO
-        </>
-    )
-}
+    return <>INFO</>;
+};
 
 export default LandingInfo;
