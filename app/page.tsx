@@ -7,7 +7,7 @@ const Homepage: NextPage = () => {
   return (
     <>
       <LandingWrapper />
-      
+      <LandingInfo />
       <Footer />
     </>
   )

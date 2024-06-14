@@ -1,9 +1,10 @@
 import { FC } from "react";
+import Header from "../shared/Header";
 
 const LandingInfo: FC = () => {
     return (
         <>
-            INFO
+            <Header text="How Interview Prep Work" />
         </>
     )
 }
