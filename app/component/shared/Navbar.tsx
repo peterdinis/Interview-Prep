@@ -35,7 +35,7 @@ const Navbar: FC = () => {
 
   return (
     <Flex
-      bg={useColorModeValue("gray.100", "gray.900")}
+      bg={useColorModeValue("gray.200", "gray.900")}
       px={4}
       h={16}
       boxShadow={scroll ? "base" : "none"}
