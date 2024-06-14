@@ -1,38 +1,27 @@
-'use client';
-
-import { Box, Container, Stack, useColorModeValue } from '@chakra-ui/react';
-import { FC } from 'react';
+import { Container, Stack, Text } from '@chakra-ui/react';
+import type { FC } from 'react';
 
 const Footer: FC = () => {
     return (
-        <Box
-            bg={useColorModeValue('gray.50', 'gray.900')}
-            color={useColorModeValue('gray.700', 'gray.200')}
+        <Stack
+            maxW='5xl'
+            marginInline='auto'
+            p={8}
+            spacing={{ base: 8, md: 0 }}
+            justifyContent='space-between'
+            alignItems='center'
+            direction={{ base: 'column', md: 'row' }}
         >
             <Container
-                as={Stack}
-                maxW={'6xl'}
-                py={4}
-                spacing={4}
-                justify={'center'}
-                align={'center'}
+                flex={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
             >
-                <Stack direction={'row'} spacing={6}>
-                    <Box as='a' href={'#'}>
-                        Home
-                    </Box>
-                    <Box as='a' href={'#'}>
-                        About
-                    </Box>
-                    <Box as='a' href={'#'}>
-                        Blog
-                    </Box>
-                    <Box as='a' href={'#'}>
-                        Contact
-                    </Box>
-                </Stack>
+                <Text wordBreak={'break-all'} fontSize={25}>
+                    &copy; Interview Prep 2024
+                </Text>
             </Container>
-        </Box>
+        </Stack>
     );
 };
 
