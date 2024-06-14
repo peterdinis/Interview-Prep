@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Button,
   Drawer,
@@ -46,7 +48,7 @@ const Navbar: FC = () => {
     >
       <Link>
         <HStack>
-          <Text fontWeight={"bold"}>Peter Dinis</Text>
+          <Text fontWeight={"bold"}>Interview Prep</Text>
         </HStack>
       </Link>
 
