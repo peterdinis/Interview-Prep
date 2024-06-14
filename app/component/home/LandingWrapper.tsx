@@ -15,7 +15,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { Blob } from '../shared/Blob';
 import Image from 'next/image';
-import hero from "../../../public/img/hero.png"
+import hero from '../../../public/img/hero.png';
 
 const LandingWrapper: FC = () => {
     return (
@@ -62,7 +62,7 @@ const LandingWrapper: FC = () => {
                         Are you ready to ace your next job interview? Look no
                         further than InterviewPrep, the ultimate platform
                         designed to help you master the art of interviewing.
-                        Whether you're a recent graduate, a seasoned
+                        Whether you are a recent graduate, a seasoned
                         professional, or someone looking to make a career
                         change, our app offers tailored mock interviews to
                         prepare you for every question and scenario.
@@ -127,12 +127,12 @@ const LandingWrapper: FC = () => {
                             top={'50%'}
                             transform={'translateX(-50%) translateY(-50%)'}
                         />
-                         <Image
-                         alt={"Hero Image"}
-                         src={hero}
-                         width={300}
-                         height={300}
-            />
+                        <Image
+                            alt={'Hero Image'}
+                            src={hero}
+                            width={300}
+                            height={300}
+                        />
                     </Box>
                 </Flex>
             </Stack>
