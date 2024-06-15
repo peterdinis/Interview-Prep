@@ -3,36 +3,28 @@
 import * as React from 'react';
 import {
     Box,
-    Image,
     useColorModeValue,
     VStack,
-    Text,
-    AspectRatio,
     HStack,
     Tag,
     useDisclosure,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalBody,
-    Center,
     Flex,
     Tooltip,
+    Button,
+    Link,
+    Text
 } from '@chakra-ui/react';
-import LazyImage from '../../shared/Lazy-Image';
 
 interface DashboardCardProps {
     title: string;
     description: string;
-    cover: string;
     techStack: string[];
     url: string;
-    stargazers_count: number;
 }
 
 const DashboardCard = (props: DashboardCardProps) => {
-    const { title, cover, techStack, url, stargazers_count } = props;
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { title, techStack, url } = props;
+    const { onOpen} = useDisclosure();
 
     const handleClick = () => {
         onOpen();
@@ -61,23 +53,12 @@ const DashboardCard = (props: DashboardCardProps) => {
                 align='start'
                 spacing={0}
             >
-                <Box position='relative' w='100%'>
-                    <AspectRatio
-                        ratio={1.85 / 1}
-                        w='100%'
-                        borderBottomWidth='1px'
-                        borderColor={useColorModeValue('gray.100', 'gray.700')}
-                    >
-                        <LazyImage src={cover} />
-                    </AspectRatio>
-                </Box>
-
                 <VStack py={2} px={[2, 4]} spacing={1} align='start' w='100%'>
                     <Flex justifyContent='space-between' width='100%'>
                         <Tooltip hasArrow label='Github link' placement='top'>
                             <HStack>
                                 <Text
-                                    fontSize='sm'
+                                    fontSize='lg'
                                     noOfLines={1}
                                     fontWeight='600'
                                     align='left'
@@ -87,11 +68,6 @@ const DashboardCard = (props: DashboardCardProps) => {
                                 </Text>
                             </HStack>
                         </Tooltip>
-                        <Flex alignItems='center'>
-                            <Box as='span' ml='1' fontSize='sm'>
-                                {stargazers_count}
-                            </Box>
-                        </Flex>
                     </Flex>
                     <Flex justifyContent='space-between' width='100%'>
                         <Box>
@@ -116,18 +92,13 @@ const DashboardCard = (props: DashboardCardProps) => {
                             </HStack>
                         </Box>
                     </Flex>
+                    <Button mt={4} colorScheme='red' display={"flex"} justifyContent={"center"} alignItems={"center"}>
+                        <Link href="/">
+                                <Text>Detail</Text>
+                        </Link>
+                    </Button>
                 </VStack>
             </VStack>
-            <Modal isOpen={isOpen} onClose={onClose} isCentered allowPinchZoom>
-                <ModalOverlay />
-                <ModalContent bg='none' maxW='28rem' w='auto'>
-                    <ModalBody p={0} rounded='lg' overflow='hidden' bg='none'>
-                        <Center>
-                            <Image src={cover} rounded='lg' alt='Repo image' />
-                        </Center>
-                    </ModalBody>
-                </ModalContent>
-            </Modal>
         </Box>
     );
 };

@@ -48,7 +48,9 @@ const Navbar: FC = () => {
         >
             <Link>
                 <HStack>
-                    <Text fontWeight={'bold'}>Interview Prep</Text>
+                    <Text fontSize={'1.2rem'} fontWeight={'bold'}>
+                        Interview Prep
+                    </Text>
                 </HStack>
             </Link>
 
@@ -56,10 +58,14 @@ const Navbar: FC = () => {
                 <Stack direction={'row'} spacing={7}>
                     {isLargerThanMD ? (
                         <>
-                            <Button onClick={descriptionScroll} variant='ghost'>
+                            <Button
+                                fontSize={'1.2rem'}
+                                onClick={descriptionScroll}
+                                variant='ghost'
+                            >
                                 About
                             </Button>
-                            <Button variant='ghost'>
+                            <Button fontSize={'1.2rem'} variant='ghost'>
                                 <Link href='/sign-in'>Login</Link>
                             </Button>
                         </>
@@ -90,10 +96,14 @@ const Navbar: FC = () => {
                                         <Button
                                             onClick={descriptionScroll}
                                             variant='ghost'
+                                            fontSize={'1.2rem'}
                                         >
                                             About
                                         </Button>
-                                        <Button variant='ghost'>
+                                        <Button
+                                            fontSize={'1.2rem'}
+                                            variant='ghost'
+                                        >
                                             <Link href='/sign-in'>Login</Link>
                                         </Button>
                                     </DrawerBody>
