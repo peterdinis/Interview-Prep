@@ -8,7 +8,6 @@ import {
     AspectRatio,
     HStack,
     Tag,
-    Icon,
     useDisclosure,
     Modal,
     ModalOverlay,
@@ -20,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 import LazyImage from '../../shared/Lazy-Image';
 
-interface RepositoryCardProps {
+interface DashboardCardProps {
     title: string;
     description: string;
     cover: string;
@@ -29,7 +28,7 @@ interface RepositoryCardProps {
     stargazers_count: number;
 }
 
-const RepositoryCard = (props: RepositoryCardProps) => {
+const DashboardCard = (props: DashboardCardProps) => {
     const { title, cover, techStack, url, stargazers_count } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -131,4 +130,4 @@ const RepositoryCard = (props: RepositoryCardProps) => {
     );
 };
 
-export default RepositoryCard;
+export default DashboardCard;

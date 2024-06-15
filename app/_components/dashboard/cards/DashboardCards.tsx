@@ -1,14 +1,14 @@
-import * as React from 'react';
+import {FC} from 'react';
 import { SimpleGrid, Container } from '@chakra-ui/react';
-import repositoriesList from './repos-list';
-import RepositoryCard from './DashboardCard';
+import dashboardList from './dashboard-list';
+import DashboardCard from './DashboardCard';
 
-const DashboardCards = () => {
+const DashboardCards: FC = () => {
     return (
         <Container maxW='7xl' p='5' mx='auto'>
             <SimpleGrid columns={[1, 2]} spacing={4} mt={8}>
-                {repositoriesList().map((repo, index) => (
-                    <RepositoryCard
+                {dashboardList().map((repo, index) => (
+                    <DashboardCard
                         key={index}
                         title={repo.title}
                         description={repo.description}

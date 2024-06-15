@@ -1,4 +1,4 @@
-export default function repositoriesList() {
+export default function dashboardList() {
     return [
         {
             title: 'Portfolio1',
