@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { Sidebar, SidebarSection, NavItem } from '@saas-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { Icon, Text } from '@chakra-ui/react';
-import { Home, Settings } from 'lucide-react';
+import { Home} from 'lucide-react';
 import InterviewModal from '../interviews/InterviewModal';
 
 const DashboardSidebar: FC = () => {
@@ -13,10 +13,6 @@ const DashboardSidebar: FC = () => {
             <SidebarSection>
                 <NavItem p={5} mt={5} fontWeight={'bold'} fontSize={'1.3rem'}>
                     <Icon as={Home} boxSize={6} /> <Text ml={4}>Home</Text>
-                </NavItem>
-                <NavItem p={5} mt={10} fontWeight={'bold'} fontSize={'1.3rem'}>
-                    <Icon boxSize={6} as={Settings} />
-                    <Text ml={4}>Settings</Text>
                 </NavItem>
                 <NavItem p={5} mt={10} fontWeight={'bold'} fontSize={'1.3rem'}>
                     <AddIcon boxSize={6} />{' '}
