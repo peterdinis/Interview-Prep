@@ -8,7 +8,7 @@ const DashboardContent: FC = () => {
             <Header text='My interviews' />
             <InterviewsWrapper />
         </>
-    )
+    );
 };
 
 export default DashboardContent;
