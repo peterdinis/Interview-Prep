@@ -19,7 +19,8 @@ const DashboardSidebar: FC = () => {
                     <Text ml={4}>Settings</Text>
                 </NavItem>
                 <NavItem p={5} mt={10} fontWeight={'bold'} fontSize={'1.3rem'}>
-                    <AddIcon boxSize={6} /> <Text ml={4}>
+                    <AddIcon boxSize={6} />{' '}
+                    <Text ml={4}>
                         <InterviewModal />
                     </Text>
                 </NavItem>
