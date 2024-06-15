@@ -12,7 +12,7 @@ import {
     Tooltip,
     Button,
     Link,
-    Text
+    Text,
 } from '@chakra-ui/react';
 
 interface DashboardCardProps {
@@ -24,7 +24,7 @@ interface DashboardCardProps {
 
 const DashboardCard = (props: DashboardCardProps) => {
     const { title, techStack, url } = props;
-    const { onOpen} = useDisclosure();
+    const { onOpen } = useDisclosure();
 
     const handleClick = () => {
         onOpen();
@@ -92,9 +92,15 @@ const DashboardCard = (props: DashboardCardProps) => {
                             </HStack>
                         </Box>
                     </Flex>
-                    <Button mt={4} colorScheme='red' display={"flex"} justifyContent={"center"} alignItems={"center"}>
-                        <Link href="/">
-                                <Text>Detail</Text>
+                    <Button
+                        mt={4}
+                        colorScheme='red'
+                        display={'flex'}
+                        justifyContent={'center'}
+                        alignItems={'center'}
+                    >
+                        <Link href='/'>
+                            <Text>Detail</Text>
                         </Link>
                     </Button>
                 </VStack>
