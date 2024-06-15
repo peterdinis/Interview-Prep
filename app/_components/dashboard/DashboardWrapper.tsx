@@ -8,12 +8,12 @@ import DashboardContent from './DashboardContent';
 
 const DashboardWrapper: FC = () => {
     return (
-        <AppShell
-            minH='100vh'
-            mt={20}
-            sidebar={<DashboardSidebar />}
-        >
-            <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
+        <AppShell minH='100vh' mt={20} sidebar={<DashboardSidebar />}>
+            <Box
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
+            >
                 <DashboardContent />
             </Box>
         </AppShell>

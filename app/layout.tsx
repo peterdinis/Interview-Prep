@@ -25,9 +25,7 @@ export default function RootLayout({
                 <ChakraUiProvider>
                     <SassUiProvider>
                         <Navbar />
-                        <LayoutWrapper>
-                            {children}
-                        </LayoutWrapper>
+                        <LayoutWrapper>{children}</LayoutWrapper>
                     </SassUiProvider>
                 </ChakraUiProvider>
             </body>

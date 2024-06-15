@@ -1,12 +1,8 @@
-import { Box } from "@chakra-ui/react";
-import { FC } from "react";
+import { Box } from '@chakra-ui/react';
+import { FC } from 'react';
 
 const InterviewsWrapper: FC = () => {
-    return (
-       <>
-       dodod
-       </>
-    )
-}
+    return <>dodod</>;
+};
 
 export default InterviewsWrapper;
