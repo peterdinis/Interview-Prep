@@ -1,21 +1,19 @@
 'use client';
 
 import { FC } from 'react';
-import { Box } from '@chakra-ui/react';
 import { AppShell } from '@saas-ui/react';
-import DashboardContent from './DashboardContent';
 import DashboardSidebar from './DashboardSidebar';
+import { Box } from '@chakra-ui/react';
+import DashboardContent from './DashboardContent';
 
 const DashboardWrapper: FC = () => {
     return (
         <AppShell
-            variant='static'
-            minH='$100vh'
-            maxW={'6xl'}
+            minH='100vh'
             mt={20}
             sidebar={<DashboardSidebar />}
         >
-            <Box as='main' flex='1' py='2' px='4'>
+            <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
                 <DashboardContent />
             </Box>
         </AppShell>
