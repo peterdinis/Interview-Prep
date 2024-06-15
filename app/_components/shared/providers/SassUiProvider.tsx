@@ -7,8 +7,10 @@ interface ISassUiProviderProps {
     children?: ReactNode;
 }
 
-const SassUiProvider: FC<ISassUiProviderProps> = ({children}: ISassUiProviderProps) => {
-    return <SaasProvider>{children}</SaasProvider>
-}
+const SassUiProvider: FC<ISassUiProviderProps> = ({
+    children,
+}: ISassUiProviderProps) => {
+    return <SaasProvider>{children}</SaasProvider>;
+};
 
 export default SassUiProvider;

@@ -37,33 +37,50 @@ const InterviewModal: FC = () => {
                     </ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Text fontWeight={"bold"} color="red.600" p={1}>Tell me something about your job</Text>
+                        <Text fontWeight={'bold'} color='red.600' p={1}>
+                            Tell me something about your job
+                        </Text>
                         <Stack mt={5} spacing={3}>
                             <form>
                                 <Text mt={3} fontWeight={'bold'}>
                                     Your Job
                                 </Text>
-                                <Input mt={2} placeholder='Here is a sample placeholder' />
+                                <Input
+                                    mt={2}
+                                    placeholder='Here is a sample placeholder'
+                                />
 
                                 <Text mt={3} fontWeight={'bold'}>
                                     Your Job
                                 </Text>
-                                <Input mt={2} placeholder='Here is a sample placeholder' />
+                                <Input
+                                    mt={2}
+                                    placeholder='Here is a sample placeholder'
+                                />
 
                                 <Text mt={3} fontWeight={'bold'}>
                                     Your Job
                                 </Text>
-                                <Input mt={2} placeholder='Here is a sample placeholder' />
+                                <Input
+                                    mt={2}
+                                    placeholder='Here is a sample placeholder'
+                                />
 
                                 <Text mt={3} fontWeight={'bold'}>
                                     Your Job
                                 </Text>
-                                <Input mt={2} placeholder='Here is a sample placeholder' />
+                                <Input
+                                    mt={2}
+                                    placeholder='Here is a sample placeholder'
+                                />
 
                                 <Text mt={3} fontWeight={'bold'}>
                                     Your Job
                                 </Text>
-                                <Input mt={2} placeholder='Here is a sample placeholder' />
+                                <Input
+                                    mt={2}
+                                    placeholder='Here is a sample placeholder'
+                                />
                             </form>
                         </Stack>
                     </ModalBody>
