@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import { FC } from 'react';
 import { SimpleGrid, Container } from '@chakra-ui/react';
 import dashboardList from './dashboard-list';
 import DashboardCard from './DashboardCard';
