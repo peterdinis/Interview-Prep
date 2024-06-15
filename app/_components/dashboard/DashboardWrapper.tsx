@@ -5,6 +5,8 @@ import { AppShell } from '@saas-ui/react';
 import DashboardSidebar from './DashboardSidebar';
 import { Box } from '@chakra-ui/react';
 import DashboardContent from './DashboardContent';
+import DashboardCards from './cards/DashboardCards';
+import SearchInput from '../shared/SearchInput';
 
 const DashboardWrapper: FC = () => {
     return (
@@ -16,6 +18,8 @@ const DashboardWrapper: FC = () => {
             >
                 <DashboardContent />
             </Box>
+            <SearchInput />
+            <DashboardCards />
         </AppShell>
     );
 };
