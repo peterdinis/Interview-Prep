@@ -1,16 +1,46 @@
 "use client"
 
 import { FC } from 'react';
-import InterviewCard from './InterviewCard';
-import { SimpleGrid } from '@chakra-ui/react';
+import { SimpleGrid, Card, CardHeader, CardBody, CardFooter, Text, Heading, Button } from '@chakra-ui/react';
 
 const InterviewsWrapper: FC = () => {
     return (
-        <SimpleGrid minChildWidth="410px" columns={6} mt={5}>
-         <InterviewCard />
-         <InterviewCard />
+        <SimpleGrid spacing={6} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+        <Card>
+          <CardHeader>
+            <Heading size='md'> Customer dashboard</Heading>
+          </CardHeader>
+          <CardBody>
+            <Text>View a summary of all your customers over the last month.</Text>
+          </CardBody>
+          <CardFooter>
+            <Button>View here</Button>
+          </CardFooter>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Heading size='md'> Customer dashboard</Heading>
+          </CardHeader>
+          <CardBody>
+            <Text>View a summary of all your customers over the last month.</Text>
+          </CardBody>
+          <CardFooter>
+            <Button>View here</Button>
+          </CardFooter>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Heading size='md'> Customer dashboard</Heading>
+          </CardHeader>
+          <CardBody>
+            <Text>View a summary of all your customers over the last month.</Text>
+          </CardBody>
+          <CardFooter>
+            <Button>View here</Button>
+          </CardFooter>
+        </Card>
       </SimpleGrid>
-    )
+    );
 };
 
 export default InterviewsWrapper;
