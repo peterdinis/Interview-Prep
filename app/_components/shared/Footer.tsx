@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { Container, Stack, Text } from '@chakra-ui/react';
 import type { FC } from 'react';

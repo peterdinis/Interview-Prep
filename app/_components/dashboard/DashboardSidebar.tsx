@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { FC } from 'react';
 import { Sidebar, SidebarSection, NavItem } from '@saas-ui/react';

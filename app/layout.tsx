@@ -23,7 +23,7 @@ export default function RootLayout({
             <body className={inter.className}>
                 <ChakraUiProvider>
                     <SassUiProvider>
-                    <Navbar />
+                        <Navbar />
                         {children}
                     </SassUiProvider>
                 </ChakraUiProvider>

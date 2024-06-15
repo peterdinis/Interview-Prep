@@ -1,11 +1,14 @@
-import { FC } from "react"
+import { FC } from 'react';
+import Header from '../shared/Header';
+import InterviewsWrapper from '../interviews/InterviewsWrapper';
 
 const DashboardContent: FC = () => {
     return (
         <>
-        rrrrr
+            <Header text='My interviews' />
+            <InterviewsWrapper />
         </>
     )
-}
+};
 
-export default DashboardContent
+export default DashboardContent;
