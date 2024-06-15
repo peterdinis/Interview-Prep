@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import 'react-vertical-timeline-component/style.min.css';
-import ChakraUiProvider from './component/shared/ChakraUiProvider';
-import Navbar from './component/shared/Navbar';
+import Navbar from './_components/shared/Navbar';
+import ChakraUiProvider from './_components/shared/providers/ChakraUiProvider';
+import { SassUiProvider } from './_components/shared/providers/SassUiProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,8 +22,10 @@ export default function RootLayout({
         <html lang='en'>
             <body className={inter.className}>
                 <ChakraUiProvider>
-                    <Navbar />
-                    {children}
+                    <SassUiProvider>
+                        <Navbar />
+                        {children}
+                    </SassUiProvider>
                 </ChakraUiProvider>
             </body>
         </html>

@@ -1,8 +1,7 @@
 import { NextPage } from 'next';
-import LandingWrapper from './component/home/LandingWrapper';
-import LandingInfo from './component/home/LandingInfo';
-import Footer from './component/shared/Footer';
-
+import LandingInfo from './_components/home/LandingInfo';
+import LandingWrapper from './_components/home/LandingWrapper';
+import Footer from './_components/shared/Footer';
 const Homepage: NextPage = () => {
     return (
         <>
