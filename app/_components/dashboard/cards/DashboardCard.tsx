@@ -22,7 +22,7 @@ interface DashboardCardProps {
     url: string;
 }
 
-const DashboardCard = (props: DashboardCardProps) => { 
+const DashboardCard = (props: DashboardCardProps) => {
     const { title, techStack, url } = props;
     const { onOpen } = useDisclosure();
 
