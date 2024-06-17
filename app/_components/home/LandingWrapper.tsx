@@ -2,6 +2,7 @@
 
 import { Box, Heading, Container, Text, Button, Stack } from '@chakra-ui/react';
 import { FC } from 'react';
+import Header from '../shared/Header';
 
 const LandingWrapper: FC = () => {
     const descriptionScroll = () => {
@@ -20,13 +21,7 @@ const LandingWrapper: FC = () => {
                     spacing={{ base: 8, md: 14 }}
                     py={{ base: 20, md: 36 }}
                 >
-                    <Heading
-                        fontWeight={600}
-                        fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
-                        lineHeight={'110%'}
-                    >
-                        Interview Prep
-                    </Heading>
+                    <Header text="Interview Prep" />
                     <Text color={'gray.500'}>
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Magnam, qui, eos minus ipsum consectetur
