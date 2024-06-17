@@ -1,11 +1,7 @@
-import { NextPage } from "next";
+import { NextPage } from 'next';
 
 const ProfilePage: NextPage = () => {
-    return (
-        <>
-        rr
-        </>
-    )
-}
+    return <>rr</>;
+};
 
-export default ProfilePage
+export default ProfilePage;

@@ -104,7 +104,7 @@ const Navbar: FC = () => {
                                             fontSize={'1.2rem'}
                                             variant='ghost'
                                         >
-                                            <Link href='/sign-in'>Login</Link>
+                                            <Link href='/login'>Login</Link>
                                         </Button>
                                     </DrawerBody>
                                 </DrawerContent>

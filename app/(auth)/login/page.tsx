@@ -1,11 +1,8 @@
-import { NextPage } from "next";
+import LoginForm from '@/app/_components/auth/LoginForm';
+import { NextPage } from 'next';
 
 const LoginPage: NextPage = () => {
-    return (
-        <>
-        rr
-        </>
-    )
-}
+    return <LoginForm />
+};
 
-export default LoginPage
+export default LoginPage;
