@@ -1,10 +1,9 @@
 import { db } from '@/database/db';
 import { NextResponse } from 'next/server';
-import * as bcrypt from "bcrypt";
+import * as bcrypt from 'bcrypt';
 
 export async function POST(request: Request) {
     try {
-
         const { name, email, password, phone } = await request.json();
 
         if (password.length < 6) {
@@ -14,9 +13,9 @@ export async function POST(request: Request) {
             );
         }
 
-        const userFound = await db.user.findFirst({ 
-            where: email
-         });
+        const userFound = await db.user.findFirst({
+            where: email,
+        });
 
         if (userFound) {
             return NextResponse.json(
@@ -31,9 +30,9 @@ export async function POST(request: Request) {
             data: {
                 name,
                 email,
-                password: hashedPassword
-            }
-        })
+                password: hashedPassword,
+            },
+        });
 
         return NextResponse.json(
             {
