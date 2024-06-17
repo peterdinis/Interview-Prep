@@ -21,7 +21,7 @@ const LandingWrapper: FC = () => {
                     spacing={{ base: 8, md: 14 }}
                     py={{ base: 20, md: 36 }}
                 >
-                    <Header text="Interview Prep" />
+                    <Header text='Interview Prep' />
                     <Text color={'gray.500'}>
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Magnam, qui, eos minus ipsum consectetur
