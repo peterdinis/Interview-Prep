@@ -27,9 +27,7 @@ export default function RootLayout({
                     <SassUiProvider>
                         <Navbar />
                         <LayoutWrapper>
-                            <SessionAppProvider>
-                                {children}
-                            </SessionAppProvider>
+                            <SessionAppProvider>{children}</SessionAppProvider>
                         </LayoutWrapper>
                     </SassUiProvider>
                 </ChakraUiProvider>
