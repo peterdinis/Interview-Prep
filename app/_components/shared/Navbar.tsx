@@ -46,7 +46,7 @@ const Navbar: FC = () => {
             justifyContent={'space-between'}
             w='100%'
         >
-            <Link>
+            <Link href="/">
                 <HStack>
                     <Text fontSize={'1.2rem'} fontWeight={'bold'}>
                         Interview Prep
@@ -66,7 +66,7 @@ const Navbar: FC = () => {
                                 About
                             </Button>
                             <Button fontSize={'1.2rem'} variant='ghost'>
-                                <Link href='/sign-in'>Login</Link>
+                                <Link href='/login'>Login</Link>
                             </Button>
                         </>
                     ) : (
