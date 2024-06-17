@@ -1,16 +1,16 @@
 'use client';
 
-import {
-    Box,
-    Heading,
-    Container,
-    Text,
-    Button,
-    Stack,
-} from '@chakra-ui/react';
+import { Box, Heading, Container, Text, Button, Stack } from '@chakra-ui/react';
 import { FC } from 'react';
 
 const LandingWrapper: FC = () => {
+    const descriptionScroll = () => {
+        const heroSection = document.querySelector(
+            '#description',
+        ) as unknown as HTMLElement;
+        heroSection.scrollIntoView({ behavior: 'smooth' });
+    };
+
     return (
         <>
             <Container maxW={'3xl'}>
@@ -28,7 +28,12 @@ const LandingWrapper: FC = () => {
                         Interview Prep
                     </Heading>
                     <Text color={'gray.500'}>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam, qui, eos minus ipsum consectetur voluptatum nesciunt, architecto accusamus sapiente dignissimos error reprehenderit perspiciatis velit aliquam inventore voluptate officiis temporibus distinctio.
+                        Lorem ipsum, dolor sit amet consectetur adipisicing
+                        elit. Magnam, qui, eos minus ipsum consectetur
+                        voluptatum nesciunt, architecto accusamus sapiente
+                        dignissimos error reprehenderit perspiciatis velit
+                        aliquam inventore voluptate officiis temporibus
+                        distinctio.
                     </Text>
                     <Stack
                         direction={'column'}
@@ -52,6 +57,7 @@ const LandingWrapper: FC = () => {
                             variant={'link'}
                             colorScheme={'blue'}
                             size={'sm'}
+                            onClick={descriptionScroll}
                         >
                             How Interview Prep work
                         </Button>
