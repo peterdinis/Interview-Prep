@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Heading, Container, Text, Button, Stack } from '@chakra-ui/react';
+import { Box, Container, Text, Button, Stack } from '@chakra-ui/react';
 import { FC } from 'react';
 import Header from '../shared/Header';
 

@@ -15,10 +15,6 @@ const DashboardSidebar: FC = () => {
                     <Icon as={Home} boxSize={6} /> <Text ml={4}>Home</Text>
                 </NavItem>
                 <NavItem p={5} mt={10} fontWeight={'bold'} fontSize={'1.3rem'}>
-                    <Icon boxSize={6} as={Settings} />
-                    <Text ml={4}>Settings</Text>
-                </NavItem>
-                <NavItem p={5} mt={10} fontWeight={'bold'} fontSize={'1.3rem'}>
                     <AddIcon boxSize={6} />{' '}
                     <Text ml={4}>
                         <InterviewModal />
