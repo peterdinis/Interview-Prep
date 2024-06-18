@@ -23,11 +23,7 @@ const LoginForm: FC = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <Flex
-            minH={'100vh'}
-            align={'center'}
-            justify={'center'}
-        >
+        <Flex minH={'100vh'} align={'center'} justify={'center'}>
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'} textAlign={'center'}>
