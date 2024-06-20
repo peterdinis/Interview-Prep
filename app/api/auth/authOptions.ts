@@ -1,25 +1,22 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import * as bcrypt from 'bcrypt';
 import { db } from '@/database/db';
+import { AuthOptions } from 'next-auth';
 
-const authOptions = {
+const authOptions: AuthOptions = {
     session: {
         strategy: 'jwt',
     },
     pages: {
         signIn: '/login', // To provide a custom route path
     },
+    adapter: db,
     providers: [
         CredentialsProvider({
             name: 'credentials',
             credentials: {
                 email: { label: 'Email', type: 'text', placeholder: 'jsmith' },
                 password: { label: 'Password', type: 'password' },
-                username: {
-                    label: 'Username',
-                    type: 'text',
-                    placeholder: 'John Smith',
-                },
             },
             async authorize(credentials: any) {
                 // check to see if email and password is there
