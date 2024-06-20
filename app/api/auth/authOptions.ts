@@ -55,9 +55,7 @@ const authOptions = {
         }),
     ],
     secret: process.env.SECRET,
-    debug: process.env.NODE_ENV === "development",
+    debug: process.env.NODE_ENV === 'development',
 };
-
-
 
 export default authOptions;

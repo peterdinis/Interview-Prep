@@ -1,23 +1,23 @@
 import { db } from '@/database/db';
-import bcrypt from 'bcrypt'
-import { NextRequest, NextResponse } from 'next/server'
+import bcrypt from 'bcrypt';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest){
+export async function POST(request: NextRequest) {
     const body = await request.json();
     const { name, email, password } = body;
 
-    if(!name || !email || !password) {
-        return new NextResponse('Missing Fields', { status: 400 })
+    if (!name || !email || !password) {
+        return new NextResponse('Missing Fields', { status: 400 });
     }
 
     const exist = await db.user.findUnique({
         where: {
-            email
-        }
+            email,
+        },
     });
 
-    if(exist) {
-        throw new Error('Email already exists')
+    if (exist) {
+        throw new Error('Email already exists');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -26,9 +26,9 @@ export async function POST(request: NextRequest){
         data: {
             name,
             email,
-            password: hashedPassword
-        }
+            password: hashedPassword,
+        },
     });
 
-    return NextResponse.json(user)
+    return NextResponse.json(user);
 }
