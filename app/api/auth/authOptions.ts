@@ -2,6 +2,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import * as bcrypt from 'bcrypt';
 import { db } from '@/database/db';
 import { AuthOptions } from 'next-auth';
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 
 const authOptions: AuthOptions = {
     session: {
@@ -10,7 +11,7 @@ const authOptions: AuthOptions = {
     pages: {
         signIn: '/login', // To provide a custom route path
     },
-    adapter: db,
+    adapter: PrismaAdapter(db),
     providers: [
         CredentialsProvider({
             name: 'credentials',
