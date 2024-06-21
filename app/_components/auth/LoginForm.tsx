@@ -114,13 +114,15 @@ const LoginForm: FC = () => {
                                         bg: 'blue.500',
                                     }}
                                 >
-                                   Login
+                                    Login
                                 </Button>
                             </Stack>
                             <Stack pt={6}>
                                 <Text align={'center'}>
                                     No account?{' '}
-                                    <Link href="/register" color={'blue.400'}>Register</Link>
+                                    <Link href='/register' color={'blue.400'}>
+                                        Register
+                                    </Link>
                                 </Text>
                             </Stack>
                         </form>
