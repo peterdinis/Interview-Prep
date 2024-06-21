@@ -30,17 +30,17 @@ const RegisterForm: FC = () => {
     const router = useRouter();
 
     const registerUser = async (e: FormEvent) => {
-        e.preventDefault();  // Prevent the default form submission
+        e.preventDefault(); // Prevent the default form submission
         setLoading(true);
-        
+
         try {
             await axios.post('/api/register', {
                 name,
                 email,
                 password,
             });
-            toast.success("Registered successfully");
-            router.push("/login");
+            toast.success('Registered successfully');
+            router.push('/login');
         } catch (error) {
             toast.error('Something went wrong');
         } finally {
@@ -87,16 +87,26 @@ const RegisterForm: FC = () => {
                                 <InputGroup>
                                     <Input
                                         disabled={loading}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        onChange={(e) =>
+                                            setPassword(e.target.value)
+                                        }
                                         value={password}
-                                        type={showPassword ? 'text' : 'password'}
+                                        type={
+                                            showPassword ? 'text' : 'password'
+                                        }
                                     />
                                     <InputRightElement h={'full'}>
                                         <Button
                                             variant={'ghost'}
-                                            onClick={() => setShowPassword(!showPassword)}
+                                            onClick={() =>
+                                                setShowPassword(!showPassword)
+                                            }
                                         >
-                                            {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                                            {showPassword ? (
+                                                <ViewIcon />
+                                            ) : (
+                                                <ViewOffIcon />
+                                            )}
                                         </Button>
                                     </InputRightElement>
                                 </InputGroup>
@@ -104,7 +114,7 @@ const RegisterForm: FC = () => {
                             <Stack spacing={10} pt={2}>
                                 <Button
                                     isLoading={loading}
-                                    type="submit"
+                                    type='submit'
                                     size='lg'
                                     bg={'blue.400'}
                                     color={'white'}
@@ -118,7 +128,9 @@ const RegisterForm: FC = () => {
                             <Stack pt={6}>
                                 <Text align={'center'}>
                                     Already a user?{' '}
-                                    <Link color={'blue.400'} href="/login">Login</Link>
+                                    <Link color={'blue.400'} href='/login'>
+                                        Login
+                                    </Link>
                                 </Text>
                             </Stack>
                         </Stack>

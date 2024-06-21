@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
         },
     });
 
-    console.log("Exists", exist);
+    console.log('Exists', exist);
 
     if (exist) {
         throw new Error('Email already exists');
