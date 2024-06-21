@@ -1,10 +1,10 @@
 import { db } from '@/database/db';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
-    const { email, password } = body;
+    const { name, email, password } = body;
 
     if (!email || !password) {
         return new NextResponse('Missing Fields', { status: 400 });
@@ -16,6 +16,8 @@ export async function POST(request: NextRequest) {
         },
     });
 
+    console.log('Exists', exist);
+
     if (exist) {
         throw new Error('Email already exists');
     }
@@ -24,6 +26,7 @@ export async function POST(request: NextRequest) {
 
     const user = await db.user.create({
         data: {
+            name,
             email,
             password: hashedPassword,
         },
