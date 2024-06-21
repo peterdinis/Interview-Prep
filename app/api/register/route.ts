@@ -1,5 +1,5 @@
 import { db } from '@/database/db';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {

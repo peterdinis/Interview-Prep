@@ -7,7 +7,7 @@ import ChakraUiProvider from './_components/shared/providers/ChakraUiProvider';
 import SassUiProvider from './_components/shared/providers/SassUiProvider';
 import LayoutWrapper from './_components/shared/LayoutWrapper';
 import SessionAppProvider from './_components/shared/providers/SessionProvider';
-import {Toaster} from "react-hot-toast";
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,6 +21,7 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    
     return (
         <html lang='en'>
             <body className={inter.className}>
