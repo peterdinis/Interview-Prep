@@ -38,8 +38,8 @@ const LoginForm: FC = () => {
                 password,
                 redirect: false,
             });
-            toast.success("Login successfully");
-            router.push("/dashboard");
+            toast.success('Login successfully');
+            router.push('/dashboard');
         } catch (error) {
             toast.error('Something went wrong');
         } finally {
@@ -114,13 +114,13 @@ const LoginForm: FC = () => {
                                         bg: 'blue.500',
                                     }}
                                 >
-                                    Sign up
+                                   Login
                                 </Button>
                             </Stack>
                             <Stack pt={6}>
                                 <Text align={'center'}>
-                                    Already a user?{' '}
-                                    <Link color={'blue.400'}>Login</Link>
+                                    No account?{' '}
+                                    <Link href="/register" color={'blue.400'}>Register</Link>
                                 </Text>
                             </Stack>
                         </form>
