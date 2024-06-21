@@ -26,11 +26,13 @@ export default function RootLayout({
             <body className={inter.className}>
                 <ChakraUiProvider>
                     <SassUiProvider>
+                        <SessionAppProvider>
                         <Navbar />
                         <LayoutWrapper>
-                            <SessionAppProvider>{children}</SessionAppProvider>
+                           {children}
                             <Toaster />
                         </LayoutWrapper>
+                        </SessionAppProvider>
                     </SassUiProvider>
                 </ChakraUiProvider>
             </body>
