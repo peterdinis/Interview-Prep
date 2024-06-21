@@ -2,7 +2,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import * as bcrypt from 'bcrypt';
 import { db } from '@/database/db';
 import { AuthOptions } from 'next-auth';
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
 
 const authOptions: AuthOptions = {
     session: {
@@ -52,7 +52,7 @@ const authOptions: AuthOptions = {
             },
         }),
     ],
-    secret: process.env.SECRET,
+    secret: process.env.NEXT_AUTH_SECRET,
     debug: process.env.NODE_ENV === 'development',
 };
 
