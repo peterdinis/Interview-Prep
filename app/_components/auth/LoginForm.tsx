@@ -33,13 +33,18 @@ const LoginForm: FC = () => {
         setLoading(true);
 
         try {
-            signIn('credentials', {
+            const result = await signIn('credentials', {
                 email,
                 password,
                 redirect: false,
             });
-            toast.success('Login successfully');
-            router.push('/dashboard');
+
+            if (result?.error) {
+                toast.error('Invalid credentials');
+            } else {
+                toast.success('Login successful');
+                router.push('/dashboard');
+            }
         } catch (error) {
             toast.error('Something went wrong');
         } finally {
@@ -115,6 +120,8 @@ const LoginForm: FC = () => {
                                     _hover={{
                                         bg: 'blue.500',
                                     }}
+                                    type='submit' // Ensure the button submits the form
+                                    isLoading={loading} // Display loading state
                                 >
                                     Login
                                 </Button>
