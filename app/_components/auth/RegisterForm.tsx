@@ -30,7 +30,7 @@ const RegisterForm: FC = () => {
     const router = useRouter();
 
     const registerUser = async (e: FormEvent) => {
-        e.preventDefault(); // Prevent the default form submission
+        e.preventDefault();
         setLoading(true);
 
         try {
@@ -64,28 +64,31 @@ const RegisterForm: FC = () => {
                 >
                     <form onSubmit={registerUser}>
                         <Stack spacing={4}>
-                            <FormControl id='name' isRequired>
+                            <FormControl mt={3} id='name' isRequired>
                                 <FormLabel>Name</FormLabel>
                                 <Input
                                     disabled={loading}
                                     type='text'
+                                    size={'lg'}
                                     onChange={(e) => setName(e.target.value)}
                                     value={name}
                                 />
                             </FormControl>
-                            <FormControl id='email' isRequired>
+                            <FormControl mt={3} id='email' isRequired>
                                 <FormLabel>Email address</FormLabel>
                                 <Input
                                     disabled={loading}
                                     type='email'
+                                    size={'lg'}
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
                                 />
                             </FormControl>
-                            <FormControl id='password' isRequired>
+                            <FormControl mt={3} id='password' isRequired>
                                 <FormLabel>Password</FormLabel>
                                 <InputGroup>
                                     <Input
+                                        size={'lg'}
                                         disabled={loading}
                                         onChange={(e) =>
                                             setPassword(e.target.value)
@@ -111,7 +114,7 @@ const RegisterForm: FC = () => {
                                     </InputRightElement>
                                 </InputGroup>
                             </FormControl>
-                            <Stack spacing={10} pt={2}>
+                            <Stack mt={3} spacing={10} pt={2}>
                                 <Button
                                     isLoading={loading}
                                     type='submit'

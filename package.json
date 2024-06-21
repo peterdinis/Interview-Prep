@@ -10,8 +10,7 @@
         "lint": "next lint",
         "format": "prettier --check --ignore-path .gitignore .",
         "format:fix": "prettier --write --ignore-path .gitignore .",
-        "prepare": "husky",
-        "migration": "pnpm prisma db push"
+        "prepare": "husky"
     },
     "dependencies": {
         "@chakra-ui/icons": "^2.1.1",
