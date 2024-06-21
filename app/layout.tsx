@@ -27,11 +27,11 @@ export default function RootLayout({
                 <ChakraUiProvider>
                     <SassUiProvider>
                         <SessionAppProvider>
-                        <Navbar />
-                        <LayoutWrapper>
-                           {children}
-                            <Toaster />
-                        </LayoutWrapper>
+                            <Navbar />
+                            <LayoutWrapper>
+                                {children}
+                                <Toaster />
+                            </LayoutWrapper>
                         </SessionAppProvider>
                     </SassUiProvider>
                 </ChakraUiProvider>
