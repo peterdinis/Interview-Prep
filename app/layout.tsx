@@ -6,6 +6,8 @@ import Navbar from './_components/shared/Navbar';
 import ChakraUiProvider from './_components/shared/providers/ChakraUiProvider';
 import SassUiProvider from './_components/shared/providers/SassUiProvider';
 import LayoutWrapper from './_components/shared/LayoutWrapper';
+import SessionAppProvider from './_components/shared/providers/SessionProvider';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,8 +26,13 @@ export default function RootLayout({
             <body className={inter.className}>
                 <ChakraUiProvider>
                     <SassUiProvider>
-                        <Navbar />
-                        <LayoutWrapper>{children}</LayoutWrapper>
+                        <SessionAppProvider>
+                            <Navbar />
+                            <LayoutWrapper>
+                                {children}
+                                <Toaster />
+                            </LayoutWrapper>
+                        </SessionAppProvider>
                     </SassUiProvider>
                 </ChakraUiProvider>
             </body>
