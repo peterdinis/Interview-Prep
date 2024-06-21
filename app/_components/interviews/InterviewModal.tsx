@@ -11,6 +11,7 @@ import {
     ModalBody,
     ModalFooter,
     Text,
+    Textarea,
     Input,
     Stack,
 } from '@chakra-ui/react';
@@ -77,7 +78,7 @@ const InterviewModal: FC = () => {
                                 <Text mt={3} fontWeight={'bold'}>
                                     Your Job
                                 </Text>
-                                <Input
+                                <Textarea
                                     mt={2}
                                     placeholder='Here is a sample placeholder'
                                 />

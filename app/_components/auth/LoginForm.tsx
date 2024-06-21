@@ -68,7 +68,7 @@ const LoginForm: FC = () => {
                                 <Input
                                     disabled={loading}
                                     type='email'
-                                    size={"lg"}
+                                    size={'lg'}
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
                                 />
@@ -81,7 +81,7 @@ const LoginForm: FC = () => {
                                         onChange={(e) =>
                                             setPassword(e.target.value)
                                         }
-                                        size={"lg"}
+                                        size={'lg'}
                                         value={password}
                                         type={
                                             showPassword ? 'text' : 'password'

@@ -69,7 +69,7 @@ const RegisterForm: FC = () => {
                                 <Input
                                     disabled={loading}
                                     type='text'
-                                    size={"lg"}
+                                    size={'lg'}
                                     onChange={(e) => setName(e.target.value)}
                                     value={name}
                                 />
@@ -79,7 +79,7 @@ const RegisterForm: FC = () => {
                                 <Input
                                     disabled={loading}
                                     type='email'
-                                    size={"lg"}
+                                    size={'lg'}
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
                                 />
@@ -88,7 +88,7 @@ const RegisterForm: FC = () => {
                                 <FormLabel>Password</FormLabel>
                                 <InputGroup>
                                     <Input
-                                    size={"lg"}
+                                        size={'lg'}
                                         disabled={loading}
                                         onChange={(e) =>
                                             setPassword(e.target.value)
