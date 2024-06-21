@@ -121,39 +121,49 @@ const Navbar: FC = () => {
                                 <DrawerOverlay />
                                 <DrawerContent>
                                     <DrawerBody>
-                                    {status === 'authenticated' ? (
-                                <>
-                                    <Button fontSize={'1.2rem'} variant='ghost'>
-                                        <Menu>
-                                            <MenuButton>Profile</MenuButton>
-                                            <Portal>
-                                                <MenuList>
-                                                    <MenuItem
-                                                        onClick={() =>
-                                                            signOut()
-                                                        }
-                                                    >
-                                                        Logout
-                                                    </MenuItem>
-                                                </MenuList>
-                                            </Portal>
-                                        </Menu>
-                                    </Button>
-                                </>
-                            ) : (
-                                <>
-                                    <Button
-                                        fontSize={'1.2rem'}
-                                        onClick={descriptionScroll}
-                                        variant='ghost'
-                                    >
-                                        About
-                                    </Button>
-                                    <Button fontSize={'1.2rem'} variant='ghost'>
-                                        <Link href='/login'>Login</Link>
-                                    </Button>
-                                </>
-                            )}
+                                        {status === 'authenticated' ? (
+                                            <>
+                                                <Button
+                                                    fontSize={'1.2rem'}
+                                                    variant='ghost'
+                                                >
+                                                    <Menu>
+                                                        <MenuButton>
+                                                            Profile
+                                                        </MenuButton>
+                                                        <Portal>
+                                                            <MenuList>
+                                                                <MenuItem
+                                                                    onClick={() =>
+                                                                        signOut()
+                                                                    }
+                                                                >
+                                                                    Logout
+                                                                </MenuItem>
+                                                            </MenuList>
+                                                        </Portal>
+                                                    </Menu>
+                                                </Button>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Button
+                                                    fontSize={'1.2rem'}
+                                                    onClick={descriptionScroll}
+                                                    variant='ghost'
+                                                >
+                                                    About
+                                                </Button>
+                                                <Button
+                                                    fontSize={'1.2rem'}
+                                                    variant='ghost'
+                                                >
+                                                    <Link href='/login'>
+                                                        Login
+                                                    </Link>
+                                                </Button>
+                                            </>
+                                        )}
                                     </DrawerBody>
                                 </DrawerContent>
                             </Drawer>
