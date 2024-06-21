@@ -61,18 +61,19 @@ const LoginForm: FC = () => {
                     boxShadow={'lg'}
                     p={8}
                 >
-                    <Stack spacing={4}>
+                    <Stack spacing={6}>
                         <form onSubmit={loginUser}>
-                            <FormControl id='email' isRequired>
+                            <FormControl mt={3} id='email' isRequired>
                                 <FormLabel>Email address</FormLabel>
                                 <Input
                                     disabled={loading}
                                     type='email'
+                                    size={"lg"}
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
                                 />
                             </FormControl>
-                            <FormControl id='password' isRequired>
+                            <FormControl mt={3} id='password' isRequired>
                                 <FormLabel>Password</FormLabel>
                                 <InputGroup>
                                     <Input
@@ -80,6 +81,7 @@ const LoginForm: FC = () => {
                                         onChange={(e) =>
                                             setPassword(e.target.value)
                                         }
+                                        size={"lg"}
                                         value={password}
                                         type={
                                             showPassword ? 'text' : 'password'
@@ -104,7 +106,7 @@ const LoginForm: FC = () => {
                                     </InputRightElement>
                                 </InputGroup>
                             </FormControl>
-                            <Stack spacing={10} pt={2}>
+                            <Stack mt={3} spacing={10} pt={2}>
                                 <Button
                                     loadingText='Submitting'
                                     size='lg'
