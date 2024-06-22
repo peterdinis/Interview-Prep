@@ -1,6 +1,14 @@
 'use client';
 
-import { Box, Container, Text, Button, Stack, Flex, Link } from '@chakra-ui/react';
+import {
+    Box,
+    Container,
+    Text,
+    Button,
+    Stack,
+    Flex,
+    Link,
+} from '@chakra-ui/react';
 import { FC } from 'react';
 import Header from '../shared/Header';
 
@@ -34,14 +42,17 @@ const LandingWrapper: FC = () => {
                             <Button
                                 colorScheme={'green'}
                                 bg={'green.500'}
-                                fontSize={"1.3rem"}
+                                fontSize={'1.3rem'}
                                 rounded={'full'}
                                 px={6}
                                 _hover={{
                                     bg: 'green.600',
                                 }}
                             >
-                                <Link textUnderlineOffset={"auto"} href="/login">
+                                <Link
+                                    textUnderlineOffset={'auto'}
+                                    href='/login'
+                                >
                                     Get Started
                                 </Link>
                             </Button>
@@ -49,7 +60,7 @@ const LandingWrapper: FC = () => {
                                 colorScheme={'green'}
                                 bg={'blue.500'}
                                 rounded={'full'}
-                                fontSize={"1.3rem"}
+                                fontSize={'1.3rem'}
                                 px={6}
                                 _hover={{
                                     bg: 'blue.500',
