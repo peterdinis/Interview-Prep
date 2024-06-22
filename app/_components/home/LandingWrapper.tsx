@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Container, Text, Button, Stack } from '@chakra-ui/react';
+import { Box, Container, Text, Button, Stack, Flex } from '@chakra-ui/react';
 import { FC } from 'react';
 import Header from '../shared/Header';
 
@@ -30,7 +30,40 @@ const LandingWrapper: FC = () => {
                         aliquam inventore voluptate officiis temporibus
                         distinctio.
                     </Text>
-                    <Stack
+                    <Flex alignContent={"top"} justifyContent={"center"}>
+                        <Stack
+                        direction={'column'}
+                        spacing={3}
+                        align={'center'}
+                        alignSelf={'center'}
+                        position={'relative'}
+                    >
+                        <Button
+                            colorScheme={'green'}
+                            bg={'green.400'}
+                            rounded={'full'}
+                            px={6}
+                            _hover={{
+                                bg: 'green.500',
+                            }}
+                        >
+                            Get Started
+                        </Button>
+                        <Button
+                             colorScheme={'green'}
+                             bg={'blue.500'}
+                             rounded={'full'}
+                             px={6}
+                             _hover={{
+                                 bg: 'blue.500',
+                             }}
+                            onClick={descriptionScroll}
+                        >
+                            How Interview Prep work
+                        </Button>
+                    </Stack>
+                    </Flex>
+                    {/* <Stack
                         direction={'column'}
                         spacing={3}
                         align={'center'}
@@ -56,7 +89,7 @@ const LandingWrapper: FC = () => {
                         >
                             How Interview Prep work
                         </Button>
-                    </Stack>
+                    </Stack> */}
                 </Stack>
             </Container>
         </>
