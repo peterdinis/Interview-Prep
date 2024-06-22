@@ -3,11 +3,31 @@
 import { FC } from 'react';
 import { Sidebar, SidebarSection, NavItem } from '@saas-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
-import { Icon, Text } from '@chakra-ui/react';
-import { Home, Settings } from 'lucide-react';
+import { Icon, Text, useToast } from '@chakra-ui/react';
+import { Home, LogOut } from 'lucide-react';
 import InterviewModal from '../interviews/InterviewModal';
+import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const DashboardSidebar: FC = () => {
+    const { data: session } = useSession();
+    const loggedUser = session?.user?.email;
+    const router = useRouter();
+    const toast = useToast();
+
+    const loggedOut = () => {
+        signOut({
+            redirect: true,
+        });
+        toast({
+            title: 'Successfully logged out',
+            duration: 3000,
+            isClosable: true,
+            status: 'success',
+        });
+        router.push('/login');
+    };
+
     return (
         <Sidebar position='sticky' top='56px' toggleBreakpoint='sm'>
             <SidebarSection>
@@ -20,6 +40,16 @@ const DashboardSidebar: FC = () => {
                         <InterviewModal />
                     </Text>
                 </NavItem>
+                {loggedUser && (
+                    <NavItem
+                        p={5}
+                        mt={10}
+                        fontWeight={'bold'}
+                        fontSize={'1.3rem'}
+                    >
+                        <LogOut /> <Text onClick={loggedOut}>Logout</Text>
+                    </NavItem>
+                )}
             </SidebarSection>
         </Sidebar>
     );
