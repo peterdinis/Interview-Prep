@@ -1,7 +1,7 @@
 'use client';
 
-import { Box } from '@chakra-ui/react';
-import type { FC, ReactNode } from 'react';
+import { Box, Spinner } from '@chakra-ui/react';
+import { Suspense, type FC, type ReactNode } from 'react';
 
 interface ILayoutProps {
     children?: ReactNode;
@@ -15,7 +15,19 @@ const LayoutWrapper: FC<ILayoutProps> = ({ children }: ILayoutProps) => {
             mx='auto'
             pt={{ base: '8', sm: '16', md: '20' }}
         >
-            {children}
+            <Suspense
+                fallback={
+                    <Spinner
+                        thickness='4px'
+                        speed='0.65s'
+                        emptyColor='gray.200'
+                        color='blue.500'
+                        size='xl'
+                    />
+                }
+            >
+                {children}
+            </Suspense>
         </Box>
     );
 };
