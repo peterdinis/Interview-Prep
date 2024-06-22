@@ -76,13 +76,6 @@ const Navbar: FC = () => {
                                     <>
                                         <Button
                                             fontSize={'1.2rem'}
-                                            onClick={descriptionScroll}
-                                            variant='ghost'
-                                        >
-                                            About
-                                        </Button>
-                                        <Button
-                                            fontSize={'1.2rem'}
                                             variant='ghost'
                                         >
                                             <Link href='/login'>Login</Link>
@@ -130,15 +123,6 @@ const Navbar: FC = () => {
                                                 </>
                                             ) : (
                                                 <>
-                                                    <Button
-                                                        fontSize={'1.2rem'}
-                                                        onClick={
-                                                            descriptionScroll
-                                                        }
-                                                        variant='ghost'
-                                                    >
-                                                        About
-                                                    </Button>
                                                     <Button
                                                         fontSize={'1.2rem'}
                                                         variant='ghost'
