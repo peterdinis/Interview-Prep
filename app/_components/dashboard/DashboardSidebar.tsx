@@ -15,17 +15,28 @@ const DashboardSidebar: FC = () => {
     const router = useRouter();
     const toast = useToast();
 
-    const loggedOut = () => {
-        signOut({
-            redirect: true,
-        });
-        toast({
-            title: 'Successfully logged out',
-            duration: 3000,
-            isClosable: true,
-            status: 'success',
-        });
-        router.push('/login');
+    const loggedOut = async () => {
+        try {
+            await signOut({
+                redirect: false,
+            });
+            toast({
+                title: 'Successfully logged out',
+                duration: 3000,
+                isClosable: true,
+                status: 'success',
+            });
+            router.push('/login');
+        } catch (error) {
+            console.error('Error logging out:', error);
+            toast({
+                title: 'Failed to log out',
+                description: 'Please try again',
+                duration: 3000,
+                isClosable: true,
+                status: 'error',
+            });
+        }
     };
 
     return (
