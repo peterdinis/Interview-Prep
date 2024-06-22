@@ -18,6 +18,7 @@ import {
     useMediaQuery,
 } from '@chakra-ui/react';
 import { Menu, Moon, Sun } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import { type FC, useState } from 'react';
 
 const Navbar: FC = () => {
@@ -25,12 +26,15 @@ const Navbar: FC = () => {
     const { colorMode, toggleColorMode } = useColorMode();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [isLargerThanMD] = useMediaQuery('(min-width: 48em)');
+    const { data: session } = useSession();
     const descriptionScroll = () => {
         const heroSection = document.querySelector(
             '#description',
         ) as unknown as HTMLElement;
         heroSection.scrollIntoView({ behavior: 'smooth' });
     };
+
+    const loggedUser = session?.user?.email;
 
     return (
         <Flex
@@ -58,16 +62,33 @@ const Navbar: FC = () => {
                     {isLargerThanMD ? (
                         <>
                             <>
-                                <Button
-                                    fontSize={'1.2rem'}
-                                    onClick={descriptionScroll}
-                                    variant='ghost'
-                                >
-                                    About
-                                </Button>
-                                <Button fontSize={'1.2rem'} variant='ghost'>
-                                    <Link href='/login'>Login</Link>
-                                </Button>
+                                {loggedUser ? (
+                                    <>
+                                        <Button
+                                            fontSize={'1.2rem'}
+                                            onClick={descriptionScroll}
+                                            variant='ghost'
+                                        >
+                                            {loggedUser}
+                                        </Button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Button
+                                            fontSize={'1.2rem'}
+                                            onClick={descriptionScroll}
+                                            variant='ghost'
+                                        >
+                                            About
+                                        </Button>
+                                        <Button
+                                            fontSize={'1.2rem'}
+                                            variant='ghost'
+                                        >
+                                            <Link href='/login'>Login</Link>
+                                        </Button>
+                                    </>
+                                )}
                             </>
                         </>
                     ) : (
@@ -95,19 +116,39 @@ const Navbar: FC = () => {
                                 <DrawerContent>
                                     <DrawerBody>
                                         <>
-                                            <Button
-                                                fontSize={'1.2rem'}
-                                                onClick={descriptionScroll}
-                                                variant='ghost'
-                                            >
-                                                About
-                                            </Button>
-                                            <Button
-                                                fontSize={'1.2rem'}
-                                                variant='ghost'
-                                            >
-                                                <Link href='/login'>Login</Link>
-                                            </Button>
+                                            {loggedUser ? (
+                                                <>
+                                                    <Button
+                                                        fontSize={'1.2rem'}
+                                                        onClick={
+                                                            descriptionScroll
+                                                        }
+                                                        variant='ghost'
+                                                    >
+                                                        {loggedUser}
+                                                    </Button>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Button
+                                                        fontSize={'1.2rem'}
+                                                        onClick={
+                                                            descriptionScroll
+                                                        }
+                                                        variant='ghost'
+                                                    >
+                                                        About
+                                                    </Button>
+                                                    <Button
+                                                        fontSize={'1.2rem'}
+                                                        variant='ghost'
+                                                    >
+                                                        <Link href='/login'>
+                                                            Login
+                                                        </Link>
+                                                    </Button>
+                                                </>
+                                            )}
                                         </>
                                     </DrawerBody>
                                 </DrawerContent>
