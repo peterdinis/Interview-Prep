@@ -14,11 +14,11 @@ import {
     Text,
     useColorModeValue,
     Link,
+    useToast,
 } from '@chakra-ui/react';
 import { FC, useState, FormEvent } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import axios from 'axios';
-import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 const RegisterForm: FC = () => {
@@ -28,6 +28,7 @@ const RegisterForm: FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
+    const toast = useToast();
 
     const registerUser = async (e: FormEvent) => {
         e.preventDefault();
@@ -39,10 +40,20 @@ const RegisterForm: FC = () => {
                 email,
                 password,
             });
-            toast.success('Registered successfully');
+            toast({
+                title: 'Successfully register to app',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            });
             router.push('/login');
         } catch (error) {
-            toast.error('Something went wrong');
+            toast({
+                title: 'Something went wrong',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            });
         } finally {
             setLoading(false);
         }

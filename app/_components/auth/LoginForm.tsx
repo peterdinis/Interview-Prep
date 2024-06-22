@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { FC, useState, FormEvent } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { toast } from 'react-hot-toast';
+import { useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 
@@ -27,6 +27,7 @@ const LoginForm: FC = () => {
     const [password, setPassword] = useState('');
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const toast = useToast();
 
     const loginUser = async (e: FormEvent) => {
         e.preventDefault();
@@ -40,13 +41,28 @@ const LoginForm: FC = () => {
             });
 
             if (result?.error) {
-                toast.error('Invalid credentials');
+                toast({
+                    title: 'Something went wrong',
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                });
             } else {
-                toast.success('Login successful');
+                toast({
+                    title: 'Successfully login',
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                });
                 router.push('/dashboard');
             }
         } catch (error) {
-            toast.error('Something went wrong');
+            toast({
+                title: 'Something went wrong',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            });
         } finally {
             setLoading(false);
         }
