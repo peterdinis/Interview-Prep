@@ -30,38 +30,27 @@ const LandingWrapper: FC = () => {
                         aliquam inventore voluptate officiis temporibus
                         distinctio.
                     </Text>
-                    <Flex alignContent={"top"} justifyContent={"center"}>
+                    <Flex alignContent={'top'} justifyContent={'center'}>
                         <Stack
-                        direction={'column'}
-                        spacing={3}
-                        align={'center'}
-                        alignSelf={'center'}
-                        position={'relative'}
-                    >
-                        <Button
-                            colorScheme={'green'}
-                            bg={'green.400'}
-                            rounded={'full'}
-                            px={6}
-                            _hover={{
-                                bg: 'green.500',
-                            }}
+                            direction={'column'}
+                            spacing={3}
+                            align={'center'}
+                            alignSelf={'center'}
+                            position={'relative'}
                         >
-                            Get Started
-                        </Button>
-                        <Button
-                             colorScheme={'green'}
-                             bg={'blue.500'}
-                             rounded={'full'}
-                             px={6}
-                             _hover={{
-                                 bg: 'blue.500',
-                             }}
-                            onClick={descriptionScroll}
-                        >
-                            How Interview Prep work
-                        </Button>
-                    </Stack>
+                            <Button
+                                colorScheme={'green'}
+                                bg={'blue.500'}
+                                rounded={'full'}
+                                px={6}
+                                _hover={{
+                                    bg: 'blue.500',
+                                }}
+                                onClick={descriptionScroll}
+                            >
+                                How Interview Prep work
+                            </Button>
+                        </Stack>
                     </Flex>
                     {/* <Stack
                         direction={'column'}
