@@ -1,5 +1,6 @@
 'use client';
 
+import { chatSession } from '@/app/_utils/gemini-ai';
 import {
     useDisclosure,
     Button,
@@ -21,12 +22,30 @@ const InterviewModal: FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [jobPosition, setJobPosition] = useState("");
     const [jobDesc, setJobDesc] = useState("");
-    const [jobExpirience, setJobExpirience] = useState("0");
+    const [loading, setLoading] = useState(false);
+    const [jobExperience, setJobExperience] = useState("0");
+    const [result, setResult] = useState<string | null>(null);
+    const [jsonResponse, setJsonResponse] = useState([]);
 
-    const onHandleSubmit = (e: FormEvent) => {
+    const onHandleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log(e);
-    }
+
+        const inputPrompt = `Job position: ${jobPosition} JobDescription: ${jobDesc} Years of experience: ${jobExperience}`;
+
+        try {
+            const response = await chatSession.sendMessage(inputPrompt);
+            const text = (response.response.text()).replace('``json``', '');
+            console.log(JSON.parse(text));
+            setLoading(false);
+            setResult(text);
+            console.log(text);
+        } catch (error) {
+            setLoading(true);
+            console.error("Error:", error);
+        }
+    };
+
+    console.log(jobDesc, jobPosition, jobExperience);
 
     return (
         <>
@@ -48,8 +67,7 @@ const InterviewModal: FC = () => {
                     <ModalBody>
                         <Text fontWeight={'bold'} color='red.600' p={1}>
                             Tell us more about your job interviewing <br />
-                            Add details about your job position/description and
-                            more..
+                            Add details about your job position/description and more..
                         </Text>
                         <Stack mt={5} spacing={3}>
                             <form onSubmit={onHandleSubmit}>
@@ -77,25 +95,30 @@ const InterviewModal: FC = () => {
                                 />
 
                                 <Text mt={3} fontWeight={'bold'}>
-                                   Yeasrs of expirience
+                                    Years of experience
                                 </Text>
                                 <Input
                                     mt={2}
                                     required
                                     type='text'
-                                    value={jobExpirience}
-                                    onChange={(e) => setJobExpirience(e.target.value)}
+                                    value={jobExperience}
+                                    onChange={(e) => setJobExperience(e.target.value)}
                                 />
+
+                                <ModalFooter>
+                                    <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                        Close
+                                    </Button>
+                                    <Button disabled={loading} colorScheme='purple' type='submit'>Generate</Button>
+                                </ModalFooter>
                             </form>
                         </Stack>
+                        {result && (
+                            <Text mt={5} fontWeight={'bold'} color='green.600'>
+                                {result}
+                            </Text>
+                        )}
                     </ModalBody>
-
-                    <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button colorScheme='purple'>Generate</Button>
-                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </>
