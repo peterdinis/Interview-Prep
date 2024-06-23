@@ -90,7 +90,7 @@ const InterviewModal: FC = () => {
                         <Button colorScheme='blue' mr={3} onClick={onClose}>
                             Close
                         </Button>
-                        <Button variant='ghost'>Generate</Button>
+                        <Button colorScheme='purple'>Generate</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

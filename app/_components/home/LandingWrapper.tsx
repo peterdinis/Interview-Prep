@@ -1,17 +1,18 @@
 'use client';
 
-import { Box, Container, Text, Button, Stack, Flex } from '@chakra-ui/react';
+import {
+    Box,
+    Container,
+    Text,
+    Button,
+    Stack,
+    Flex,
+    Link,
+} from '@chakra-ui/react';
 import { FC } from 'react';
 import Header from '../shared/Header';
 
 const LandingWrapper: FC = () => {
-    const descriptionScroll = () => {
-        const heroSection = document.querySelector(
-            '#description',
-        ) as unknown as HTMLElement;
-        heroSection.scrollIntoView({ behavior: 'smooth' });
-    };
-
     return (
         <>
             <Container maxW={'3xl'}>
@@ -40,45 +41,35 @@ const LandingWrapper: FC = () => {
                         >
                             <Button
                                 colorScheme={'green'}
+                                bg={'green.500'}
+                                fontSize={'1.3rem'}
+                                rounded={'full'}
+                                px={6}
+                                _hover={{
+                                    bg: 'green.600',
+                                }}
+                            >
+                                <Link
+                                    textUnderlineOffset={'auto'}
+                                    href='/login'
+                                >
+                                    Get Started
+                                </Link>
+                            </Button>
+                            <Button
+                                colorScheme={'green'}
                                 bg={'blue.500'}
                                 rounded={'full'}
+                                fontSize={'1.3rem'}
                                 px={6}
                                 _hover={{
                                     bg: 'blue.500',
                                 }}
-                                onClick={descriptionScroll}
                             >
                                 How Interview Prep work
                             </Button>
                         </Stack>
                     </Flex>
-                    {/* <Stack
-                        direction={'column'}
-                        spacing={3}
-                        align={'center'}
-                        alignSelf={'center'}
-                        position={'relative'}
-                    >
-                        <Button
-                            colorScheme={'green'}
-                            bg={'green.400'}
-                            rounded={'full'}
-                            px={6}
-                            _hover={{
-                                bg: 'green.500',
-                            }}
-                        >
-                            Get Started
-                        </Button>
-                        <Button
-                            variant={'link'}
-                            colorScheme={'blue'}
-                            size={'sm'}
-                            onClick={descriptionScroll}
-                        >
-                            How Interview Prep work
-                        </Button>
-                    </Stack> */}
                 </Stack>
             </Container>
         </>
