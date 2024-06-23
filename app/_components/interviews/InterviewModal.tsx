@@ -19,14 +19,14 @@ import { FC, FormEvent, useState } from 'react';
 
 const InterviewModal: FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [jobPosition, setJobPosition] = useState("");
-    const [jobDesc, setJobDesc] = useState("");
-    const [jobExpirience, setJobExpirience] = useState("0");
+    const [jobPosition, setJobPosition] = useState('');
+    const [jobDesc, setJobDesc] = useState('');
+    const [jobExpirience, setJobExpirience] = useState('0');
 
     const onHandleSubmit = (e: FormEvent) => {
         e.preventDefault();
         console.log(e);
-    }
+    };
 
     return (
         <>
@@ -61,7 +61,9 @@ const InterviewModal: FC = () => {
                                     type='text'
                                     required
                                     value={jobPosition}
-                                    onChange={(e) => setJobPosition(e.target.value)}
+                                    onChange={(e) =>
+                                        setJobPosition(e.target.value)
+                                    }
                                     placeholder='Ex. Fullstack developer'
                                 />
 
@@ -77,14 +79,16 @@ const InterviewModal: FC = () => {
                                 />
 
                                 <Text mt={3} fontWeight={'bold'}>
-                                   Yeasrs of expirience
+                                    Yeasrs of expirience
                                 </Text>
                                 <Input
                                     mt={2}
                                     required
                                     type='text'
                                     value={jobExpirience}
-                                    onChange={(e) => setJobExpirience(e.target.value)}
+                                    onChange={(e) =>
+                                        setJobExpirience(e.target.value)
+                                    }
                                 />
                             </form>
                         </Stack>
