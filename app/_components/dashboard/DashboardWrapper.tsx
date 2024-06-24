@@ -19,7 +19,7 @@ const DashboardWrapper: FC = () => {
         if (!session) {
             router.push('/not-allowed');
         }
-    }, [session]);
+    }, [session, router]);
 
     return (
         <AppShell minH='100vh' mt={20} sidebar={<DashboardSidebar />}>
