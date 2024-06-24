@@ -11,8 +11,8 @@ interface DashboardCardsProps {
 }
 
 const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
-    const filteredList = dashboardList().filter(repo =>
-        repo.title.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredList = dashboardList().filter((repo) =>
+        repo.title.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
     return (
@@ -30,8 +30,8 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
                     ))}
                 </SimpleGrid>
             ) : (
-                <Box mt={8} textAlign="center">
-                    <Text fontSize="lg">
+                <Box mt={8} textAlign='center'>
+                    <Text fontSize='lg'>
                         <Ghost className='ghost-icon' /> No Interview found
                     </Text>
                 </Box>
