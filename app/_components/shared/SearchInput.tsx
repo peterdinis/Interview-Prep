@@ -18,7 +18,12 @@ const SearchInput: FC<SearchInputProps> = ({ setSearchQuery }) => {
             <InputLeftElement pointerEvents='none'>
                 <SearchIcon color='gray.300' />
             </InputLeftElement>
-            <Input pr='4.5rem' type='text' placeholder='Search...' onChange={handleInputChange} />
+            <Input
+                pr='4.5rem'
+                type='text'
+                placeholder='Search...'
+                onChange={handleInputChange}
+            />
         </InputGroup>
     );
 };
