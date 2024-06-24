@@ -24,6 +24,11 @@ html::-webkit-scrollbar {
     height: 16px;
 }
 
+.ghost-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
 html::-webkit-scrollbar-thumb {
     background: var(--scrollbarBackground);
     border-radius: 16px;

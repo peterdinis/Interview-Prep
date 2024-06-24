@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { AppShell } from '@saas-ui/react';
 import DashboardSidebar from './DashboardSidebar';
 import { Box } from '@chakra-ui/react';
@@ -13,12 +13,13 @@ import { useRouter } from 'next/navigation';
 const DashboardWrapper: FC = () => {
     const { data: session } = useSession();
     const router = useRouter();
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         if (!session) {
             router.push('/not-allowed');
         }
-    }, [session]);
+    }, [session, router]);
 
     return (
         <AppShell minH='100vh' mt={20} sidebar={<DashboardSidebar />}>
@@ -29,8 +30,8 @@ const DashboardWrapper: FC = () => {
             >
                 <DashboardContent />
             </Box>
-            <SearchInput />
-            <DashboardCards />
+            <SearchInput setSearchQuery={setSearchQuery} />
+            <DashboardCards searchQuery={searchQuery} />
         </AppShell>
     );
 };
