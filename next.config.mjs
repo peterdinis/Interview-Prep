@@ -1,6 +1,20 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-    reactStrictMode: true,
+/** @type {import("next").NextConfig} */
+
+const config = {
+	reactStrictMode: true,
+	eslint: {
+		ignoreDuringBuilds: true
+	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "*",
+				port: "",
+				pathname: "/**",
+			},
+		],
+	},
 };
 
-export default nextConfig;
+export default config;
