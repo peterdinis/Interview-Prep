@@ -69,7 +69,7 @@ const Navbar: FC = () => {
                                             onClick={descriptionScroll}
                                             variant='ghost'
                                         >
-                                            {loggedUser}
+                                            <Link href="/dashboard">{loggedUser}</Link>
                                         </Button>
                                     </>
                                 ) : (
@@ -118,7 +118,7 @@ const Navbar: FC = () => {
                                                         }
                                                         variant='ghost'
                                                     >
-                                                        {loggedUser}
+                                                        <Link href="/dashboard">{loggedUser}</Link>
                                                     </Button>
                                                 </>
                                             ) : (
