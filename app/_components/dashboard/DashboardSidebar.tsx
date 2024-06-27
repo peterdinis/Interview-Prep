@@ -1,15 +1,15 @@
 'use client';
 
-import { FC } from 'react';
-import { Sidebar, SidebarSection, NavItem } from '@saas-ui/react';
-import { AddIcon } from '@chakra-ui/icons';
-import { Icon, Text, useToast } from '@chakra-ui/react';
+import { FC, useState } from 'react';
+import { Box, Flex, Icon, Text, Button, useToast } from '@chakra-ui/react';
+import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Home, LogOut } from 'lucide-react';
 import InterviewModal from '../interviews/InterviewModal';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 const DashboardSidebar: FC = () => {
+    const [collapsed, setCollapsed] = useState(false);
     const { data: session } = useSession();
     const loggedUser = session?.user?.email;
     const router = useRouter();
@@ -39,30 +39,43 @@ const DashboardSidebar: FC = () => {
         }
     };
 
+    const toggleCollapse = () => {
+        setCollapsed(!collapsed);
+    };
+
     return (
-        <Sidebar position='sticky' top='56px' toggleBreakpoint='sm'>
-            <SidebarSection>
-                <NavItem p={5} mt={5} fontWeight={'bold'} fontSize={'1.3rem'}>
-                    <Icon as={Home} boxSize={6} /> <Text ml={4}>Home</Text>
-                </NavItem>
-                <NavItem p={5} mt={10} fontWeight={'bold'} fontSize={'1.3rem'}>
-                    <AddIcon boxSize={6} />{' '}
-                    <Text ml={4}>
-                        <InterviewModal />
-                    </Text>
-                </NavItem>
+        <Box
+            as="nav"
+            position="sticky"
+            top="56px"
+            width={collapsed ? '60px' : '240px'}
+            transition="width 0.2s"
+            bg="gray.800"
+            color="white"
+            height="100vh"
+        >
+            <Flex justifyContent="flex-end" p={3}>
+                <Button onClick={toggleCollapse} size="sm">
+                    {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                </Button>
+            </Flex>
+            <Flex direction="column" alignItems={collapsed ? 'center' : 'flex-start'} p={3}>
+                <Flex align="center" p={5} mt={5} fontWeight="bold" fontSize="1.3rem">
+                    <Icon as={Home} boxSize={6} />
+                    {!collapsed && <Text ml={4}>Home</Text>}
+                </Flex>
+                <Flex align="center" p={5} mt={10} fontWeight="bold" fontSize="1.3rem">
+                    <AddIcon boxSize={6} />
+                    {!collapsed && <Text ml={4}><InterviewModal /></Text>}
+                </Flex>
                 {loggedUser && (
-                    <NavItem
-                        p={5}
-                        mt={10}
-                        fontWeight={'bold'}
-                        fontSize={'1.3rem'}
-                    >
-                        <LogOut /> <Text onClick={loggedOut}>Logout</Text>
-                    </NavItem>
+                    <Flex align="center" p={5} mt={10} fontWeight="bold" fontSize="1.3rem" onClick={loggedOut}>
+                        <LogOut />
+                        {!collapsed && <Text ml={4}>Logout</Text>}
+                    </Flex>
                 )}
-            </SidebarSection>
-        </Sidebar>
+            </Flex>
+        </Box>
     );
 };
 
