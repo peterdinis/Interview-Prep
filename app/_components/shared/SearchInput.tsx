@@ -14,7 +14,7 @@ const SearchInput: FC<SearchInputProps> = ({ setSearchQuery }) => {
     };
 
     return (
-        <InputGroup ml={2} mt={4} size='md'>
+        <InputGroup ml={[1, 2, 4]} mt={[2, 3, 4]} size='md'>
             <InputLeftElement pointerEvents='none'>
                 <SearchIcon color='gray.300' />
             </InputLeftElement>
@@ -23,6 +23,8 @@ const SearchInput: FC<SearchInputProps> = ({ setSearchQuery }) => {
                 type='text'
                 placeholder='Search...'
                 onChange={handleInputChange}
+                fontSize={['sm', 'md', 'lg']}
+                w={['100%', '75%', '50%']}
             />
         </InputGroup>
     );
