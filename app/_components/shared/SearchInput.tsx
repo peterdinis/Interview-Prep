@@ -14,7 +14,7 @@ const SearchInput: FC<SearchInputProps> = ({ setSearchQuery }) => {
     };
 
     return (
-        <Box display="flex" justifyContent="center" w="100%" p={[2, 4, 6]}>
+        <Box display='flex' justifyContent='center' w='100%' p={[2, 4, 6]}>
             <InputGroup w={['100%', '75%', '50%']} size='md'>
                 <InputLeftElement pointerEvents='none'>
                     <SearchIcon color='gray.300' />
