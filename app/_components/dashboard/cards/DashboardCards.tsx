@@ -32,7 +32,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
             ) : (
                 <Box mt={8} textAlign='center'>
                     <Text fontSize='lg'>
-                        <Ghost className='ghost-icon' /> No Interview found
+                        <Ghost className='ghost-icon' /> No Interviews found
                     </Text>
                 </Box>
             )}
