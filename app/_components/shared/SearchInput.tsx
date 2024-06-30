@@ -1,6 +1,6 @@
 'use client';
 
-import { InputGroup, Input, InputLeftElement } from '@chakra-ui/react';
+import { Box, InputGroup, Input, InputLeftElement } from '@chakra-ui/react';
 import { FC, ChangeEvent } from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
 
@@ -14,17 +14,20 @@ const SearchInput: FC<SearchInputProps> = ({ setSearchQuery }) => {
     };
 
     return (
-        <InputGroup ml={2} mt={4} size='md'>
-            <InputLeftElement pointerEvents='none'>
-                <SearchIcon color='gray.300' />
-            </InputLeftElement>
-            <Input
-                pr='4.5rem'
-                type='text'
-                placeholder='Search...'
-                onChange={handleInputChange}
-            />
-        </InputGroup>
+        <Box display='flex' justifyContent='center' w='100%' p={[2, 4, 6]}>
+            <InputGroup w={['100%', '75%', '50%']} size='md'>
+                <InputLeftElement pointerEvents='none'>
+                    <SearchIcon color='gray.300' />
+                </InputLeftElement>
+                <Input
+                    pr='4.5rem'
+                    type='text'
+                    placeholder='Search...'
+                    onChange={handleInputChange}
+                    fontSize={['sm', 'md', 'lg']}
+                />
+            </InputGroup>
+        </Box>
     );
 };
 

@@ -1,7 +1,15 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { Box, Flex, Icon, Text, Button, useToast } from '@chakra-ui/react';
+import {
+    Box,
+    Flex,
+    Icon,
+    Text,
+    Button,
+    useToast,
+    useColorModeValue,
+} from '@chakra-ui/react';
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Home, LogOut } from 'lucide-react';
 import InterviewModal from '../interviews/InterviewModal';
@@ -14,6 +22,9 @@ const DashboardSidebar: FC = () => {
     const loggedUser = session?.user?.email;
     const router = useRouter();
     const toast = useToast();
+    const bgColor = useColorModeValue('gray.100', 'gray.800');
+    const color = useColorModeValue('black', 'white');
+    const hoverBgColor = useColorModeValue('gray.200', 'gray.700');
 
     const loggedOut = async () => {
         try {
@@ -50,8 +61,8 @@ const DashboardSidebar: FC = () => {
             top='56px'
             width={collapsed ? '60px' : '240px'}
             transition='width 0.2s'
-            bg='gray.800'
-            color='white'
+            bg={bgColor}
+            color={color}
             height='100vh'
         >
             <Flex justifyContent='flex-end' p={3}>
@@ -70,6 +81,7 @@ const DashboardSidebar: FC = () => {
                     mt={5}
                     fontWeight='bold'
                     fontSize='1.3rem'
+                    _hover={{ bg: hoverBgColor, cursor: 'pointer' }}
                 >
                     <Icon as={Home} boxSize={6} />
                     {!collapsed && <Text ml={4}>Home</Text>}
@@ -80,6 +92,7 @@ const DashboardSidebar: FC = () => {
                     mt={10}
                     fontWeight='bold'
                     fontSize='1.3rem'
+                    _hover={{ bg: hoverBgColor, cursor: 'pointer' }}
                 >
                     <AddIcon boxSize={6} />
                     {!collapsed && (
@@ -95,6 +108,7 @@ const DashboardSidebar: FC = () => {
                         mt={10}
                         fontWeight='bold'
                         fontSize='1.3rem'
+                        _hover={{ bg: hoverBgColor, cursor: 'pointer' }}
                         onClick={loggedOut}
                     >
                         <LogOut />
