@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
                 },
-            }
+            },
         );
 
         const mockInterview = openaiResponse.data.choices[0].text.trim();
@@ -36,7 +36,10 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(newInterview, { status: 200 });
     } catch (error) {
         console.error('Error generating mock interview:', error);
-        return NextResponse.json({ error: 'Error generating mock interview' }, { status: 500 });
+        return NextResponse.json(
+            { error: 'Error generating mock interview' },
+            { status: 500 },
+        );
     } finally {
         await prisma.$disconnect();
     }
