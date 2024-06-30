@@ -30,7 +30,7 @@ const InterviewModal: FC = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('/api/generate-interview', {
+            const response = await axios.post('/api/interview', {
                 jobPosition,
                 jobDesc,
                 jobExperience,
@@ -51,7 +51,7 @@ const InterviewModal: FC = () => {
 
     return (
         <>
-            <Text onClick={onOpen} cursor="pointer">
+            <Text onClick={onOpen} cursor='pointer'>
                 New Interview
             </Text>
 

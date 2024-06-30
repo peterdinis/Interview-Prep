@@ -17,13 +17,14 @@ export async function POST(req: NextRequest) {
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+                    Authorization: `Bearer ${process.env.OPENAI_API_KEY!}`,
                 },
-            },
+            }
         );
 
+        console.log("FOOOO", openaiResponse)
         const mockInterview = openaiResponse.data.choices[0].text.trim();
-
+        console.log("MI", mockInterview);
         const newInterview = await prisma.interview.create({
             data: {
                 jobPosition,
