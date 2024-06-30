@@ -16,21 +16,44 @@ import {
     Stack,
 } from '@chakra-ui/react';
 import { FC, FormEvent, useState } from 'react';
+import axios from 'axios';
 
 const InterviewModal: FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [jobPosition, setJobPosition] = useState('');
     const [jobDesc, setJobDesc] = useState('');
-    const [jobExpirience, setJobExpirience] = useState('0');
+    const [jobExperience, setJobExperience] = useState('0');
+    const [loading, setLoading] = useState(false);
 
-    const onHandleSubmit = (e: FormEvent) => {
+    const onHandleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log(e);
+        setLoading(true);
+
+        try {
+            const response = await axios.post('/api/interview', {
+                jobPosition,
+                jobDesc,
+                jobExperience,
+            });
+
+            console.log(response.data);
+
+            setJobPosition('');
+            setJobDesc('');
+            setJobExperience('0');
+            onClose();
+        } catch (error) {
+            console.error('Error generating interview:', error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <>
-            <Text onClick={onOpen}>New Interview</Text>
+            <Text onClick={onOpen} cursor='pointer'>
+                New Interview
+            </Text>
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
@@ -79,17 +102,25 @@ const InterviewModal: FC = () => {
                                 />
 
                                 <Text mt={3} fontWeight={'bold'}>
-                                    Yeasrs of expirience
+                                    Years of experience
                                 </Text>
                                 <Input
                                     mt={2}
                                     required
                                     type='text'
-                                    value={jobExpirience}
+                                    value={jobExperience}
                                     onChange={(e) =>
-                                        setJobExpirience(e.target.value)
+                                        setJobExperience(e.target.value)
                                     }
                                 />
+                                <Button
+                                    colorScheme='purple'
+                                    mt={4}
+                                    type='submit'
+                                    isLoading={loading}
+                                >
+                                    Generate
+                                </Button>
                             </form>
                         </Stack>
                     </ModalBody>
@@ -98,7 +129,6 @@ const InterviewModal: FC = () => {
                         <Button colorScheme='blue' mr={3} onClick={onClose}>
                             Close
                         </Button>
-                        <Button colorScheme='purple'>Generate</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

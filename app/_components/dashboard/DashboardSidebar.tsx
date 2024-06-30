@@ -45,31 +45,58 @@ const DashboardSidebar: FC = () => {
 
     return (
         <Box
-            as="nav"
-            position="sticky"
-            top="56px"
+            as='nav'
+            position='sticky'
+            top='56px'
             width={collapsed ? '60px' : '240px'}
-            transition="width 0.2s"
-            bg="gray.800"
-            color="white"
-            height="100vh"
+            transition='width 0.2s'
+            bg='gray.800'
+            color='white'
+            height='100vh'
         >
-            <Flex justifyContent="flex-end" p={3}>
-                <Button onClick={toggleCollapse} size="sm">
+            <Flex justifyContent='flex-end' p={3}>
+                <Button onClick={toggleCollapse} size='sm'>
                     {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </Button>
             </Flex>
-            <Flex direction="column" alignItems={collapsed ? 'center' : 'flex-start'} p={3}>
-                <Flex align="center" p={5} mt={5} fontWeight="bold" fontSize="1.3rem">
+            <Flex
+                direction='column'
+                alignItems={collapsed ? 'center' : 'flex-start'}
+                p={3}
+            >
+                <Flex
+                    align='center'
+                    p={5}
+                    mt={5}
+                    fontWeight='bold'
+                    fontSize='1.3rem'
+                >
                     <Icon as={Home} boxSize={6} />
                     {!collapsed && <Text ml={4}>Home</Text>}
                 </Flex>
-                <Flex align="center" p={5} mt={10} fontWeight="bold" fontSize="1.3rem">
+                <Flex
+                    align='center'
+                    p={5}
+                    mt={10}
+                    fontWeight='bold'
+                    fontSize='1.3rem'
+                >
                     <AddIcon boxSize={6} />
-                    {!collapsed && <Text ml={4}><InterviewModal /></Text>}
+                    {!collapsed && (
+                        <Text ml={4}>
+                            <InterviewModal />
+                        </Text>
+                    )}
                 </Flex>
                 {loggedUser && (
-                    <Flex align="center" p={5} mt={10} fontWeight="bold" fontSize="1.3rem" onClick={loggedOut}>
+                    <Flex
+                        align='center'
+                        p={5}
+                        mt={10}
+                        fontWeight='bold'
+                        fontSize='1.3rem'
+                        onClick={loggedOut}
+                    >
                         <LogOut />
                         {!collapsed && <Text ml={4}>Logout</Text>}
                     </Flex>
