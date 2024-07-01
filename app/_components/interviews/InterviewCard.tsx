@@ -15,7 +15,11 @@ import { FC } from 'react';
 
 const InterviewCard: FC = () => {
     return (
-        <Box p={{ base: '4', md: '6' }} maxW={{ base: '100%', md: 'container.sm' }} mx='auto'>
+        <Box
+            p={{ base: '4', md: '6' }}
+            maxW={{ base: '100%', md: 'container.sm' }}
+            mx='auto'
+        >
             <Card
                 direction={{ base: 'column', sm: 'row' }}
                 overflow='hidden'
@@ -28,7 +32,10 @@ const InterviewCard: FC = () => {
                     alt='Caffe Latte'
                 />
 
-                <Stack spacing={{ base: '4', sm: '6' }} p={{ base: '4', sm: '6' }}>
+                <Stack
+                    spacing={{ base: '4', sm: '6' }}
+                    p={{ base: '4', sm: '6' }}
+                >
                     <CardBody>
                         <Heading size='md'>The perfect latte</Heading>
 
