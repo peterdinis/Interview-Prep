@@ -43,8 +43,8 @@ model User {
   sessions      Session[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  interviews    Interview[]  // Define the relationship to Interview model
 }
-
 model VerificationToken {
   identifier String   @id @default(uuid())
   token      String   @unique
@@ -61,4 +61,6 @@ model Interview {
   mockInterview    String
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+  user             User?    @relation(fields: [userId], references: [id], onDelete: SetNull) // Make the user field optional
+  userId           String?  @default(uuid())
 }
