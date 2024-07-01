@@ -10,7 +10,8 @@
         "lint": "next lint",
         "format": "prettier --check --ignore-path .gitignore .",
         "format:fix": "prettier --write --ignore-path .gitignore .",
-        "prepare": "husky"
+        "prepare": "husky",
+        "seed": "ts-node prisma/seed.ts"
     },
     "dependencies": {
         "@chakra-ui/icons": "^2.1.1",
