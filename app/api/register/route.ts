@@ -1,4 +1,3 @@
-
 import * as bcrypt from 'bcrypt';
 import { db } from 'database/db';
 import { NextRequest, NextResponse } from 'next/server';
