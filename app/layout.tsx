@@ -7,6 +7,7 @@ import ChakraUiProvider from './_components/shared/providers/ChakraUiProvider';
 import SassUiProvider from './_components/shared/providers/SassUiProvider';
 import LayoutWrapper from './_components/shared/LayoutWrapper';
 import SessionAppProvider from './_components/shared/providers/SessionProvider';
+import QueryProvider from './_components/shared/providers/QueryProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,7 +28,9 @@ export default function RootLayout({
                     <SassUiProvider>
                         <SessionAppProvider>
                             <Navbar />
-                            <LayoutWrapper>{children}</LayoutWrapper>
+                            <LayoutWrapper>
+                                <QueryProvider>{children}</QueryProvider>
+                            </LayoutWrapper>
                         </SessionAppProvider>
                     </SassUiProvider>
                 </ChakraUiProvider>
