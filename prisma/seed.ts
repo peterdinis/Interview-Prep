@@ -1,4 +1,4 @@
-import { db } from "../database/db";
+import { db } from '../database/db';
 
 async function main() {
     // Create users
@@ -91,7 +91,6 @@ async function main() {
 main()
     .catch((e) => {
         console.error(e);
-        process.exit(1);
     })
     .finally(async () => {
         await db.$disconnect();
