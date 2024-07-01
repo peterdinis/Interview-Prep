@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import axios from 'axios';
-
-const prisma = new PrismaClient();
+import { db } from '@/database/db';
 
 export async function POST(req: NextRequest) {
     const { jobPosition, jobDesc, jobExperience } = await req.json();
@@ -25,7 +23,7 @@ export async function POST(req: NextRequest) {
         console.log('FOOOO', openaiResponse);
         const mockInterview = openaiResponse.data.choices[0].text.trim();
         console.log('MI', mockInterview);
-        const newInterview = await prisma.interview.create({
+        const newInterview = await db.interview.create({
             data: {
                 jobPosition,
                 jobDesc,
@@ -41,7 +39,5 @@ export async function POST(req: NextRequest) {
             { error: 'Error generating mock interview' },
             { status: 500 },
         );
-    } finally {
-        await prisma.$disconnect();
     }
 }
