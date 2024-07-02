@@ -1,8 +1,8 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import * as bcrypt from 'bcrypt';
-import { db } from '@/database/db';
 import { AuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { db } from 'database/db';
 
 const authOptions: AuthOptions = {
     session: {
