@@ -1,4 +1,3 @@
-
 import RegisterForm from 'app/_components/auth/RegisterForm';
 import { NextPage } from 'next';
 

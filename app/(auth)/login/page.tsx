@@ -1,4 +1,3 @@
-
 import LoginForm from 'app/_components/auth/LoginForm';
 import { NextPage } from 'next';
 
