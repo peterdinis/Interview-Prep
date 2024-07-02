@@ -1,6 +1,6 @@
 'use client';
 
-import {format} from "date-fns";
+import { format } from 'date-fns';
 import {
     Box,
     useColorModeValue,
@@ -16,7 +16,7 @@ import {
 import { InterviewsWrapper } from 'app/_types/interviewTypes';
 
 const DashboardCard = (props: InterviewsWrapper) => {
-    const { id, jobPosition, createdAt} = props;
+    const { id, jobPosition, createdAt } = props;
     const { onOpen } = useDisclosure();
 
     const handleClick = () => {
@@ -52,7 +52,7 @@ const DashboardCard = (props: InterviewsWrapper) => {
                                 </Text>
                             </HStack>
                         </Tooltip>
-                        {format(createdAt as unknown as string, "yyyy-MM-dd")}
+                        {format(createdAt as unknown as string, 'yyyy-MM-dd')}
                     </Flex>
                     <Button
                         mt={4}
