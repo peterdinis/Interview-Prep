@@ -14,9 +14,9 @@ interface DashboardCardsProps {
 }
 
 const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
-    const {data: sessionData} = useSession();
+    const { data: sessionData } = useSession();
     const router = useRouter();
-    
+
     const { data, isLoading, isError } = useQuery({
         queryKey: ['interviews'],
         queryFn: async () => {
@@ -29,12 +29,11 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     >(undefined);
 
     useEffect(() => {
-        if(sessionData === null || sessionData === undefined) {
-            router.push("/login");
-        }   
+        if (sessionData === null || sessionData === undefined) {
+            router.push('/login');
+        }
+    }, [sessionData, router]);
 
-    }, [sessionData]);
-    
     useEffect(() => {
         if (data?.data) {
             const filteredList = data.data.filter((item: InterviewsWrapper) =>
