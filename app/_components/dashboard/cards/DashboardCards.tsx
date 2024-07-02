@@ -6,12 +6,17 @@ import DashboardCard from './DashboardCard';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { InterviewsWrapper } from 'app/_types/interviewTypes';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 interface DashboardCardsProps {
     searchQuery: string;
 }
 
 const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
+    const {data: sessionData} = useSession();
+    const router = useRouter();
+    
     const { data, isLoading, isError } = useQuery({
         queryKey: ['interviews'],
         queryFn: async () => {
@@ -23,7 +28,13 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
         InterviewsWrapper[] | undefined
     >(undefined);
 
-    // Filter data based on searchQuery
+    useEffect(() => {
+        if(sessionData === null || sessionData === undefined) {
+            router.push("/login");
+        }   
+
+    }, [sessionData]);
+    
     useEffect(() => {
         if (data?.data) {
             const filteredList = data.data.filter((item: InterviewsWrapper) =>
