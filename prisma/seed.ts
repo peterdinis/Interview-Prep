@@ -1,4 +1,9 @@
 import { db } from '../database/db';
+import * as bcrypt from "bcrypt";
+
+const CUSTOMPASSWORD = process.env.CUSTOM_PASSWORD as unknown as string;
+
+const hashedPassword = bcrypt.hash(CUSTOMPASSWORD, 12) as unknown as string;
 
 async function main() {
     // Create users
@@ -6,7 +11,7 @@ async function main() {
         data: {
             email: 'alice@example.com',
             name: 'Alice',
-            password: 'password123',
+            password: hashedPassword
         },
     });
 
@@ -14,7 +19,7 @@ async function main() {
         data: {
             email: 'bob@example.com',
             name: 'Bob',
-            password: 'password456',
+            password: hashedPassword
         },
     });
 
