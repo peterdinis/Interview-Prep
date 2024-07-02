@@ -3,7 +3,6 @@
 import { FC, Key, useEffect, useState } from 'react';
 import { SimpleGrid, Container, Text, Box, Spinner } from '@chakra-ui/react';
 import DashboardCard from './DashboardCard';
-import { Ghost } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { InterviewsWrapper } from 'app/_types/interviewTypes';
