@@ -7,4 +7,4 @@ export type InterviewsWrapper = {
     mockInterview?: string;
     updatedAt?: string | Date;
     userId?: string;
-}
+};

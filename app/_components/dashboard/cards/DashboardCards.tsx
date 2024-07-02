@@ -47,15 +47,18 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
         <Container maxW='7xl' p='5' mx='auto'>
             {data && data.data!.length > 0 ? (
                 <SimpleGrid columns={[1, 2, 3]} spacing={4} mt={8}>
-                    {data && data.data!.map((repo: InterviewsWrapper, index: Key) => (
-                        <DashboardCard
-                            key={index}
-                            createdAt={repo.createdAt}
-                            jobPosition={repo.jobPosition}
-                            jobExpirience={repo.jobExpirience}
-                            jobDesc={repo.jobDesc}
-                        />
-                    ))}
+                    {data &&
+                        data.data!.map(
+                            (repo: InterviewsWrapper, index: Key) => (
+                                <DashboardCard
+                                    key={index}
+                                    createdAt={repo.createdAt}
+                                    jobPosition={repo.jobPosition}
+                                    jobExpirience={repo.jobExpirience}
+                                    jobDesc={repo.jobDesc}
+                                />
+                            ),
+                        )}
                 </SimpleGrid>
             ) : (
                 <Box mt={8} textAlign='center'>

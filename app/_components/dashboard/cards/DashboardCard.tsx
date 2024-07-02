@@ -1,12 +1,11 @@
 'use client';
 
-import * as React from 'react';
+import {format} from "date-fns";
 import {
     Box,
     useColorModeValue,
     VStack,
     HStack,
-    Tag,
     useDisclosure,
     Flex,
     Tooltip,
@@ -17,7 +16,7 @@ import {
 import { InterviewsWrapper } from 'app/_types/interviewTypes';
 
 const DashboardCard = (props: InterviewsWrapper) => {
-    const { createdAt, jobPosition, jobExpirience, jobDesc } = props;
+    const { id, jobPosition, createdAt} = props;
     const { onOpen } = useDisclosure();
 
     const handleClick = () => {
@@ -53,6 +52,7 @@ const DashboardCard = (props: InterviewsWrapper) => {
                                 </Text>
                             </HStack>
                         </Tooltip>
+                        {format(createdAt as unknown as string, "yyyy-MM-dd")}
                     </Flex>
                     <Button
                         mt={4}
@@ -61,8 +61,8 @@ const DashboardCard = (props: InterviewsWrapper) => {
                         justifyContent={'center'}
                         alignItems={'center'}
                     >
-                        <Link href='/'>
-                            <Text>Detail</Text>
+                        <Link href={`/interview/${id}`}>
+                            <Text>Interview Detail</Text>
                         </Link>
                     </Button>
                 </VStack>
