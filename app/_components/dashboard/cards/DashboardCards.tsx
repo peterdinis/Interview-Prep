@@ -1,16 +1,43 @@
 'use client';
 
 import { FC } from 'react';
-import { SimpleGrid, Container, Text, Box } from '@chakra-ui/react';
+import { SimpleGrid, Container, Text, Box, Spinner } from '@chakra-ui/react';
 import dashboardList from './dashboard-list';
 import DashboardCard from './DashboardCard';
 import { Ghost } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 interface DashboardCardsProps {
     searchQuery: string;
 }
 
 const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ['interviews'],
+        queryFn: async () => {
+            return await axios.get('/api/interviews');
+        },
+    });
+
+    if (isLoading) {
+        return (
+            <Spinner
+                thickness='4px'
+                speed='0.65s'
+                emptyColor='gray.200'
+                color='blue.500'
+                size='xl'
+            />
+        );
+    }
+
+    if (isError) {
+        throw new Error('Something went wrong');
+    }
+
+    console.log('D', data);
+
     const filteredList = dashboardList().filter((repo) =>
         repo.title.toLowerCase().includes(searchQuery.toLowerCase()),
     );
