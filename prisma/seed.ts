@@ -1,5 +1,5 @@
 import { db } from '../database/db';
-import * as bcrypt from "bcrypt";
+import * as bcrypt from 'bcrypt';
 
 const CUSTOMPASSWORD = process.env.CUSTOM_PASSWORD as unknown as string;
 
@@ -11,7 +11,7 @@ async function main() {
         data: {
             email: 'alice@example.com',
             name: 'Alice',
-            password: hashedPassword
+            password: hashedPassword,
         },
     });
 
@@ -19,7 +19,7 @@ async function main() {
         data: {
             email: 'bob@example.com',
             name: 'Bob',
-            password: hashedPassword
+            password: hashedPassword,
         },
     });
 

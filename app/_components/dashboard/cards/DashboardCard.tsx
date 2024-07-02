@@ -14,28 +14,14 @@ import {
     Link,
     Text,
 } from '@chakra-ui/react';
+import { InterviewsWrapper } from 'app/_types/interviewTypes';
 
-interface DashboardCardProps {
-    title: string;
-    description: string;
-    techStack: string[];
-    url: string;
-}
-
-const DashboardCard = (props: DashboardCardProps) => {
-    const { title, techStack, url } = props;
+const DashboardCard = (props: InterviewsWrapper) => {
+    const { createdAt, jobPosition, jobExpirience, jobDesc } = props;
     const { onOpen } = useDisclosure();
 
     const handleClick = () => {
         onOpen();
-    };
-
-    const handleLinkClick = (
-        e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
-        link: string,
-    ) => {
-        window.open(link);
-        e.stopPropagation();
     };
 
     return (
@@ -62,35 +48,11 @@ const DashboardCard = (props: DashboardCardProps) => {
                                     noOfLines={1}
                                     fontWeight='600'
                                     align='left'
-                                    onClick={(e) => handleLinkClick(e, url)}
                                 >
-                                    {title}
+                                    {jobPosition}
                                 </Text>
                             </HStack>
                         </Tooltip>
-                    </Flex>
-                    <Flex justifyContent='space-between' width='100%'>
-                        <Box>
-                            <HStack spacing='1'>
-                                {techStack!.map((tech, index) => (
-                                    <Tag
-                                        key={index}
-                                        size='sm'
-                                        colorScheme='cyan'
-                                    >
-                                        <Text
-                                            fontSize={[
-                                                '0.55rem',
-                                                'inherit',
-                                                'inherit',
-                                            ]}
-                                        >
-                                            {tech}
-                                        </Text>
-                                    </Tag>
-                                ))}
-                            </HStack>
-                        </Box>
                     </Flex>
                     <Button
                         mt={4}

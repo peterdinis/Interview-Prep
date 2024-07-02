@@ -1,12 +1,13 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, Key } from 'react';
 import { SimpleGrid, Container, Text, Box, Spinner } from '@chakra-ui/react';
 import dashboardList from './dashboard-list';
 import DashboardCard from './DashboardCard';
 import { Ghost } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { InterviewsWrapper } from 'app/_types/interviewTypes';
 
 interface DashboardCardsProps {
     searchQuery: string;
@@ -36,23 +37,23 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
         throw new Error('Something went wrong');
     }
 
-    console.log('D', data);
+    console.log('D', data?.data!);
 
-    const filteredList = dashboardList().filter((repo) =>
+    /* const filteredList = data?.data! && data?.data!.filter((repo: {title: string}) =>
         repo.title.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
+    ); */
 
     return (
         <Container maxW='7xl' p='5' mx='auto'>
-            {filteredList.length > 0 ? (
+            {data && data.data!.length > 0 ? (
                 <SimpleGrid columns={[1, 2, 3]} spacing={4} mt={8}>
-                    {filteredList.map((repo, index) => (
+                    {data && data.data!.map((repo: InterviewsWrapper, index: Key) => (
                         <DashboardCard
                             key={index}
-                            title={repo.title}
-                            description={repo.description}
-                            techStack={repo.techStack}
-                            url={repo.url}
+                            createdAt={repo.createdAt}
+                            jobPosition={repo.jobPosition}
+                            jobExpirience={repo.jobExpirience}
+                            jobDesc={repo.jobDesc}
                         />
                     ))}
                 </SimpleGrid>
