@@ -68,7 +68,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
                 </SimpleGrid>
             ) : (
                 <Box mt={8} textAlign='center'>
-                    <Text fontSize='lg' fontWeight={"bold"}>
+                    <Text fontSize='lg' fontWeight={'bold'}>
                         No Interviews found
                     </Text>
                 </Box>
