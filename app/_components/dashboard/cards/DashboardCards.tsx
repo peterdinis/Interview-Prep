@@ -8,6 +8,7 @@ import axios from 'axios';
 import { InterviewsWrapper } from 'app/_types/interviewTypes';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import DashboardPagination from './DashboardPagination';
 
 interface DashboardCardsProps {
     searchQuery: string;
@@ -24,9 +25,9 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
         },
     });
 
-    const [filteredData, setFilteredData] = useState<
-        InterviewsWrapper[] | undefined
-    >(undefined);
+    const [filteredData, setFilteredData] = useState<InterviewsWrapper[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const itemsPerPage = 9; // Number of items per page
 
     useEffect(() => {
         if (sessionData === null || sessionData === undefined) {
@@ -44,6 +45,15 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
             setFilteredData(filteredList);
         }
     }, [data, searchQuery]);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    const paginatedData = filteredData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage,
+    );
 
     if (isLoading) {
         return (
@@ -63,17 +73,19 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
 
     return (
         <Container maxW='7xl' p='5' mx='auto'>
-            {filteredData && filteredData.length > 0 ? (
+            {paginatedData.length > 0 ? (
                 <SimpleGrid columns={[1, 2, 3]} spacing={4} mt={8}>
-                    {filteredData.map((item: InterviewsWrapper, index: Key) => (
-                        <DashboardCard
-                            key={index}
-                            createdAt={item.createdAt}
-                            jobPosition={item.jobPosition}
-                            jobExpirience={item.jobExpirience}
-                            jobDesc={item.jobDesc}
-                        />
-                    ))}
+                    {paginatedData.map(
+                        (item: InterviewsWrapper, index: Key) => (
+                            <DashboardCard
+                                key={index}
+                                createdAt={item.createdAt}
+                                jobPosition={item.jobPosition}
+                                jobExpirience={item.jobExpirience}
+                                jobDesc={item.jobDesc}
+                            />
+                        ),
+                    )}
                 </SimpleGrid>
             ) : (
                 <Box mt={8} textAlign='center'>
@@ -82,6 +94,21 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
                     </Text>
                 </Box>
             )}
+
+            <Box
+                mt={12}
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                p={4}
+            >
+                <DashboardPagination
+                    totalItems={filteredData.length}
+                    itemsPerPage={itemsPerPage}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                />
+            </Box>
         </Container>
     );
 };
