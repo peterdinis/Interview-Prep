@@ -1,8 +1,8 @@
-import InterviewDetail from "app/_components/interviews/InterviewDetail";
-import { NextPage } from "next";
+import InterviewDetail from 'app/_components/interviews/InterviewDetail';
+import { NextPage } from 'next';
 
 const InterviewInfoPage: NextPage = () => {
-    return <InterviewDetail />
-}
+    return <InterviewDetail />;
+};
 
-export default InterviewInfoPage
+export default InterviewInfoPage;

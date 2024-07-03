@@ -1,11 +1,7 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 const InterviewDetail: FC = () => {
-    return (
-        <>
-            INFO
-        </>
-    )
-}
+    return <>INFO</>;
+};
 
 export default InterviewDetail;

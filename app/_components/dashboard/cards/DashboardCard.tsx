@@ -16,7 +16,7 @@ import {
 import { InterviewsWrapper } from 'app/_types/interviewTypes';
 
 const DashboardCard = (props: InterviewsWrapper) => {
-    const {interviewId, jobPosition, createdAt } = props;
+    const { interviewId, jobPosition, createdAt } = props;
     const { onOpen } = useDisclosure();
 
     const handleClick = () => {
