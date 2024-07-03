@@ -15,7 +15,7 @@ interface DashboardCardsProps {
 }
 
 const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
-    const { data: sessionData } = useSession();
+    const { data: sessionData, status: sessionStatus } = useSession();
     const router = useRouter();
 
     const { data, isLoading, isError } = useQuery({
@@ -27,13 +27,14 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
 
     const [filteredData, setFilteredData] = useState<InterviewsWrapper[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const itemsPerPage = 9; // Number of items per page
+    const itemsPerPage = 9;
 
     useEffect(() => {
-        if (sessionData === null || sessionData === undefined) {
+        if (sessionStatus === 'loading') return;
+        if (!sessionData) {
             router.push('/login');
         }
-    }, [sessionData, router]);
+    }, [sessionData, sessionStatus, router]);
 
     useEffect(() => {
         if (data?.data) {
@@ -55,7 +56,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
         currentPage * itemsPerPage,
     );
 
-    if (isLoading) {
+    if (sessionStatus === 'loading' || isLoading) {
         return (
             <Spinner
                 thickness='4px'
@@ -68,7 +69,13 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     }
 
     if (isError) {
-        throw new Error('Something went wrong');
+        return (
+            <Box mt={8} textAlign='center'>
+                <Text fontSize='lg' fontWeight={'bold'}>
+                    Something went wrong
+                </Text>
+            </Box>
+        );
     }
 
     return (
