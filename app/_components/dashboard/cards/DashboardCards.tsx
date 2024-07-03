@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, Key, useEffect, useState } from 'react';
-import { SimpleGrid, Container, Text, Box, Spinner } from '@chakra-ui/react';
+import { SimpleGrid, Container, Text, Box, Spinner} from '@chakra-ui/react';
 import DashboardCard from './DashboardCard';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -25,9 +25,9 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
         },
     });
 
-    const [filteredData, setFilteredData] = useState<
-        InterviewsWrapper[] | undefined
-    >(undefined);
+    const [filteredData, setFilteredData] = useState<InterviewsWrapper[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const itemsPerPage = 9; // Number of items per page
 
     useEffect(() => {
         if (sessionData === null || sessionData === undefined) {
@@ -38,13 +38,20 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     useEffect(() => {
         if (data?.data) {
             const filteredList = data.data.filter((item: InterviewsWrapper) =>
-                item
-                    .jobPosition!.toLowerCase()
-                    .includes(searchQuery.toLowerCase()),
+                item.jobPosition!.toLowerCase().includes(searchQuery.toLowerCase()),
             );
             setFilteredData(filteredList);
         }
     }, [data, searchQuery]);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    const paginatedData = filteredData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     if (isLoading) {
         return (
@@ -64,9 +71,9 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
 
     return (
         <Container maxW='7xl' p='5' mx='auto'>
-            {filteredData && filteredData.length > 0 ? (
+            {paginatedData.length > 0 ? (
                 <SimpleGrid columns={[1, 2, 3]} spacing={4} mt={8}>
-                    {filteredData.map((item: InterviewsWrapper, index: Key) => (
+                    {paginatedData.map((item: InterviewsWrapper, index: Key) => (
                         <DashboardCard
                             key={index}
                             createdAt={item.createdAt}
@@ -84,18 +91,16 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
                 </Box>
             )}
 
-            <Box
-                mt={12}
-                display={"flex"}
-                justifyContent={"center"}
-                alignItems={"center"}
-                p={4}
-            >
-                <DashboardPagination />
+            <Box mt={12} display={"flex"} justifyContent={"center"} alignItems={"center"} p={4}>
+                <DashboardPagination
+                    totalItems={filteredData.length}
+                    itemsPerPage={itemsPerPage}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                />
             </Box>
         </Container>
     );
 };
-
 
 export default DashboardCards;
