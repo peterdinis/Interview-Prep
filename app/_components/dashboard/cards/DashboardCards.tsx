@@ -8,6 +8,7 @@ import axios from 'axios';
 import { InterviewsWrapper } from 'app/_types/interviewTypes';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import DashboardPagination from './DashboardPagination';
 
 interface DashboardCardsProps {
     searchQuery: string;
@@ -82,8 +83,19 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
                     </Text>
                 </Box>
             )}
+
+            <Box
+                mt={12}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                p={4}
+            >
+                <DashboardPagination />
+            </Box>
         </Container>
     );
 };
+
 
 export default DashboardCards;
