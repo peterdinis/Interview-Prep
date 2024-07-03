@@ -1,7 +1,7 @@
-"use client"
+'use client';
 
-import { FC } from "react";
-import { HStack, Button } from "@chakra-ui/react";
+import { FC } from 'react';
+import { HStack, Button } from '@chakra-ui/react';
 
 interface PaginationProps {
     totalItems: number;
@@ -10,13 +10,24 @@ interface PaginationProps {
     onPageChange: (page: number) => void;
 }
 
-const DashboardPagination: FC<PaginationProps> = ({ totalItems, itemsPerPage, currentPage, onPageChange }) => {
+const DashboardPagination: FC<PaginationProps> = ({
+    totalItems,
+    itemsPerPage,
+    currentPage,
+    onPageChange,
+}) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-    const pages = [...Array(totalPages).keys()].map(num => num + 1);
+    const pages = [...Array(totalPages).keys()].map((num) => num + 1);
 
     return (
         <HStack spacing={2}>
+            <Button
+                onClick={() => onPageChange(currentPage - 1)}
+                isDisabled={currentPage === 1}
+            >
+                Previous
+            </Button>
             {pages.map((page) => (
                 <Button
                     key={page}
@@ -26,6 +37,12 @@ const DashboardPagination: FC<PaginationProps> = ({ totalItems, itemsPerPage, cu
                     {page}
                 </Button>
             ))}
+            <Button
+                onClick={() => onPageChange(currentPage + 1)}
+                isDisabled={currentPage === totalPages}
+            >
+                Next
+            </Button>
         </HStack>
     );
 };

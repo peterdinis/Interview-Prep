@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, Key, useEffect, useState } from 'react';
-import { SimpleGrid, Container, Text, Box, Spinner} from '@chakra-ui/react';
+import { SimpleGrid, Container, Text, Box, Spinner } from '@chakra-ui/react';
 import DashboardCard from './DashboardCard';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -38,7 +38,9 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     useEffect(() => {
         if (data?.data) {
             const filteredList = data.data.filter((item: InterviewsWrapper) =>
-                item.jobPosition!.toLowerCase().includes(searchQuery.toLowerCase()),
+                item
+                    .jobPosition!.toLowerCase()
+                    .includes(searchQuery.toLowerCase()),
             );
             setFilteredData(filteredList);
         }
@@ -50,7 +52,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
 
     const paginatedData = filteredData.slice(
         (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
+        currentPage * itemsPerPage,
     );
 
     if (isLoading) {
@@ -73,15 +75,17 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
         <Container maxW='7xl' p='5' mx='auto'>
             {paginatedData.length > 0 ? (
                 <SimpleGrid columns={[1, 2, 3]} spacing={4} mt={8}>
-                    {paginatedData.map((item: InterviewsWrapper, index: Key) => (
-                        <DashboardCard
-                            key={index}
-                            createdAt={item.createdAt}
-                            jobPosition={item.jobPosition}
-                            jobExpirience={item.jobExpirience}
-                            jobDesc={item.jobDesc}
-                        />
-                    ))}
+                    {paginatedData.map(
+                        (item: InterviewsWrapper, index: Key) => (
+                            <DashboardCard
+                                key={index}
+                                createdAt={item.createdAt}
+                                jobPosition={item.jobPosition}
+                                jobExpirience={item.jobExpirience}
+                                jobDesc={item.jobDesc}
+                            />
+                        ),
+                    )}
                 </SimpleGrid>
             ) : (
                 <Box mt={8} textAlign='center'>
@@ -91,7 +95,13 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
                 </Box>
             )}
 
-            <Box mt={12} display={"flex"} justifyContent={"center"} alignItems={"center"} p={4}>
+            <Box
+                mt={12}
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                p={4}
+            >
                 <DashboardPagination
                     totalItems={filteredData.length}
                     itemsPerPage={itemsPerPage}
