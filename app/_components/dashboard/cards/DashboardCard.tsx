@@ -16,7 +16,7 @@ import {
 import { InterviewsWrapper } from 'app/_types/interviewTypes';
 
 const DashboardCard = (props: InterviewsWrapper) => {
-    const { id, jobPosition, createdAt } = props;
+    const {interviewId, jobPosition, createdAt } = props;
     const { onOpen } = useDisclosure();
 
     const handleClick = () => {
@@ -61,7 +61,7 @@ const DashboardCard = (props: InterviewsWrapper) => {
                         justifyContent={'center'}
                         alignItems={'center'}
                     >
-                        <Link href={`/interview/${id}`}>
+                        <Link href={`/interview/${interviewId}`}>
                             <Text>Interview Detail</Text>
                         </Link>
                     </Button>
