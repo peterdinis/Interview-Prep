@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
-import { db } from '@/database/db';
+import { db } from 'database/db';
 
 export async function POST(req: NextRequest) {
     const { jobPosition, jobDesc, jobExperience } = await req.json();
@@ -19,8 +19,6 @@ export async function POST(req: NextRequest) {
                 },
             },
         );
-
-        console.log('FOOOO', openaiResponse);
         const mockInterview = openaiResponse.data.choices[0].text.trim();
         console.log('MI', mockInterview);
         const newInterview = await db.interview.create({

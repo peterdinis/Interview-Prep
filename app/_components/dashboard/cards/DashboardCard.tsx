@@ -1,12 +1,11 @@
 'use client';
 
-import * as React from 'react';
+import { format } from 'date-fns';
 import {
     Box,
     useColorModeValue,
     VStack,
     HStack,
-    Tag,
     useDisclosure,
     Flex,
     Tooltip,
@@ -14,28 +13,15 @@ import {
     Link,
     Text,
 } from '@chakra-ui/react';
+import { InterviewsWrapper } from 'app/_types/interviewTypes';
+import InterviewRemoveModal from 'app/_components/interviews/InterviewRemoveModal';
 
-interface DashboardCardProps {
-    title: string;
-    description: string;
-    techStack: string[];
-    url: string;
-}
-
-const DashboardCard = (props: DashboardCardProps) => {
-    const { title, techStack, url } = props;
+const DashboardCard = (props: InterviewsWrapper) => {
+    const { interviewId, jobPosition, createdAt } = props;
     const { onOpen } = useDisclosure();
 
     const handleClick = () => {
         onOpen();
-    };
-
-    const handleLinkClick = (
-        e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
-        link: string,
-    ) => {
-        window.open(link);
-        e.stopPropagation();
     };
 
     return (
@@ -62,47 +48,41 @@ const DashboardCard = (props: DashboardCardProps) => {
                                     noOfLines={1}
                                     fontWeight='600'
                                     align='left'
-                                    onClick={(e) => handleLinkClick(e, url)}
                                 >
-                                    {title}
+                                    {jobPosition}
                                 </Text>
                             </HStack>
                         </Tooltip>
+                        <Text>
+                            {format(
+                                new Date(createdAt as unknown as string),
+                                'yyyy-MM-dd',
+                            )}
+                        </Text>
                     </Flex>
-                    <Flex justifyContent='space-between' width='100%'>
+                    <Flex
+                        width='100%'
+                        mt={4}
+                        justifyContent='space-between'
+                        alignItems='center'
+                    >
+                        <Button
+                            disabled={true}
+                            colorScheme='red'
+                            display={'flex'}
+                            justifyContent={'center'}
+                            alignItems={'center'}
+                        >
+                            <Link href={`/interview/${interviewId}`}>
+                                <Text>Interview Detail</Text>
+                            </Link>
+                        </Button>
                         <Box>
-                            <HStack spacing='1'>
-                                {techStack!.map((tech, index) => (
-                                    <Tag
-                                        key={index}
-                                        size='sm'
-                                        colorScheme='cyan'
-                                    >
-                                        <Text
-                                            fontSize={[
-                                                '0.55rem',
-                                                'inherit',
-                                                'inherit',
-                                            ]}
-                                        >
-                                            {tech}
-                                        </Text>
-                                    </Tag>
-                                ))}
-                            </HStack>
+                            <InterviewRemoveModal
+                                interviewId={interviewId as unknown as string}
+                            />
                         </Box>
                     </Flex>
-                    <Button
-                        mt={4}
-                        colorScheme='red'
-                        display={'flex'}
-                        justifyContent={'center'}
-                        alignItems={'center'}
-                    >
-                        <Link href='/'>
-                            <Text>Detail</Text>
-                        </Link>
-                    </Button>
                 </VStack>
             </VStack>
         </Box>
