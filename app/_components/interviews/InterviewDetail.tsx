@@ -4,7 +4,17 @@ import { useParams } from 'next/navigation';
 import { FC } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Spinner, Box, Text, Button } from '@chakra-ui/react';
+import {
+    Spinner,
+    Box,
+    Text,
+    Button,
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionPanel,
+    AccordionIcon,
+} from '@chakra-ui/react';
 import Header from '../shared/Header';
 import Link from 'next/link';
 
@@ -46,13 +56,57 @@ const InterviewDetail: FC = () => {
     console.log('D', data);
 
     return (
-        <Box mt={8} textAlign='center'>
+        <Box mt={8}>
             <Header text={data.jobPosition} />
-            <Box mt={2}>
+            <Box textAlign={'center'} mt={2}>
                 <Button>
-                    <Link href="/dashboard">Go back</Link>
+                    <Link href='/dashboard'>Go back</Link>
                 </Button>
             </Box>
+
+            <Box mt={3}>
+                <Text fontWeight={'bold'} fontSize={'2rem'}>
+                    Interview info
+                </Text>
+            </Box>
+
+            <Accordion mt={3} defaultIndex={[0]} allowMultiple>
+                <AccordionItem>
+                    <h2>
+                        <AccordionButton>
+                            <Box as='span' flex='1' textAlign='left'>
+                                Section 1 title
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat.
+                    </AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                    <h2>
+                        <AccordionButton>
+                            <Box as='span' flex='1' textAlign='left'>
+                                Section 2 title
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat.
+                    </AccordionPanel>
+                </AccordionItem>
+            </Accordion>
         </Box>
     );
 };
