@@ -78,7 +78,9 @@ const DashboardCard = (props: InterviewsWrapper) => {
                             </Link>
                         </Button>
                         <Box>
-                            <InterviewRemoveModal />
+                            <InterviewRemoveModal
+                                interviewId={interviewId as unknown as string}
+                            />
                         </Box>
                     </Flex>
                 </VStack>

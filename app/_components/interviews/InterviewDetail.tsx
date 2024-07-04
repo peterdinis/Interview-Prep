@@ -54,8 +54,6 @@ const InterviewDetail: FC = () => {
         );
     }
 
-    console.log('D', data);
-
     return (
         <Box mt={8}>
             <Header text={data.jobPosition} />

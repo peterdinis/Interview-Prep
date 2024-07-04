@@ -12,16 +12,58 @@ import {
     useDisclosure,
     Button,
     useToast,
+    Box,
+    Text,
+    Spinner,
 } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
 
-const InterviewRemoveModal: FC = () => {
+interface InterviewRemoveModalIProps {
+    interviewId: string;
+}
+
+const deleteInterview = async (id: string) => {
+    const response = await axios.delete(`/api/interview/${id}`);
+    return response.data;
+};
+
+const InterviewRemoveModal: FC<InterviewRemoveModalIProps> = ({
+    interviewId,
+}: InterviewRemoveModalIProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     const router = useRouter();
 
-    const deleteInterview = () => {
+    const removeMut = useMutation({
+        mutationKey: ['removeInterview', interviewId],
+        mutationFn: async () => deleteInterview(interviewId),
+    });
+
+    if (removeMut.isPending) {
+        return (
+            <Spinner
+                thickness='4px'
+                speed='0.65s'
+                emptyColor='gray.200'
+                color='blue.500'
+                size='xl'
+            />
+        );
+    }
+
+    if (removeMut.isError) {
+        return (
+            <Box mt={8} textAlign='center'>
+                <Text fontSize='lg' fontWeight={'bold'}>
+                    Something went wrong
+                </Text>
+            </Box>
+        );
+    }
+    const removeInterview = () => {
         toast({
             title: 'Interview was deleted.',
             status: 'success',
@@ -29,7 +71,8 @@ const InterviewRemoveModal: FC = () => {
             isClosable: true,
         });
 
-        router.prefetch('/'); // TODO: Close modal somehow
+        removeMut.mutate();
+        window.location.reload();
     };
 
     return (
@@ -54,7 +97,7 @@ const InterviewRemoveModal: FC = () => {
                         <Button colorScheme='blue' mr={3} onClick={onClose}>
                             Close
                         </Button>
-                        <Button onClick={deleteInterview} colorScheme='red'>
+                        <Button onClick={removeInterview} colorScheme='red'>
                             Delete
                         </Button>
                     </ModalFooter>
