@@ -1,22 +1,22 @@
-"use client"
+'use client';
 
 import { useParams } from 'next/navigation';
 import { FC } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Spinner } from '@chakra-ui/react';
-import { Box, Text } from '@chakra-ui/react';
+import { Spinner, Box, Text } from '@chakra-ui/react';
 
 const InterviewDetail: FC = () => {
-    const {id} = useParams<{id: string}>();
-    const {data, isLoading, isError} = useQuery({
-        queryKey: ["interviewDetail"],
+    const { id } = useParams<{ id: string }>();
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ['interviewDetail', id],
         queryFn: async () => {
-            await axios.get("/interview/" + id);
-        }
+            const response = await axios.get('/interview/' + id);
+            return response.data;
+        },
     });
 
-    if(isLoading) {
+    if (isLoading) {
         return (
             <Spinner
                 thickness='4px'
@@ -25,7 +25,7 @@ const InterviewDetail: FC = () => {
                 color='blue.500'
                 size='xl'
             />
-        )
+        );
     }
 
     if (isError) {
@@ -38,9 +38,15 @@ const InterviewDetail: FC = () => {
         );
     }
 
-    console.log("D", data);
-    
-    return <>INFO</>;
+    console.log('D', data);
+
+    return (
+        <Box mt={8} textAlign='center'>
+            <Text fontSize='lg' fontWeight={'bold'}>
+                {JSON.stringify(data, null, 2)}
+            </Text>
+        </Box>
+    );
 };
 
 export default InterviewDetail;
