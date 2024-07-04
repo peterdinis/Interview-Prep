@@ -53,9 +53,19 @@ const DashboardCard = (props: InterviewsWrapper) => {
                                 </Text>
                             </HStack>
                         </Tooltip>
-                        <Text>{format(new Date(createdAt as unknown as string), 'yyyy-MM-dd')}</Text>
+                        <Text>
+                            {format(
+                                new Date(createdAt as unknown as string),
+                                'yyyy-MM-dd',
+                            )}
+                        </Text>
                     </Flex>
-                    <Flex width='100%' mt={4} justifyContent='space-between' alignItems='center'>
+                    <Flex
+                        width='100%'
+                        mt={4}
+                        justifyContent='space-between'
+                        alignItems='center'
+                    >
                         <Button
                             disabled={true}
                             colorScheme='red'

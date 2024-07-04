@@ -43,7 +43,7 @@ const InterviewDetail: FC = () => {
     return (
         <Box mt={8} textAlign='center'>
             <Text fontSize='lg' fontWeight={'bold'}>
-                {JSON.stringify(data, null, 2)}
+              DETAIL
             </Text>
         </Box>
     );
