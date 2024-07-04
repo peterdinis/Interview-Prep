@@ -43,7 +43,7 @@ const InterviewDetail: FC = () => {
     return (
         <Box mt={8} textAlign='center'>
             <Text fontSize='lg' fontWeight={'bold'}>
-              DETAIL
+                DETAIL
             </Text>
         </Box>
     );

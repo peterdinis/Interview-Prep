@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { FC } from 'react';
 import {
@@ -27,10 +27,10 @@ const InterviewRemoveModal: FC = () => {
             status: 'success',
             duration: 4000,
             isClosable: true,
-          })
+        });
 
-          router.prefetch("/"); // TODO: Close modal somehow 
-    }
+        router.prefetch('/'); // TODO: Close modal somehow
+    };
 
     return (
         <>
@@ -54,7 +54,9 @@ const InterviewRemoveModal: FC = () => {
                         <Button colorScheme='blue' mr={3} onClick={onClose}>
                             Close
                         </Button>
-                        <Button onClick={deleteInterview} colorScheme='red'>Delete</Button>
+                        <Button onClick={deleteInterview} colorScheme='red'>
+                            Delete
+                        </Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
