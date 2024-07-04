@@ -17,7 +17,7 @@ const InterviewDetail: FC = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: ['interviewDetail', id],
         queryFn: async () => fetchInterview(id),
-        staleTime: Infinity
+        staleTime: Infinity,
     });
 
     if (isLoading) {
