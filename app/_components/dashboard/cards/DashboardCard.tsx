@@ -14,9 +14,10 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { InterviewsWrapper } from 'app/_types/interviewTypes';
+import InterviewRemoveModal from 'app/_components/interviews/InterviewRemoveModal';
 
 const DashboardCard = (props: InterviewsWrapper) => {
-    const { id, jobPosition, createdAt } = props;
+    const { interviewId, jobPosition, createdAt } = props;
     const { onOpen } = useDisclosure();
 
     const handleClick = () => {
@@ -52,19 +53,34 @@ const DashboardCard = (props: InterviewsWrapper) => {
                                 </Text>
                             </HStack>
                         </Tooltip>
-                        {format(createdAt as unknown as string, 'yyyy-MM-dd')}
+                        <Text>
+                            {format(
+                                new Date(createdAt as unknown as string),
+                                'yyyy-MM-dd',
+                            )}
+                        </Text>
                     </Flex>
-                    <Button
+                    <Flex
+                        width='100%'
                         mt={4}
-                        colorScheme='red'
-                        display={'flex'}
-                        justifyContent={'center'}
-                        alignItems={'center'}
+                        justifyContent='space-between'
+                        alignItems='center'
                     >
-                        <Link href={`/interview/${id}`}>
-                            <Text>Interview Detail</Text>
-                        </Link>
-                    </Button>
+                        <Button
+                            disabled={true}
+                            colorScheme='red'
+                            display={'flex'}
+                            justifyContent={'center'}
+                            alignItems={'center'}
+                        >
+                            <Link href={`/interview/${interviewId}`}>
+                                <Text>Interview Detail</Text>
+                            </Link>
+                        </Button>
+                        <Box>
+                            <InterviewRemoveModal />
+                        </Box>
+                    </Flex>
                 </VStack>
             </VStack>
         </Box>

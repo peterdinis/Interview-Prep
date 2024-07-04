@@ -86,6 +86,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
                         (item: InterviewsWrapper, index: Key) => (
                             <DashboardCard
                                 key={index}
+                                interviewId={item.id}
                                 createdAt={item.createdAt}
                                 jobPosition={item.jobPosition}
                                 jobExpirience={item.jobExpirience}
