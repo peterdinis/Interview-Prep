@@ -5,6 +5,7 @@ import { FC } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Spinner, Box, Text } from '@chakra-ui/react';
+import Header from '../shared/Header';
 
 const fetchInterview = async (id: string) => {
     const response = await axios.get(`/api/interview/${id}`);
@@ -16,6 +17,7 @@ const InterviewDetail: FC = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: ['interviewDetail', id],
         queryFn: async () => fetchInterview(id),
+        staleTime: Infinity
     });
 
     if (isLoading) {
@@ -44,9 +46,7 @@ const InterviewDetail: FC = () => {
 
     return (
         <Box mt={8} textAlign='center'>
-            <Text fontSize='lg' fontWeight={'bold'}>
-                DETAIL
-            </Text>
+            <Header text={data.jobPosition} />
         </Box>
     );
 };
