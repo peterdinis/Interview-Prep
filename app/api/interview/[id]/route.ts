@@ -59,21 +59,21 @@ export async function DELETE(request: NextRequest) {
 
         const interviewToDelete = await db.interview.delete({
             where: {
-                id: interview.id
-            }
-        })
+                id: interview.id,
+            },
+        });
 
-        if(!interviewToDelete) {
+        if (!interviewToDelete) {
             return NextResponse.json({
-                error: "Failed to delete interview",
-                status: 500
-            })
+                error: 'Failed to delete interview',
+                status: 500,
+            });
         }
 
         return {
-            message: "Interview was deleted"
-        }
-    } catch(error) {
+            message: 'Interview was deleted',
+        };
+    } catch (error) {
         return NextResponse.json(
             { error: 'Internal Server Error' },
             { status: 500 },
