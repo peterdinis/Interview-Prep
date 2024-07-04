@@ -71,8 +71,8 @@ export async function DELETE(request: NextRequest) {
         }
 
         return NextResponse.json({
-            message: "Interview was deleted"
-        })
+            message: 'Interview was deleted',
+        });
     } catch (error) {
         return NextResponse.json(
             { error: 'Internal Server Error' },
