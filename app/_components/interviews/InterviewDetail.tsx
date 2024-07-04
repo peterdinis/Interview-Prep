@@ -4,8 +4,9 @@ import { useParams } from 'next/navigation';
 import { FC } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Spinner, Box, Text } from '@chakra-ui/react';
+import { Spinner, Box, Text, Button } from '@chakra-ui/react';
 import Header from '../shared/Header';
+import Link from 'next/link';
 
 const fetchInterview = async (id: string) => {
     const response = await axios.get(`/api/interview/${id}`);
@@ -47,6 +48,11 @@ const InterviewDetail: FC = () => {
     return (
         <Box mt={8} textAlign='center'>
             <Header text={data.jobPosition} />
+            <Box mt={2}>
+                <Button>
+                    <Link href="/dashboard">Go back</Link>
+                </Button>
+            </Box>
         </Box>
     );
 };
