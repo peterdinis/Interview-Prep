@@ -14,31 +14,32 @@ import {
     useToast,
     Box,
     Text,
-    Spinner
+    Spinner,
 } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { useMutation} from '@tanstack/react-query';
-
+import { useMutation } from '@tanstack/react-query';
 
 interface InterviewRemoveModalIProps {
     interviewId: string;
 }
 
-const deleteInterview = async(id: string) => {
+const deleteInterview = async (id: string) => {
     const response = await axios.delete(`/api/interview/${id}`);
     return response.data;
-}
+};
 
-const InterviewRemoveModal: FC<InterviewRemoveModalIProps> = ({interviewId}: InterviewRemoveModalIProps) => {
+const InterviewRemoveModal: FC<InterviewRemoveModalIProps> = ({
+    interviewId,
+}: InterviewRemoveModalIProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     const router = useRouter();
 
     const removeMut = useMutation({
-        mutationKey: ["removeInterview", interviewId],
-        mutationFn: async() => deleteInterview(interviewId)
+        mutationKey: ['removeInterview', interviewId],
+        mutationFn: async () => deleteInterview(interviewId),
     });
 
     if (removeMut.isPending) {
@@ -61,7 +62,7 @@ const InterviewRemoveModal: FC<InterviewRemoveModalIProps> = ({interviewId}: Int
                 </Text>
             </Box>
         );
-    } 
+    }
     const removeInterview = () => {
         toast({
             title: 'Interview was deleted.',
@@ -84,7 +85,7 @@ const InterviewRemoveModal: FC<InterviewRemoveModalIProps> = ({interviewId}: Int
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>
-                        Do you want to delete this mock interview  ?
+                        Do you want to delete this mock interview ?
                     </ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
