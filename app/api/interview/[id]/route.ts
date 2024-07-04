@@ -6,7 +6,10 @@ export async function GET(request: Request) {
     const id = url.pathname.split('/').pop();
 
     if (!id) {
-        return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
+        return NextResponse.json(
+            { error: 'Missing id parameter' },
+            { status: 400 },
+        );
     }
 
     try {
@@ -15,12 +18,18 @@ export async function GET(request: Request) {
         });
 
         if (!interview) {
-            return NextResponse.json({ error: 'Interview not found' }, { status: 404 });
+            return NextResponse.json(
+                { error: 'Interview not found' },
+                { status: 404 },
+            );
         }
 
         return NextResponse.json(interview);
     } catch (error) {
-        console.error("Error fetching interview:", error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        console.error('Error fetching interview:', error);
+        return NextResponse.json(
+            { error: 'Internal Server Error' },
+            { status: 500 },
+        );
     }
 }

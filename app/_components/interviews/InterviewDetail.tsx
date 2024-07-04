@@ -11,12 +11,11 @@ const fetchInterview = async (id: string) => {
     return response.data;
 };
 
-
 const InterviewDetail: FC = () => {
     const { id } = useParams<{ id: string }>();
     const { data, isLoading, isError } = useQuery({
         queryKey: ['interviewDetail', id],
-        queryFn: async () => fetchInterview(id)
+        queryFn: async () => fetchInterview(id),
     });
 
     if (isLoading) {
