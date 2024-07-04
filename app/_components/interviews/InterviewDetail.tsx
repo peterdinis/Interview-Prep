@@ -6,14 +6,16 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Spinner, Box, Text } from '@chakra-ui/react';
 
+const fetchInterview = async (id: string) => {
+    const response = await axios.get(`/api/interview/${id}`);
+    return response.data;
+};
+
 const InterviewDetail: FC = () => {
     const { id } = useParams<{ id: string }>();
     const { data, isLoading, isError } = useQuery({
         queryKey: ['interviewDetail', id],
-        queryFn: async () => {
-            const response = await axios.get('/interview/' + id);
-            return response.data;
-        },
+        queryFn: async () => fetchInterview(id),
     });
 
     if (isLoading) {
