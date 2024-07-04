@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react';
 import Header from '../shared/Header';
 import Link from 'next/link';
+import { format } from 'date-fns';
 
 const fetchInterview = async (id: string) => {
     const response = await axios.get(`/api/interview/${id}`);
@@ -75,17 +76,13 @@ const InterviewDetail: FC = () => {
                     <h2>
                         <AccordionButton>
                             <Box as='span' flex='1' textAlign='left'>
-                                Section 1 title
+                                Interview Date
                             </Box>
                             <AccordionIcon />
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat.
+                        Interview was created at: {format(data.createdAt, 'yyyy-MM-dd')}
                     </AccordionPanel>
                 </AccordionItem>
 
@@ -93,17 +90,27 @@ const InterviewDetail: FC = () => {
                     <h2>
                         <AccordionButton>
                             <Box as='span' flex='1' textAlign='left'>
-                                Section 2 title
+                                Interview Position
                             </Box>
                             <AccordionIcon />
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat.
+                        Position is: {data?.jobPosition} with {data.jobExpirience} years
+                    </AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                    <h2>
+                        <AccordionButton>
+                            <Box as='span' flex='1' textAlign='left'>
+                                Interview questions
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                        TODO: Later
                     </AccordionPanel>
                 </AccordionItem>
             </Accordion>
