@@ -82,7 +82,8 @@ const InterviewDetail: FC = () => {
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Interview was created at: {format(data.createdAt, 'yyyy-MM-dd')}
+                        Interview was created at:{' '}
+                        {format(data.createdAt, 'yyyy-MM-dd')}
                     </AccordionPanel>
                 </AccordionItem>
 
@@ -96,7 +97,8 @@ const InterviewDetail: FC = () => {
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Position is: {data?.jobPosition} with {data.jobExpirience} years
+                        Position is: {data?.jobPosition} with{' '}
+                        {data.jobExpirience} years
                     </AccordionPanel>
                 </AccordionItem>
 
@@ -104,14 +106,12 @@ const InterviewDetail: FC = () => {
                     <h2>
                         <AccordionButton>
                             <Box as='span' flex='1' textAlign='left'>
-                                Interview questions
+                                Interview questions / answers
                             </Box>
                             <AccordionIcon />
                         </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4}>
-                        TODO: Later
-                    </AccordionPanel>
+                    <AccordionPanel pb={4}>TODO: Later</AccordionPanel>
                 </AccordionItem>
             </Accordion>
         </Box>
