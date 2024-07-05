@@ -11,16 +11,16 @@ export async function POST(req: NextRequest) {
             {
                 prompt: `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience.`,
                 max_tokens: 150,
+                model: "text-davinci-003"
             },
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${process.env.OPENAI_API_KEY!}`,
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY!}`,
                 },
             },
         );
         const mockInterview = openaiResponse.data.choices[0].text.trim();
-        console.log('MI', mockInterview);
         const newInterview = await db.interview.create({
             data: {
                 jobPosition,
