@@ -1,7 +1,7 @@
-'use client';
+"use client"
 
+import { FC, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { FC } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import {
@@ -19,9 +19,43 @@ import Header from '../shared/Header';
 import Link from 'next/link';
 import { format } from 'date-fns';
 
+interface QA {
+    question: string;
+    answer: string;
+}
+
 const fetchInterview = async (id: string) => {
     const response = await axios.get(`/api/interview/${id}`);
     return response.data;
+};
+
+const parseMockInterview = (text: string): QA[] => {
+    const lines = text.split('\n');
+    const qaPairs: QA[] = [];
+    let currentQuestion = '';
+    let currentAnswer = '';
+
+    lines.forEach((line) => {
+        if (line.startsWith('Interviewer:')) {
+            if (currentQuestion && currentAnswer) {
+                qaPairs.push({ question: currentQuestion, answer: currentAnswer });
+                currentAnswer = ''; // reset answer for the next pair
+            }
+            currentQuestion = line.replace('Interviewer:', '').trim();
+        } else if (line.startsWith('Candidate:')) {
+            currentAnswer = line.replace('Candidate:', '').trim();
+        } else if (currentAnswer) {
+            // Append any additional answer content to the existing answer
+            currentAnswer += ' ' + line.trim();
+        }
+    });
+
+    // Add the last pair if present
+    if (currentQuestion && currentAnswer) {
+        qaPairs.push({ question: currentQuestion, answer: currentAnswer });
+    }
+
+    return qaPairs;
 };
 
 const InterviewDetail: FC = () => {
@@ -31,6 +65,15 @@ const InterviewDetail: FC = () => {
         queryFn: async () => fetchInterview(id),
         staleTime: Infinity,
     });
+
+    const [qaList, setQaList] = useState<QA[]>([]);
+
+    useEffect(() => {
+        if (data && data.mockInterview) {
+            const parsedQA = parseMockInterview(data.mockInterview);
+            setQaList(parsedQA);
+        }
+    }, [data]);
 
     if (isLoading) {
         return (
@@ -80,8 +123,7 @@ const InterviewDetail: FC = () => {
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Interview was created at:{' '}
-                        {format(data.createdAt, 'yyyy-MM-dd')}
+                        Interview was created at: {format(new Date(data.createdAt), 'yyyy-MM-dd')}
                     </AccordionPanel>
                 </AccordionItem>
 
@@ -95,8 +137,7 @@ const InterviewDetail: FC = () => {
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Position is: {data?.jobPosition} with{' '}
-                        {data.jobExpirience} years
+                        Position is: {data?.jobPosition} with {data.jobExperience} years of experience
                     </AccordionPanel>
                 </AccordionItem>
 
@@ -110,8 +151,12 @@ const InterviewDetail: FC = () => {
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        TODO: Later here will be interviewer questions and
-                        candidate answers
+                        {qaList.map((qa, index) => (
+                            <Box key={index} mb={4}>
+                                <Text fontWeight={'bold'}>{qa.question}</Text>
+                                <Text>{qa.answer}</Text>
+                            </Box>
+                        ))}
                     </AccordionPanel>
                 </AccordionItem>
             </Accordion>
