@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
@@ -38,7 +38,10 @@ const parseMockInterview = (text: string): QA[] => {
     lines.forEach((line) => {
         if (line.startsWith('Interviewer:')) {
             if (currentQuestion && currentAnswer) {
-                qaPairs.push({ question: currentQuestion, answer: currentAnswer });
+                qaPairs.push({
+                    question: currentQuestion,
+                    answer: currentAnswer,
+                });
                 currentAnswer = ''; // reset answer for the next pair
             }
             currentQuestion = line.replace('Interviewer:', '').trim();
@@ -123,7 +126,8 @@ const InterviewDetail: FC = () => {
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Interview was created at: {format(new Date(data.createdAt), 'yyyy-MM-dd')}
+                        Interview was created at:{' '}
+                        {format(new Date(data.createdAt), 'yyyy-MM-dd')}
                     </AccordionPanel>
                 </AccordionItem>
 
@@ -137,7 +141,8 @@ const InterviewDetail: FC = () => {
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Position is: {data?.jobPosition} with {data.jobExperience} years of experience
+                        Position is: {data?.jobPosition} with{' '}
+                        {data.jobExperience} years of experience
                     </AccordionPanel>
                 </AccordionItem>
 
