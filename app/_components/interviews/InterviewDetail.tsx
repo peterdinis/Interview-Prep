@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
@@ -14,7 +14,7 @@ import {
     AccordionButton,
     AccordionPanel,
     AccordionIcon,
-    Tag
+    Tag,
 } from '@chakra-ui/react';
 import Header from '../shared/Header';
 import Link from 'next/link';
@@ -39,7 +39,10 @@ const parseMockInterview = (text: string): QA[] => {
     lines.forEach((line) => {
         if (line.startsWith('Interviewer:')) {
             if (currentQuestion && currentAnswer) {
-                qaPairs.push({ question: currentQuestion, answer: currentAnswer });
+                qaPairs.push({
+                    question: currentQuestion,
+                    answer: currentAnswer,
+                });
                 currentAnswer = ''; // reset answer for the next pair
             }
             currentQuestion = line.replace('Interviewer:', '').trim();
@@ -107,9 +110,11 @@ const InterviewDetail: FC = () => {
                 </Button>
             </Box>
 
-            <Box textAlign={"center"} mt={4}>
-                <Tag bg={"blue.600"}>Blue Question for Interview</Tag>
-                <Tag bg={"green.600"} ml={4}>Green is your answer</Tag>
+            <Box textAlign={'center'} mt={4}>
+                <Tag bg={'blue.600'}>Blue Question for Interview</Tag>
+                <Tag bg={'green.600'} ml={4}>
+                    Green is your answer
+                </Tag>
             </Box>
 
             <Box mt={3}>
@@ -129,7 +134,8 @@ const InterviewDetail: FC = () => {
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Interview was created at: {format(new Date(data.createdAt), 'yyyy-MM-dd')}
+                        Interview was created at:{' '}
+                        {format(new Date(data.createdAt), 'yyyy-MM-dd')}
                     </AccordionPanel>
                 </AccordionItem>
 
@@ -143,7 +149,8 @@ const InterviewDetail: FC = () => {
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Position is: {data?.jobPosition} with {data.jobExperience} years of experience
+                        Position is: {data?.jobPosition} with{' '}
+                        {data.jobExperience} years of experience
                     </AccordionPanel>
                 </AccordionItem>
 
@@ -159,8 +166,10 @@ const InterviewDetail: FC = () => {
                     <AccordionPanel pb={4}>
                         {qaList.map((qa, index) => (
                             <Box key={index} mb={4}>
-                                <Text fontWeight={'bold'} color="blue.500">{qa.question}</Text>
-                                <Text color="green.700">{qa.answer}</Text>
+                                <Text fontWeight={'bold'} color='blue.500'>
+                                    {qa.question}
+                                </Text>
+                                <Text color='green.700'>{qa.answer}</Text>
                             </Box>
                         ))}
                     </AccordionPanel>
