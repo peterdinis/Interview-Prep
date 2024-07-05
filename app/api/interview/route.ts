@@ -1,31 +1,61 @@
 import { NextRequest, NextResponse } from 'next/server';
-import axios from 'axios';
 import { db } from 'database/db';
 
 export async function POST(req: NextRequest) {
-    const { jobPosition, jobDesc, jobExperience } = await req.json();
-
     try {
-        const openaiResponse = await axios.post(
-            'https://api.openai.com/v1/engines/davinci-codex/completions',
+        const { jobPosition, jobDesc, jobExperience } = await req.json();
+
+        if (!jobPosition || !jobDesc || !jobExperience) {
+            return NextResponse.json(
+                { error: 'Missing required fields' },
+                { status: 400 },
+            );
+        }
+
+        const openaiResponse = await fetch(
+            'https://api.openai.com/v1/completions',
             {
-                prompt: `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience.`,
-                max_tokens: 150,
-            },
-            {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${process.env.OPENAI_API_KEY!}`,
+                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
                 },
+                body: JSON.stringify({
+                    prompt: `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience.`,
+                    model: 'gpt-3.5-turbo-instruct',
+                    max_tokens: 2048,
+                    n: 1,
+                    temperature: 0.7,
+                }),
             },
         );
-        const mockInterview = openaiResponse.data.choices[0].text.trim();
+
+        if (!openaiResponse.ok) {
+            const errorText = await openaiResponse.text();
+            console.error('OpenAI API error:', errorText);
+            return NextResponse.json(
+                { error: 'Error generating mock interview from OpenAI API' },
+                { status: openaiResponse.status },
+            );
+        }
+
+        const data = await openaiResponse.json();
+
+        if (!data.choices || data.choices.length === 0) {
+            return NextResponse.json(
+                { error: 'No choices returned from OpenAI API' },
+                { status: 500 },
+            );
+        }
+
+        const generatedText = data.choices[0].text.trim();
+
         const newInterview = await db.interview.create({
             data: {
                 jobPosition,
                 jobDesc,
                 jobExperience,
-                mockInterview,
+                mockInterview: generatedText,
             },
         });
 
