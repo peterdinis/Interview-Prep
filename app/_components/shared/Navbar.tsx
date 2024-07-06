@@ -66,7 +66,6 @@ const Navbar: FC = () => {
                                     <>
                                         <Button
                                             fontSize={'1.2rem'}
-                                            onClick={descriptionScroll}
                                             variant='ghost'
                                         >
                                             <Link href='/dashboard'>
