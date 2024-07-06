@@ -25,7 +25,7 @@ import { useCounterStore } from 'app/_store/countStore';
 const DashboardSidebar: FC = () => {
     const [collapsed, setCollapsed] = useState(false);
     const { data: session } = useSession();
-    const {count} = useCounterStore();
+    const { count } = useCounterStore();
     const loggedUser = session?.user?.email;
     const router = useRouter();
     const toast = useToast();
@@ -134,7 +134,9 @@ const DashboardSidebar: FC = () => {
                     >
                         <BellIcon />
                         {!collapsed && (
-                            <Text ml={4}>You have {count} interview attempts</Text>
+                            <Text ml={4}>
+                                You have {count} interview attempts
+                            </Text>
                         )}
                     </Flex>
                 )}
