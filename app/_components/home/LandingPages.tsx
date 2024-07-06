@@ -1,11 +1,7 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 const LandingPages: FC = () => {
-    return (
-        <>
-rrrrrrrrrrrrrr
-        </>
-    )
-}
+    return <>rrrrrrrrrrrrrr</>;
+};
 
 export default LandingPages;
