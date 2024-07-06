@@ -20,10 +20,12 @@ import { Home, LogOut } from 'lucide-react';
 import InterviewModal from '../interviews/InterviewModal';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useCounterStore } from 'app/_store/countStore';
 
 const DashboardSidebar: FC = () => {
     const [collapsed, setCollapsed] = useState(false);
     const { data: session } = useSession();
+    const {count} = useCounterStore();
     const loggedUser = session?.user?.email;
     const router = useRouter();
     const toast = useToast();
@@ -132,7 +134,7 @@ const DashboardSidebar: FC = () => {
                     >
                         <BellIcon />
                         {!collapsed && (
-                            <Text ml={4}>You have 10 interview attempts</Text>
+                            <Text ml={4}>You have {count} interview attempts</Text>
                         )}
                     </Flex>
                 )}

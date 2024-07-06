@@ -17,11 +17,13 @@ import {
 } from '@chakra-ui/react';
 import { FC, FormEvent, useState } from 'react';
 import axios from 'axios';
+import { useCounterStore } from 'app/_store/countStore';
 
 const InterviewModal: FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [jobPosition, setJobPosition] = useState('');
     const [jobDesc, setJobDesc] = useState('');
+    const {count} = useCounterStore();
     const [jobExperience, setJobExperience] = useState('0');
     const [loading, setLoading] = useState(false);
 
@@ -30,7 +32,7 @@ const InterviewModal: FC = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('/api/interview', {
+            await axios.post('/api/interview', {
                 jobPosition,
                 jobDesc,
                 jobExperience,
@@ -115,9 +117,10 @@ const InterviewModal: FC = () => {
                                     colorScheme='purple'
                                     mt={4}
                                     type='submit'
+                                    disabled={count === 0}
                                     isLoading={loading}
                                 >
-                                    Generate
+                                    {count !== 0 ? "Generate": "You must have paid account to generate more interviews"}
                                 </Button>
                             </form>
                         </Stack>
