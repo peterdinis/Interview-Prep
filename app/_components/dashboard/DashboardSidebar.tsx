@@ -129,7 +129,6 @@ const DashboardSidebar: FC = () => {
                         fontWeight='bold'
                         fontSize='1.3rem'
                         _hover={{ bg: hoverBgColor, cursor: 'pointer' }}
-                        onClick={loggedOut}
                     >
                         <BellIcon />
                         {!collapsed && (
