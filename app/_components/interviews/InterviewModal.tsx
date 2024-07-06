@@ -36,14 +36,12 @@ const InterviewModal: FC = () => {
                 jobExperience,
             });
 
-            console.log(response.data);
-
             setJobPosition('');
             setJobDesc('');
             setJobExperience('0');
             onClose();
-        } catch (error) {
-            console.error('Error generating interview:', error);
+        } catch (error: any) {
+            throw new Error(error);
         } finally {
             setLoading(false);
         }

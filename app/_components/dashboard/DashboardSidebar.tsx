@@ -10,7 +10,12 @@ import {
     useToast,
     useColorModeValue,
 } from '@chakra-ui/react';
-import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import {
+    AddIcon,
+    ChevronLeftIcon,
+    ChevronRightIcon,
+    BellIcon,
+} from '@chakra-ui/icons';
 import { Home, LogOut } from 'lucide-react';
 import InterviewModal from '../interviews/InterviewModal';
 import { useSession, signOut } from 'next-auth/react';
@@ -113,6 +118,23 @@ const DashboardSidebar: FC = () => {
                     >
                         <LogOut />
                         {!collapsed && <Text ml={4}>Logout</Text>}
+                    </Flex>
+                )}
+
+                {loggedUser && (
+                    <Flex
+                        align='center'
+                        p={5}
+                        mt={10}
+                        fontWeight='bold'
+                        fontSize='1.3rem'
+                        _hover={{ bg: hoverBgColor, cursor: 'pointer' }}
+                        onClick={loggedOut}
+                    >
+                        <BellIcon />
+                        {!collapsed && (
+                            <Text ml={4}>You have 10 interview attempts</Text>
+                        )}
                     </Flex>
                 )}
             </Flex>
