@@ -33,7 +33,7 @@ export default function HeroSection() {
                             Prep
                         </Text>
                     </Heading>
-                    <Text color={'gray.500'}>
+                    <Text>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         A non illum id minus eligendi officiis provident error
                         dolores tempora distinctio et molestiae vero quo ex,
