@@ -4,9 +4,9 @@ import { useCounterStore } from 'app/_store/countStore';
 
 export async function POST(req: NextRequest) {
     try {
-        const { jobPosition, jobDesc, jobExperience } = await req.json();
+        const { jobPosition, jobDesc, jobExperience, numQuestions } = await req.json();
 
-        if (!jobPosition || !jobDesc || !jobExperience) {
+        if (!jobPosition || !jobDesc || !jobExperience || !numQuestions) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
                 { status: 400 },
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
                     Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
                 },
                 body: JSON.stringify({
-                    prompt: `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience.`,
+                    prompt: `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience. Generate ${numQuestions} questions.`,
                     model: 'gpt-3.5-turbo-instruct',
                     max_tokens: 2048,
                     n: 1,

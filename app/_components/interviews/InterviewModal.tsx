@@ -23,8 +23,9 @@ const InterviewModal: FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [jobPosition, setJobPosition] = useState('');
     const [jobDesc, setJobDesc] = useState('');
-    const { count } = useCounterStore();
     const [jobExperience, setJobExperience] = useState('0');
+    const [numQuestions, setNumQuestions] = useState(1); // New state for number of questions
+    const { count } = useCounterStore();
     const [loading, setLoading] = useState(false);
 
     const onHandleSubmit = async (e: FormEvent) => {
@@ -36,11 +37,13 @@ const InterviewModal: FC = () => {
                 jobPosition,
                 jobDesc,
                 jobExperience,
+                numQuestions, // Pass number of questions to the backend
             });
 
             setJobPosition('');
             setJobDesc('');
             setJobExperience('0');
+            setNumQuestions(1); // Reset number of questions
             onClose();
         } catch (error: any) {
             throw new Error(error);
@@ -113,6 +116,22 @@ const InterviewModal: FC = () => {
                                         setJobExperience(e.target.value)
                                     }
                                 />
+                                
+                                <Text mt={3} fontWeight={'bold'}>
+                                    Number of Questions (1-10)
+                                </Text>
+                                <Input
+                                    mt={2}
+                                    type='number'
+                                    min={1}
+                                    max={10}
+                                    value={numQuestions}
+                                    onChange={(e) =>
+                                        setNumQuestions(parseInt(e.target.value))
+                                    }
+                                    required
+                                />
+
                                 <Button
                                     colorScheme='purple'
                                     mt={4}
