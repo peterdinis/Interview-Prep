@@ -80,7 +80,6 @@ const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
     };
 
     const onSaveInterview = () => {
-        // Optionally, you can perform additional logic here before closing the modal
         onClose();
         setCount(count);
     };
