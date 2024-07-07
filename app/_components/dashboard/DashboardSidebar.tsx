@@ -107,7 +107,6 @@ const DashboardSidebar: FC = () => {
                             <InterviewModal
                                 onSuccess={() => {
                                     // Update count after successful interview creation
-                                    // This assumes your count store has methods for decrementing count
                                     const decrement =
                                         useCounterStore.getState().decrement;
                                     decrement();
