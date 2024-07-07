@@ -9,3 +9,7 @@ export type InterviewsWrapper = {
     updatedAt?: string | Date;
     userId?: string;
 };
+
+export interface Answer {
+    [questionId: string]: string;
+}

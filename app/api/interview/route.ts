@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from 'database/db';
 import { useCounterStore } from 'app/_store/countStore';
+import { Question } from '@prisma/client';
 
 export async function POST(req: NextRequest) {
     try {
-        const { jobPosition, jobDesc, jobExperience } = await req.json();
+        const { jobPosition, jobDesc, jobExperience, numQuestions } =
+            await req.json();
 
-        if (!jobPosition || !jobDesc || !jobExperience) {
+        if (!jobPosition || !jobDesc || !jobExperience || !numQuestions) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
                 { status: 400 },
@@ -22,7 +24,7 @@ export async function POST(req: NextRequest) {
                     Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
                 },
                 body: JSON.stringify({
-                    prompt: `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience.`,
+                    prompt: `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience. Generate ${numQuestions} questions.`,
                     model: 'gpt-3.5-turbo-instruct',
                     max_tokens: 2048,
                     n: 1,
@@ -50,13 +52,28 @@ export async function POST(req: NextRequest) {
         }
 
         const generatedText = data.choices[0].text.trim();
+        const questions = generatedText
+            .split('\n')
+            .filter(
+                (q: {
+                    trim: () => { (): void; new (): void; length: number };
+                }) => q.trim().length > 0,
+            );
 
         const newInterview = await db.interview.create({
             data: {
                 jobPosition,
                 jobDesc,
-                jobExperience,
+                jobExperience: jobExperience,
                 mockInterview: generatedText,
+                questions: {
+                    create: questions.map((question: Question) => ({
+                        question,
+                    })),
+                },
+            },
+            include: {
+                questions: true,
             },
         });
 
@@ -66,13 +83,39 @@ export async function POST(req: NextRequest) {
         const remainingCount = useCounterStore.getState().getCount();
 
         return NextResponse.json(
-            { ...newInterview, remainingCount },
+            { interview: newInterview, remainingCount },
             { status: 200 },
         );
     } catch (error) {
         console.error('Error generating mock interview:', error);
         return NextResponse.json(
             { error: 'Error generating mock interview' },
+            { status: 500 },
+        );
+    }
+}
+
+export async function PATCH(req: NextRequest) {
+    try {
+        const { questionId, answer } = await req.json();
+
+        if (!questionId || !answer) {
+            return NextResponse.json(
+                { error: 'Missing required fields' },
+                { status: 400 },
+            );
+        }
+
+        const updatedQuestion = await db.question.update({
+            where: { id: parseInt(questionId) },
+            data: { answer },
+        });
+
+        return NextResponse.json(updatedQuestion, { status: 200 });
+    } catch (error) {
+        console.error('Error saving answer:', error);
+        return NextResponse.json(
+            { error: 'Error saving answer' },
             { status: 500 },
         );
     }
