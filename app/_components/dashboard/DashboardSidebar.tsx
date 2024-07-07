@@ -104,7 +104,14 @@ const DashboardSidebar: FC = () => {
                     <AddIcon boxSize={6} />
                     {!collapsed && (
                         <Text ml={4}>
-                            <InterviewModal />
+                            <InterviewModal
+                                onSuccess={() => {
+                                    // Update count after successful interview creation
+                                    const decrement =
+                                        useCounterStore.getState().decrement;
+                                    decrement();
+                                }}
+                            />
                         </Text>
                     )}
                 </Flex>

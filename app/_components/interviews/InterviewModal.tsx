@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, FormEvent, useState } from 'react';
 import axios from 'axios';
 import {
@@ -18,18 +20,21 @@ import {
 } from '@chakra-ui/react';
 import { useCounterStore } from 'app/_store/countStore';
 import { Question } from '@prisma/client';
-import { Answer } from 'app/_types/interviewTypes';
 
-const InterviewModal: FC = () => {
+interface InterviewModalProps {
+    onSuccess: () => void; // Callback to invoke on successful interview creation
+}
+
+const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [jobPosition, setJobPosition] = useState('');
     const [jobDesc, setJobDesc] = useState('');
     const [jobExperience, setJobExperience] = useState('0');
     const [numQuestions, setNumQuestions] = useState(1);
-    const { count } = useCounterStore();
+    const { count, decrement, setCount } = useCounterStore();
     const [loading, setLoading] = useState(false);
     const [questions, setQuestions] = useState<Question[]>([]);
-    const [answers, setAnswers] = useState<Answer>({});
+    const [answers, setAnswers] = useState<any>({});
 
     const onHandleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -48,6 +53,12 @@ const InterviewModal: FC = () => {
             setJobDesc('');
             setJobExperience('0');
             setNumQuestions(1);
+
+            // Decrement count on successful interview creation
+            decrement();
+
+            // Invoke onSuccess callback passed from parent component (DashboardSidebar)
+            onSuccess();
         } catch (error) {
             console.error('Error creating interview:', error);
         } finally {
@@ -55,20 +66,22 @@ const InterviewModal: FC = () => {
         }
     };
 
-    const onHandleAnswerSubmit = async (
-        questionId: number,
-        answer: unknown,
-    ) => {
+    const onHandleAnswerSubmit = async (questionId: number, answer: string) => {
         try {
             await axios.patch('/api/interview', {
                 questionId,
                 answer,
             });
 
-            setAnswers((prev: Answer) => ({ ...prev, [questionId]: answer }));
+            setAnswers((prev: any) => ({ ...prev, [questionId]: answer }));
         } catch (error) {
             console.error('Error submitting answer:', error);
         }
+    };
+
+    const onSaveInterview = () => {
+        onClose();
+        setCount(count);
     };
 
     return (
@@ -180,7 +193,7 @@ const InterviewModal: FC = () => {
                                             placeholder='Your answer...'
                                             value={answers[q.id] || ''}
                                             onChange={(e) =>
-                                                setAnswers((prev: Answer) => ({
+                                                setAnswers((prev: any) => ({
                                                     ...prev,
                                                     [q.id]: e.target.value,
                                                 }))
@@ -199,6 +212,13 @@ const InterviewModal: FC = () => {
                     </ModalBody>
 
                     <ModalFooter>
+                        <Button
+                            colorScheme='blue'
+                            mr={3}
+                            onClick={onSaveInterview}
+                        >
+                            Save Interview
+                        </Button>
                         <Button colorScheme='blue' mr={3} onClick={onClose}>
                             Close
                         </Button>
