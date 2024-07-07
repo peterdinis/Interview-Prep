@@ -5,12 +5,13 @@ import { Question } from '@prisma/client';
 
 export async function POST(req: NextRequest) {
     try {
-        const { jobPosition, jobDesc, jobExperience, numQuestions } = await req.json();
+        const { jobPosition, jobDesc, jobExperience, numQuestions } =
+            await req.json();
 
         if (!jobPosition || !jobDesc || !jobExperience || !numQuestions) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest) {
                     n: 1,
                     temperature: 0.7,
                 }),
-            }
+            },
         );
 
         if (!openaiResponse.ok) {
@@ -37,7 +38,7 @@ export async function POST(req: NextRequest) {
             console.error('OpenAI API error:', errorText);
             return NextResponse.json(
                 { error: 'Error generating mock interview from OpenAI API' },
-                { status: openaiResponse.status }
+                { status: openaiResponse.status },
             );
         }
 
@@ -46,7 +47,7 @@ export async function POST(req: NextRequest) {
         if (!data.choices || data.choices.length === 0) {
             return NextResponse.json(
                 { error: 'No choices returned from OpenAI API' },
-                { status: 500 }
+                { status: 500 },
             );
         }
 
@@ -80,13 +81,13 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json(
             { interview: newInterview, remainingCount },
-            { status: 200 }
+            { status: 200 },
         );
     } catch (error) {
         console.error('Error generating mock interview:', error);
         return NextResponse.json(
             { error: 'Error generating mock interview' },
-            { status: 500 }
+            { status: 500 },
         );
     }
 }

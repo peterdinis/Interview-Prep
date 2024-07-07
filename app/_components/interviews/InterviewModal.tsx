@@ -207,7 +207,11 @@ const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onSaveInterview}>
+                        <Button
+                            colorScheme='blue'
+                            mr={3}
+                            onClick={onSaveInterview}
+                        >
                             Save Interview
                         </Button>
                         <Button colorScheme='blue' mr={3} onClick={onClose}>
