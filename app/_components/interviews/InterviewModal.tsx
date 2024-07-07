@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { FC, FormEvent, useState } from 'react';
 import axios from 'axios';
