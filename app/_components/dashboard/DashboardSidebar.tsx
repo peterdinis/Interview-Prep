@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { FC, useState } from 'react';
 import {
@@ -104,12 +104,15 @@ const DashboardSidebar: FC = () => {
                     <AddIcon boxSize={6} />
                     {!collapsed && (
                         <Text ml={4}>
-                            <InterviewModal onSuccess={() => {
-                                // Update count after successful interview creation
-                                // This assumes your count store has methods for decrementing count
-                                const decrement = useCounterStore.getState().decrement;
-                                decrement();
-                            }} />
+                            <InterviewModal
+                                onSuccess={() => {
+                                    // Update count after successful interview creation
+                                    // This assumes your count store has methods for decrementing count
+                                    const decrement =
+                                        useCounterStore.getState().decrement;
+                                    decrement();
+                                }}
+                            />
                         </Text>
                     )}
                 </Flex>
