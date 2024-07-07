@@ -1,5 +1,3 @@
-'use client';
-
 import { FC, FormEvent, useState } from 'react';
 import axios from 'axios';
 import {
@@ -74,6 +72,11 @@ const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
         } catch (error) {
             console.error('Error submitting answer:', error);
         }
+    };
+
+    const onSaveInterview = () => {
+        // Optionally, you can perform additional logic here before closing the modal
+        onClose();
     };
 
     return (
@@ -204,6 +207,9 @@ const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
                     </ModalBody>
 
                     <ModalFooter>
+                        <Button colorScheme='blue' mr={3} onClick={onSaveInterview}>
+                            Save Interview
+                        </Button>
                         <Button colorScheme='blue' mr={3} onClick={onClose}>
                             Close
                         </Button>
