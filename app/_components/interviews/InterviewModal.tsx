@@ -18,10 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { useCounterStore } from 'app/_store/countStore';
 import { Question } from '@prisma/client';
-
-interface Answer {
-    [questionId: string]: string;
-}
+import { Answer } from 'app/_types/interviewTypes';
 
 const InterviewModal: FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
