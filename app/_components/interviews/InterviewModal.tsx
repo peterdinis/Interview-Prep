@@ -31,7 +31,7 @@ const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
     const [jobDesc, setJobDesc] = useState('');
     const [jobExperience, setJobExperience] = useState('0');
     const [numQuestions, setNumQuestions] = useState(1);
-    const { count } = useCounterStore();
+    const { count, decrement, setCount } = useCounterStore();
     const [loading, setLoading] = useState(false);
     const [questions, setQuestions] = useState<Question[]>([]);
     const [answers, setAnswers] = useState<any>({});
@@ -53,6 +53,9 @@ const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
             setJobDesc('');
             setJobExperience('0');
             setNumQuestions(1);
+
+            // Decrement count on successful interview creation
+            decrement();
 
             // Invoke onSuccess callback passed from parent component (DashboardSidebar)
             onSuccess();
@@ -79,6 +82,7 @@ const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
     const onSaveInterview = () => {
         // Optionally, you can perform additional logic here before closing the modal
         onClose();
+        setCount(count);
     };
 
     return (
