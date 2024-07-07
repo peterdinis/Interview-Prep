@@ -4,7 +4,8 @@ import { useCounterStore } from 'app/_store/countStore';
 
 export async function POST(req: NextRequest) {
     try {
-        const { jobPosition, jobDesc, jobExperience, numQuestions } = await req.json();
+        const { jobPosition, jobDesc, jobExperience, numQuestions } =
+            await req.json();
 
         if (!jobPosition || !jobDesc || !jobExperience || !numQuestions) {
             return NextResponse.json(

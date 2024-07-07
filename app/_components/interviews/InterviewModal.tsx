@@ -116,7 +116,7 @@ const InterviewModal: FC = () => {
                                         setJobExperience(e.target.value)
                                     }
                                 />
-                                
+
                                 <Text mt={3} fontWeight={'bold'}>
                                     Number of Questions (1-10)
                                 </Text>
@@ -127,7 +127,9 @@ const InterviewModal: FC = () => {
                                     max={10}
                                     value={numQuestions}
                                     onChange={(e) =>
-                                        setNumQuestions(parseInt(e.target.value))
+                                        setNumQuestions(
+                                            parseInt(e.target.value),
+                                        )
                                     }
                                     required
                                 />
