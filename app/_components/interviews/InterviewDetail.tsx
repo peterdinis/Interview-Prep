@@ -3,7 +3,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import {
     Spinner,
     Box,
@@ -19,16 +18,12 @@ import {
 import Header from '../shared/Header';
 import Link from 'next/link';
 import { format } from 'date-fns';
+import { fetchInterview } from 'app/_store/applicationQueries';
 
 interface QA {
     question: string;
     answer: string;
 }
-
-const fetchInterview = async (id: string) => {
-    const response = await axios.get(`/api/interview/${id}`);
-    return response.data;
-};
 
 const parseMockInterview = (text: string): QA[] => {
     const lines = text.split('\n');

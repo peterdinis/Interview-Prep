@@ -18,7 +18,7 @@ import {
     Stack,
     Spinner,
 } from '@chakra-ui/react';
-import { useCounterStore } from 'app/_store/countStore';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Question } from '@prisma/client';
 
 const InterviewModal: FC = () => {
@@ -27,45 +27,61 @@ const InterviewModal: FC = () => {
     const [jobDesc, setJobDesc] = useState('');
     const [jobExperience, setJobExperience] = useState('0');
     const [numQuestions, setNumQuestions] = useState(1);
-    const [loading, setLoading] = useState(false);
     const [questions, setQuestions] = useState<Question[]>([]);
-    const [answers, setAnswers] = useState<any>({});
+    const [answers, setAnswers] = useState<Record<number, string>>({});
 
-    const onHandleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-
-        try {
-            const response = await axios.post('/api/interview', {
-                jobPosition,
-                jobDesc,
-                jobExperience,
-                numQuestions,
-            });
-
-            setQuestions(response.data.interview.questions);
+    const createInterviewMutation = useMutation({
+        mutationKey: ['createInterview'],
+        mutationFn: async (newInterview: {
+            jobPosition: string;
+            jobDesc: string;
+            jobExperience: string;
+            numQuestions: number;
+        }) => {
+            const response = await axios.post('/api/interview', newInterview);
+            return response.data;
+        },
+        onSuccess: (data) => {
+            setQuestions(data.interview.questions);
             setJobPosition('');
             setJobDesc('');
             setJobExperience('0');
             setNumQuestions(1);
-        } catch (error) {
+        },
+        onError: (error) => {
             console.error('Error creating interview:', error);
-        } finally {
-            setLoading(false);
-        }
+        },
+    });
+
+    const submitAnswerMutation = useMutation({
+        mutationKey: ['submitAnswer'],
+        mutationFn: async ({
+            questionId,
+            answer,
+        }: {
+            questionId: number;
+            answer: string;
+        }) => {
+            await axios.patch('/api/interview', { questionId, answer });
+        },
+        onError: (error) => {
+            console.error('Error submitting answer:', error);
+        },
+    });
+
+    const onHandleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        createInterviewMutation.mutate({
+            jobPosition,
+            jobDesc,
+            jobExperience,
+            numQuestions,
+        });
     };
 
-    const onHandleAnswerSubmit = async (questionId: number, answer: string) => {
-        try {
-            await axios.patch('/api/interview', {
-                questionId,
-                answer,
-            });
-
-            setAnswers((prev: any) => ({ ...prev, [questionId]: answer }));
-        } catch (error) {
-            console.error('Error submitting answer:', error);
-        }
+    const onHandleAnswerSubmit = (questionId: number, answer: string) => {
+        submitAnswerMutation.mutate({ questionId, answer });
+        setAnswers((prev: any) => ({ ...prev, [questionId]: answer }));
     };
 
     const onSaveInterview = () => {
@@ -158,13 +174,15 @@ const InterviewModal: FC = () => {
                                     colorScheme='purple'
                                     mt={4}
                                     type='submit'
-                                    isLoading={loading}
+                                    isLoading={
+                                        createInterviewMutation.isPending
+                                    }
                                 >
                                     Generate
                                 </Button>
                             </form>
                         </Stack>
-                        {loading && <Spinner />}
+                        {createInterviewMutation.isPending && <Spinner />}
                         {questions.length > 0 && (
                             <Stack mt={5} spacing={3}>
                                 {questions.map((q: Question, index: number) => (
@@ -178,7 +196,7 @@ const InterviewModal: FC = () => {
                                             placeholder='Your answer...'
                                             value={answers[q.id] || ''}
                                             onChange={(e) =>
-                                                setAnswers((prev: any) => ({
+                                                setAnswers((prev) => ({
                                                     ...prev,
                                                     [q.id]: e.target.value,
                                                 }))
@@ -186,7 +204,9 @@ const InterviewModal: FC = () => {
                                             onBlur={() =>
                                                 onHandleAnswerSubmit(
                                                     q.id,
-                                                    answers[q.id],
+                                                    answers[
+                                                        q.id
+                                                    ] as unknown as string,
                                                 )
                                             }
                                         />
