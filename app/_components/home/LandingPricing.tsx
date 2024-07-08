@@ -5,7 +5,6 @@ import {
     Button,
     Flex,
     Text,
-    Switch,
     VStack,
     useColorMode,
 } from '@chakra-ui/react';
@@ -185,39 +184,13 @@ const Pricing: React.FC = () => {
                         >
                             Flexible Plan for you
                         </Text>
-                        <Text>Choice suitable plan for you.</Text>
                     </Box>
-                </Flex>
-                <Flex justify='center' align='center' mb={6}>
-                    <Button
-                        variant='ghost'
-                        onClick={() => setActiveTimeline('yearly')}
-                    >
-                        Annual Plan
-                    </Button>
-                    <Switch
-                        mx={2}
-                        isChecked={activeTimeline === 'monthly'}
-                        onChange={() =>
-                            setActiveTimeline(
-                                activeTimeline === 'yearly'
-                                    ? 'monthly'
-                                    : 'yearly',
-                            )
-                        }
-                    />
-                    <Button
-                        variant='ghost'
-                        onClick={() => setActiveTimeline('monthly')}
-                    >
-                        Month-to-Month
-                    </Button>
                 </Flex>
                 <Flex
                     direction={{ base: 'column', sm: 'row' }}
                     justify='center'
                     gap={6}
-                    mt={12}
+                    mt={6}
                 >
                     {content}
                 </Flex>
