@@ -21,17 +21,12 @@ import {
 import { useCounterStore } from 'app/_store/countStore';
 import { Question } from '@prisma/client';
 
-interface InterviewModalProps {
-    onSuccess: () => void; // Callback to invoke on successful interview creation
-}
-
-const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
+const InterviewModal: FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [jobPosition, setJobPosition] = useState('');
     const [jobDesc, setJobDesc] = useState('');
     const [jobExperience, setJobExperience] = useState('0');
     const [numQuestions, setNumQuestions] = useState(1);
-    const { count, decrement, setCount } = useCounterStore();
     const [loading, setLoading] = useState(false);
     const [questions, setQuestions] = useState<Question[]>([]);
     const [answers, setAnswers] = useState<any>({});
@@ -53,12 +48,6 @@ const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
             setJobDesc('');
             setJobExperience('0');
             setNumQuestions(1);
-
-            // Decrement count on successful interview creation
-            decrement();
-
-            // Invoke onSuccess callback passed from parent component (DashboardSidebar)
-            onSuccess();
         } catch (error) {
             console.error('Error creating interview:', error);
         } finally {
@@ -81,7 +70,6 @@ const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
 
     const onSaveInterview = () => {
         onClose();
-        setCount(count);
     };
 
     return (
@@ -170,12 +158,9 @@ const InterviewModal: FC<InterviewModalProps> = ({ onSuccess }) => {
                                     colorScheme='purple'
                                     mt={4}
                                     type='submit'
-                                    disabled={count === 0}
                                     isLoading={loading}
                                 >
-                                    {count !== 0
-                                        ? 'Generate'
-                                        : 'You must have a paid account to generate more interviews'}
+                                    Generate
                                 </Button>
                             </form>
                         </Stack>
