@@ -18,7 +18,6 @@ import {
     Stack,
     Spinner,
 } from '@chakra-ui/react';
-import { useCounterStore } from 'app/_store/countStore';
 import { Question } from '@prisma/client';
 
 const InterviewModal: FC = () => {

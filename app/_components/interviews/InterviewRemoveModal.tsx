@@ -17,7 +17,6 @@ import {
     Spinner,
 } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
-import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 
@@ -35,7 +34,6 @@ const InterviewRemoveModal: FC<InterviewRemoveModalIProps> = ({
 }: InterviewRemoveModalIProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
-    const router = useRouter();
 
     const removeMut = useMutation({
         mutationKey: ['removeInterview', interviewId],
