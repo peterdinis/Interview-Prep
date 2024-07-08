@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from 'database/db';
 import { useCounterStore } from 'app/_store/countStore';
-import { Question } from '@prisma/client';
 
 export async function POST(req: NextRequest) {
     try {
@@ -52,13 +51,10 @@ export async function POST(req: NextRequest) {
         }
 
         const generatedText = data.choices[0].text.trim();
-        const questions = generatedText
+        let questions = generatedText
             .split('\n')
-            .filter(
-                (q: {
-                    trim: () => { (): void; new (): void; length: number };
-                }) => q.trim().length > 0,
-            );
+            .filter((q: any) => q.trim().length > 0)
+            .slice(0, numQuestions); // Limit the number of questions to the requested number
 
         const newInterview = await db.interview.create({
             data: {
@@ -67,7 +63,7 @@ export async function POST(req: NextRequest) {
                 jobExperience: jobExperience,
                 mockInterview: generatedText,
                 questions: {
-                    create: questions.map((question: Question) => ({
+                    create: questions.map((question: string) => ({
                         question,
                     })),
                 },

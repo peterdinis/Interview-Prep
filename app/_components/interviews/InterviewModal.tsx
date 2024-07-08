@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, FormEvent, useState } from 'react';
 import axios from 'axios';
 import {
@@ -18,7 +20,6 @@ import {
 } from '@chakra-ui/react';
 import { useCounterStore } from 'app/_store/countStore';
 import { Question } from '@prisma/client';
-import { Answer } from 'app/_types/interviewTypes';
 
 const InterviewModal: FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,10 +27,9 @@ const InterviewModal: FC = () => {
     const [jobDesc, setJobDesc] = useState('');
     const [jobExperience, setJobExperience] = useState('0');
     const [numQuestions, setNumQuestions] = useState(1);
-    const { count } = useCounterStore();
     const [loading, setLoading] = useState(false);
     const [questions, setQuestions] = useState<Question[]>([]);
-    const [answers, setAnswers] = useState<Answer>({});
+    const [answers, setAnswers] = useState<any>({});
 
     const onHandleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -55,20 +55,21 @@ const InterviewModal: FC = () => {
         }
     };
 
-    const onHandleAnswerSubmit = async (
-        questionId: number,
-        answer: unknown,
-    ) => {
+    const onHandleAnswerSubmit = async (questionId: number, answer: string) => {
         try {
             await axios.patch('/api/interview', {
                 questionId,
                 answer,
             });
 
-            setAnswers((prev: Answer) => ({ ...prev, [questionId]: answer }));
+            setAnswers((prev: any) => ({ ...prev, [questionId]: answer }));
         } catch (error) {
             console.error('Error submitting answer:', error);
         }
+    };
+
+    const onSaveInterview = () => {
+        onClose();
     };
 
     return (
@@ -157,12 +158,9 @@ const InterviewModal: FC = () => {
                                     colorScheme='purple'
                                     mt={4}
                                     type='submit'
-                                    disabled={count === 0}
                                     isLoading={loading}
                                 >
-                                    {count !== 0
-                                        ? 'Generate'
-                                        : 'You must have a paid account to generate more interviews'}
+                                    Generate
                                 </Button>
                             </form>
                         </Stack>
@@ -180,7 +178,7 @@ const InterviewModal: FC = () => {
                                             placeholder='Your answer...'
                                             value={answers[q.id] || ''}
                                             onChange={(e) =>
-                                                setAnswers((prev: Answer) => ({
+                                                setAnswers((prev: any) => ({
                                                     ...prev,
                                                     [q.id]: e.target.value,
                                                 }))
@@ -199,6 +197,13 @@ const InterviewModal: FC = () => {
                     </ModalBody>
 
                     <ModalFooter>
+                        <Button
+                            colorScheme='blue'
+                            mr={3}
+                            onClick={onSaveInterview}
+                        >
+                            Save Interview
+                        </Button>
                         <Button colorScheme='blue' mr={3} onClick={onClose}>
                             Close
                         </Button>
