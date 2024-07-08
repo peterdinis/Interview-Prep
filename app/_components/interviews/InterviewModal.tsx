@@ -55,7 +55,13 @@ const InterviewModal: FC = () => {
 
     const submitAnswerMutation = useMutation({
         mutationKey: ['submitAnswer'],
-        mutationFn: async ({ questionId, answer }: { questionId: number; answer: string }) => {
+        mutationFn: async ({
+            questionId,
+            answer,
+        }: {
+            questionId: number;
+            answer: string;
+        }) => {
             await axios.patch('/api/interview', { questionId, answer });
         },
         onError: (error) => {
@@ -168,7 +174,9 @@ const InterviewModal: FC = () => {
                                     colorScheme='purple'
                                     mt={4}
                                     type='submit'
-                                    isLoading={createInterviewMutation.isPending}
+                                    isLoading={
+                                        createInterviewMutation.isPending
+                                    }
                                 >
                                     Generate
                                 </Button>
@@ -196,7 +204,9 @@ const InterviewModal: FC = () => {
                                             onBlur={() =>
                                                 onHandleAnswerSubmit(
                                                     q.id,
-                                                    answers[q.id] as unknown as string,
+                                                    answers[
+                                                        q.id
+                                                    ] as unknown as string,
                                                 )
                                             }
                                         />
