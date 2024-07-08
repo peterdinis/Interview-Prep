@@ -32,15 +32,15 @@ const RegisterForm: FC = () => {
     const toast = useToast();
 
     const registerUserMut = useMutation({
-        mutationKey: ["registerUser"],
+        mutationKey: ['registerUser'],
         mutationFn: async () => {
-            await axios.post("/api/register", {
+            await axios.post('/api/register', {
                 name,
                 email,
                 password,
-            })
-        }
-    })
+            });
+        },
+    });
 
     const registerUser = async (e: FormEvent) => {
         e.preventDefault();
