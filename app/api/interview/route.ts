@@ -72,10 +72,7 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        return NextResponse.json(
-            { interview: newInterview},
-            { status: 200 },
-        );
+        return NextResponse.json({ interview: newInterview }, { status: 200 });
     } catch (error) {
         console.error('Error generating mock interview:', error);
         return NextResponse.json(
