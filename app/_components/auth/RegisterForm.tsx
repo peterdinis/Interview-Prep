@@ -20,6 +20,7 @@ import { FC, useState, FormEvent } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
 
 const RegisterForm: FC = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -30,16 +31,23 @@ const RegisterForm: FC = () => {
     const router = useRouter();
     const toast = useToast();
 
+    const registerUserMut = useMutation({
+        mutationKey: ["registerUser"],
+        mutationFn: async () => {
+            await axios.post("/api/register", {
+                name,
+                email,
+                password,
+            })
+        }
+    })
+
     const registerUser = async (e: FormEvent) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            await axios.post('/api/register', {
-                name,
-                email,
-                password,
-            });
+            registerUserMut.mutate();
             toast({
                 title: 'Successfully register to app',
                 status: 'success',
