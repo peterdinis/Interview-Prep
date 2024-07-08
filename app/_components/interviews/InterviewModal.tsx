@@ -20,6 +20,7 @@ import {
 } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Question } from '@prisma/client';
+import { useRouter } from 'next/navigation';
 
 const InterviewModal: FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,6 +30,8 @@ const InterviewModal: FC = () => {
     const [numQuestions, setNumQuestions] = useState(1);
     const [questions, setQuestions] = useState<Question[]>([]);
     const [answers, setAnswers] = useState<Record<number, string>>({});
+    const router = useRouter();
+    const queryClient = useQueryClient();
 
     const createInterviewMutation = useMutation({
         mutationKey: ['createInterview'],
@@ -47,6 +50,9 @@ const InterviewModal: FC = () => {
             setJobDesc('');
             setJobExperience('0');
             setNumQuestions(1);
+            queryClient.invalidateQueries({
+                queryKey: ["interviews"]
+            })
         },
         onError: (error) => {
             console.error('Error creating interview:', error);
@@ -82,6 +88,7 @@ const InterviewModal: FC = () => {
     const onHandleAnswerSubmit = (questionId: number, answer: string) => {
         submitAnswerMutation.mutate({ questionId, answer });
         setAnswers((prev: any) => ({ ...prev, [questionId]: answer }));
+        router.prefetch('/dashboard');
     };
 
     const onSaveInterview = () => {
