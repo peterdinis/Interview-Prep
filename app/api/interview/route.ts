@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from 'database/db';
-import { useCounterStore } from 'app/_store/countStore';
 
 export async function POST(req: NextRequest) {
     try {
@@ -73,13 +72,8 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        // Decrease the counter using Zustand store
-        const decrement = useCounterStore.getState().decrement;
-        decrement();
-        const remainingCount = useCounterStore.getState().getCount();
-
         return NextResponse.json(
-            { interview: newInterview, remainingCount },
+            { interview: newInterview},
             { status: 200 },
         );
     } catch (error) {
