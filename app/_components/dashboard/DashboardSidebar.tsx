@@ -10,11 +10,7 @@ import {
     useToast,
     useColorModeValue,
 } from '@chakra-ui/react';
-import {
-    AddIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-} from '@chakra-ui/icons';
+import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Home, LogOut } from 'lucide-react';
 import InterviewModal from '../interviews/InterviewModal';
 import { useSession, signOut } from 'next-auth/react';
@@ -101,8 +97,7 @@ const DashboardSidebar: FC = () => {
                     <AddIcon boxSize={6} />
                     {!collapsed && (
                         <Text ml={4}>
-                            <InterviewModal
-                            />
+                            <InterviewModal />
                         </Text>
                     )}
                 </Flex>
