@@ -51,8 +51,8 @@ const InterviewModal: FC = () => {
             setJobExperience('0');
             setNumQuestions(1);
             queryClient.invalidateQueries({
-                queryKey: ["interviews"]
-            })
+                queryKey: ['interviews'],
+            });
         },
         onError: (error) => {
             console.error('Error creating interview:', error);
