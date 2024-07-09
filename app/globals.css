@@ -10,8 +10,8 @@
 
 :root {
     --scrollbarBackground: #fff;
-    --iconBackground: #551b54;
-    --webkitMain: #111;
+    --iconBackground: #0e004b91;
+    --webkitMain: #1f1f1f;
     --webkitSecond: #434343;
 }
 
