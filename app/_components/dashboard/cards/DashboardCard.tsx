@@ -41,7 +41,11 @@ const DashboardCard = (props: InterviewsWrapper) => {
                 w='100%' // Ensures the card takes full width
             >
                 <VStack py={2} px={[2, 4]} spacing={1} align='start' w='100%'>
-                    <Flex justifyContent='space-between' width='100%' wrap='wrap'>
+                    <Flex
+                        justifyContent='space-between'
+                        width='100%'
+                        wrap='wrap'
+                    >
                         <Tooltip hasArrow label='Github link' placement='top'>
                             <HStack>
                                 <Text
@@ -54,8 +58,15 @@ const DashboardCard = (props: InterviewsWrapper) => {
                                 </Text>
                             </HStack>
                         </Tooltip>
-                        <Text fontSize={['sm', 'md']} mt={[2, 0]} textAlign={['left', 'right']}>
-                            {format(new Date(createdAt as unknown as string), 'yyyy-MM-dd')}
+                        <Text
+                            fontSize={['sm', 'md']}
+                            mt={[2, 0]}
+                            textAlign={['left', 'right']}
+                        >
+                            {format(
+                                new Date(createdAt as unknown as string),
+                                'yyyy-MM-dd',
+                            )}
                         </Text>
                     </Flex>
                     <Flex
