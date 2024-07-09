@@ -10,7 +10,6 @@
         "format": "prettier --check --ignore-path .gitignore .",
         "format:fix": "prettier --write --ignore-path .gitignore .",
         "prepare": "husky",
-        "seed": "ts-node prisma/seed.ts",
         "studio": "pnpm prisma studio"
     },
     "dependencies": {
