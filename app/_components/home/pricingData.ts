@@ -1,5 +1,5 @@
 export const pricingList = {
-    yearlyPricings: [
+    pricing: [
         {
             planTitle: 'Basic',
             price: '$99',

@@ -27,6 +27,7 @@ const Navbar: FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [isLargerThanMD] = useMediaQuery('(min-width: 48em)');
     const { data: session } = useSession();
+    
     const descriptionScroll = () => {
         const heroSection = document.querySelector(
             '#description',

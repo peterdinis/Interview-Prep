@@ -13,8 +13,7 @@ import { FC, useMemo } from 'react';
 import { pricingList } from './pricingData';
 
 const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
-    const { planTitle, price, description, features, isActive } =
-        pricing;
+    const { planTitle, price, description, features, isActive } = pricing;
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
 
@@ -64,12 +63,12 @@ const LandingPricing: FC = () => {
     const isDarkMode = colorMode === 'dark';
 
     const content = useMemo(() => {
-        return pricingList.yearlyPricings.map((pricing, i) => (
+        return pricingList.pricing.map((pricing, i) => (
             <Box maxW='md' mt={6} key={i}>
                 <PricingItem pricing={pricing} />
             </Box>
         ));
-    }, [pricingList.yearlyPricings]);
+    }, [pricingList.pricing]);
 
     return (
         <Box
