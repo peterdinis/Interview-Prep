@@ -12,7 +12,6 @@ interface IQueryProviderProps {
 const QueryProvider: FC<IQueryProviderProps> = ({
     children,
 }: IQueryProviderProps) => {
-
     return (
         <QueryClientProvider client={queryClient}>
             {children}

@@ -18,7 +18,7 @@ import {
     Stack,
     Spinner,
 } from '@chakra-ui/react';
-import { useMutation} from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { Question } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { queryClient } from 'app/_store/queryClient';
