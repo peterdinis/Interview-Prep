@@ -33,13 +33,14 @@ const DashboardPagination: FC<PaginationProps> = ({
                     key={page}
                     onClick={() => onPageChange(page)}
                     isActive={page === currentPage}
+                    disabled={totalItems === 0}
                 >
                     {page}
                 </Button>
             ))}
             <Button
                 onClick={() => onPageChange(currentPage + 1)}
-                isDisabled={currentPage === totalPages}
+                isDisabled={totalItems === 0}
             >
                 Next
             </Button>
