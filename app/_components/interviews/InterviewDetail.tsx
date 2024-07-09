@@ -14,6 +14,8 @@ import {
     AccordionPanel,
     AccordionIcon,
     Tag,
+    useColorMode,
+    useColorModeValue,
 } from '@chakra-ui/react';
 import Header from '../shared/Header';
 import Link from 'next/link';
@@ -74,6 +76,10 @@ const InterviewDetail: FC = () => {
         }
     }, [data]);
 
+    const tagColorScheme = useColorModeValue('blue', 'teal');
+    const answerColorScheme = useColorModeValue('green', 'purple');
+    const { colorMode, toggleColorMode } = useColorMode();
+
     if (isLoading) {
         return (
             <Spinner
@@ -106,8 +112,8 @@ const InterviewDetail: FC = () => {
             </Box>
 
             <Box textAlign={'center'} mt={4}>
-                <Tag bg={'blue.600'}>Blue Question for Interview</Tag>
-                <Tag bg={'green.600'} ml={4}>
+                <Tag colorScheme={tagColorScheme}>Blue Question for Interview</Tag>
+                <Tag colorScheme={answerColorScheme} ml={4}>
                     Green is your answer
                 </Tag>
             </Box>
@@ -161,10 +167,10 @@ const InterviewDetail: FC = () => {
                     <AccordionPanel pb={4}>
                         {qaList.map((qa, index) => (
                             <Box key={index} mb={4}>
-                                <Text fontWeight={'bold'} color='blue.500'>
+                                <Text fontWeight={'bold'} color={tagColorScheme + '.500'}>
                                     {qa.question}
                                 </Text>
-                                <Text color='green.700'>{qa.answer}</Text>
+                                <Text color={answerColorScheme + '.700'}>{qa.answer}</Text>
                             </Box>
                         ))}
                     </AccordionPanel>

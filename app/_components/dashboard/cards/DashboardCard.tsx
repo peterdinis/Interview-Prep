@@ -38,13 +38,14 @@ const DashboardCard = (props: InterviewsWrapper) => {
                 overflow='hidden'
                 align='start'
                 spacing={0}
+                w='100%' // Ensures the card takes full width
             >
                 <VStack py={2} px={[2, 4]} spacing={1} align='start' w='100%'>
-                    <Flex justifyContent='space-between' width='100%'>
+                    <Flex justifyContent='space-between' width='100%' wrap='wrap'>
                         <Tooltip hasArrow label='Github link' placement='top'>
                             <HStack>
                                 <Text
-                                    fontSize='lg'
+                                    fontSize={['md', 'lg']}
                                     noOfLines={1}
                                     fontWeight='600'
                                     align='left'
@@ -53,11 +54,8 @@ const DashboardCard = (props: InterviewsWrapper) => {
                                 </Text>
                             </HStack>
                         </Tooltip>
-                        <Text>
-                            {format(
-                                new Date(createdAt as unknown as string),
-                                'yyyy-MM-dd',
-                            )}
+                        <Text fontSize={['sm', 'md']} mt={[2, 0]} textAlign={['left', 'right']}>
+                            {format(new Date(createdAt as unknown as string), 'yyyy-MM-dd')}
                         </Text>
                     </Flex>
                     <Flex
@@ -65,6 +63,7 @@ const DashboardCard = (props: InterviewsWrapper) => {
                         mt={4}
                         justifyContent='space-between'
                         alignItems='center'
+                        wrap='wrap'
                     >
                         <Button
                             disabled={true}
@@ -72,12 +71,13 @@ const DashboardCard = (props: InterviewsWrapper) => {
                             display={'flex'}
                             justifyContent={'center'}
                             alignItems={'center'}
+                            size={['sm', 'md']}
                         >
                             <Link href={`/interview/${interviewId}`}>
-                                <Text>Interview Detail</Text>
+                                <Text fontSize={['sm', 'md']}>Detail</Text>
                             </Link>
                         </Button>
-                        <Box>
+                        <Box mt={[2, 0]}>
                             <InterviewRemoveModal
                                 interviewId={interviewId as unknown as string}
                             />
