@@ -20,7 +20,7 @@ import {
 import Header from '../shared/Header';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import { fetchInterview } from 'app/_store/applicationQueries';
+import { fetchInterview } from 'app/_store/queries/applicationQueries';
 
 interface QA {
     question: string;

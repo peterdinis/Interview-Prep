@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { useMutation } from '@tanstack/react-query';
-import { deleteInterview } from 'app/_store/applicationMutations';
+import { deleteInterview } from 'app/_store/mutations/applicationMutations';
 
 interface InterviewRemoveModalIProps {
     interviewId: string;
