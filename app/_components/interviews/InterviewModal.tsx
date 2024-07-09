@@ -18,9 +18,10 @@ import {
     Stack,
     Spinner,
 } from '@chakra-ui/react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation} from '@tanstack/react-query';
 import { Question } from '@prisma/client';
 import { useRouter } from 'next/navigation';
+import { queryClient } from 'app/_store/queryClient';
 
 const InterviewModal: FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,7 +32,6 @@ const InterviewModal: FC = () => {
     const [questions, setQuestions] = useState<Question[]>([]);
     const [answers, setAnswers] = useState<Record<number, string>>({});
     const router = useRouter();
-    const queryClient = useQueryClient();
 
     const createInterviewMutation = useMutation({
         mutationKey: ['createInterview'],
