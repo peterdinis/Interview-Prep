@@ -132,7 +132,9 @@ const Card = ({ id, title, description, date }: CardProps) => {
                     >
                         {title}
                     </chakra.h1>
-                    <Text fontSize='1rem' mt={2}>{description}</Text>
+                    <Text fontSize='1rem' mt={2}>
+                        {description}
+                    </Text>
                 </VStack>
             </Box>
         </HStack>

@@ -8,7 +8,7 @@ import {
     VStack,
     useColorMode,
 } from '@chakra-ui/react';
-import {  PricingItemProps } from 'app/_types/pricingTypes';
+import { PricingItemProps } from 'app/_types/pricingTypes';
 import { FC, useState } from 'react';
 import { pricingList } from './pricingData';
 
@@ -63,7 +63,7 @@ const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
 };
 
 const LandingPricing: FC = () => {
-    const [activeTimeline,] = useState('yearly');
+    const [activeTimeline] = useState('yearly');
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
 
