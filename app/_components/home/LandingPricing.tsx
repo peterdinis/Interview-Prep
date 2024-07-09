@@ -9,11 +9,11 @@ import {
     useColorMode,
 } from '@chakra-ui/react';
 import { PricingItemProps } from 'app/_types/pricingTypes';
-import { FC, useState } from 'react';
+import { FC, useMemo } from 'react';
 import { pricingList } from './pricingData';
 
 const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
-    const { planTitle, price, timeline, description, features, isActive } =
+    const { planTitle, price, description, features, isActive } =
         pricing;
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
@@ -33,9 +33,6 @@ const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
             <Box mb={4}>
                 <Text fontSize='3xl' fontWeight='bold'>
                     {price}
-                </Text>
-                <Text ml={2} opacity={0.7}>
-                    {timeline}
                 </Text>
             </Box>
             <Text opacity={0.7} mb={6}>
@@ -63,25 +60,16 @@ const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
 };
 
 const LandingPricing: FC = () => {
-    const [activeTimeline] = useState('yearly');
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
 
-    let content = null;
-    if (activeTimeline === 'monthly') {
-        content = pricingList.monthlyPricings.map((pricing, i) => (
+    const content = useMemo(() => {
+        return pricingList.yearlyPricings.map((pricing, i) => (
             <Box maxW='md' mt={6} key={i}>
                 <PricingItem pricing={pricing} />
             </Box>
         ));
-    }
-    if (activeTimeline === 'yearly') {
-        content = pricingList.yearlyPricings.map((pricing, i) => (
-            <Box maxW='md' mt={6} key={i}>
-                <PricingItem pricing={pricing} />
-            </Box>
-        ));
-    }
+    }, [pricingList.yearlyPricings]);
 
     return (
         <Box

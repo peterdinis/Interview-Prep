@@ -6,7 +6,6 @@ export interface Feature {
 export interface Pricing {
     planTitle: string;
     price: string;
-    timeline: string;
     description: string;
     features: Feature[];
     isActive: boolean;
