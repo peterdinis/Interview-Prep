@@ -68,7 +68,7 @@ const LandingPricing: FC = () => {
                 <PricingItem pricing={pricing} />
             </Box>
         ));
-    }, [pricingList.pricing]);
+    }, []);
 
     return (
         <Box
