@@ -8,94 +8,11 @@ import {
     VStack,
     useColorMode,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import {  PricingItemProps } from 'app/_types/pricingTypes';
+import { FC, useState } from 'react';
+import { pricingList } from './pricingData';
 
-interface Feature {
-    isActive: boolean;
-    label: string;
-}
-
-interface Pricing {
-    planTitle: string;
-    price: string;
-    timeline: string;
-    description: string;
-    features: Feature[];
-    isActive: boolean;
-}
-
-const pricingList = {
-    monthlyPricings: [
-        {
-            planTitle: 'Basic',
-            price: '$9',
-            timeline: '/month',
-            description:
-                'It’s easier to reach your savings goals when you have the right savings account.',
-            features: [
-                { isActive: true, label: 'Build Links' },
-                { isActive: true, label: 'Over 66 complex' },
-                { isActive: false, label: '24/7 Contact support' },
-                { isActive: false, label: 'Build Tools easily' },
-                { isActive: false, label: '6TB storage' },
-            ],
-            isActive: false,
-        },
-        {
-            planTitle: 'Premium',
-            price: '$29',
-            timeline: '/month',
-            description:
-                'More off this less hello salamander lied porpoise much over tightly circa horse taped.',
-            features: [
-                { isActive: true, label: 'Build Links' },
-                { isActive: true, label: 'Over 66 complex' },
-                { isActive: true, label: '24/7 Contact support' },
-                { isActive: true, label: 'Build Tools easily' },
-                { isActive: true, label: '6TB storage' },
-            ],
-            isActive: true,
-        },
-    ],
-    yearlyPricings: [
-        {
-            planTitle: 'Basic',
-            price: '$99',
-            timeline: '/year',
-            description:
-                'More off this less hello salamander lied porpoise much over tightly circa horse taped.',
-            features: [
-                { isActive: true, label: 'Build Links' },
-                { isActive: true, label: 'Over 66 complex' },
-                { isActive: false, label: '24/7 Contact support' },
-                { isActive: false, label: 'Build Tools easily' },
-                { isActive: false, label: '6TB storage' },
-            ],
-            isActive: false,
-        },
-        {
-            planTitle: 'Premium',
-            price: '$299',
-            timeline: '/year',
-            description:
-                'It’s easier to reach your savings goals when you have the right savings account.',
-            features: [
-                { isActive: true, label: 'Build Links' },
-                { isActive: true, label: 'Over 66 complex' },
-                { isActive: true, label: '24/7 Contact support' },
-                { isActive: true, label: 'Build Tools easily' },
-                { isActive: true, label: '6TB storage' },
-            ],
-            isActive: true,
-        },
-    ],
-};
-
-interface PricingItemProps {
-    pricing: Pricing;
-}
-
-const PricingItem: React.FC<PricingItemProps> = ({ pricing }) => {
+const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
     const { planTitle, price, timeline, description, features, isActive } =
         pricing;
     const { colorMode } = useColorMode();
@@ -145,8 +62,8 @@ const PricingItem: React.FC<PricingItemProps> = ({ pricing }) => {
     );
 };
 
-const Pricing: React.FC = () => {
-    const [activeTimeline, setActiveTimeline] = useState('yearly');
+const LandingPricing: FC = () => {
+    const [activeTimeline,] = useState('yearly');
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
 
@@ -199,4 +116,4 @@ const Pricing: React.FC = () => {
     );
 };
 
-export default Pricing;
+export default LandingPricing;

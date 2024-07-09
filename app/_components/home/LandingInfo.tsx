@@ -31,7 +31,7 @@ const milestones = [
         id: 3,
         date: 'Step 3',
         title: 'After experience, you will succeed in a real interview',
-        description: `Try try try and you'll see ;)`,
+        description: `Try try try and you'll see 😉`,
     },
 ];
 
@@ -132,7 +132,7 @@ const Card = ({ id, title, description, date }: CardProps) => {
                     >
                         {title}
                     </chakra.h1>
-                    <Text fontSize='md'>{description}</Text>
+                    <Text fontSize='1rem' mt={2}>{description}</Text>
                 </VStack>
             </Box>
         </HStack>
