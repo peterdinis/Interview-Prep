@@ -48,6 +48,11 @@ html::-webkit-scrollbar-track {
     scrollbar-width: none; /* Firefox */
 }
 
+.logout-icon {
+    width: 2rem;
+    height: 2rem;
+}
+
 .top-to-btm {
     position: relative;
 }

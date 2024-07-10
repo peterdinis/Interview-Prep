@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation';
 
 const DashboardSidebar: FC = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { data: session } = useSession();
     const loggedUser = session?.user?.email;
     const router = useRouter();
@@ -54,6 +55,14 @@ const DashboardSidebar: FC = () => {
         setCollapsed(!collapsed);
     };
 
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <Box
             as='nav'
@@ -70,22 +79,7 @@ const DashboardSidebar: FC = () => {
                     {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </Button>
             </Flex>
-            <Flex
-                direction='column'
-                alignItems={collapsed ? 'center' : 'flex-start'}
-                p={3}
-            >
-                <Flex
-                    align='center'
-                    p={5}
-                    mt={5}
-                    fontWeight='bold'
-                    fontSize='1.3rem'
-                    _hover={{ bg: hoverBgColor, cursor: 'pointer' }}
-                >
-                    <Icon as={Home} boxSize={6} />
-                    {!collapsed && <Text ml={4}>Home</Text>}
-                </Flex>
+            <Flex direction='column' alignItems='flex-start' p={3}>
                 <Flex
                     align='center'
                     p={5}
@@ -93,13 +87,11 @@ const DashboardSidebar: FC = () => {
                     fontWeight='bold'
                     fontSize='1.3rem'
                     _hover={{ bg: hoverBgColor, cursor: 'pointer' }}
+                    width='100%'
+                    onClick={openModal}
                 >
                     <AddIcon boxSize={6} />
-                    {!collapsed && (
-                        <Text ml={4}>
-                            <InterviewModal />
-                        </Text>
-                    )}
+                    {!collapsed && <Text ml={4}>Add Interview</Text>}
                 </Flex>
                 {loggedUser && (
                     <Flex
@@ -109,13 +101,15 @@ const DashboardSidebar: FC = () => {
                         fontWeight='bold'
                         fontSize='1.3rem'
                         _hover={{ bg: hoverBgColor, cursor: 'pointer' }}
+                        width='100%'
                         onClick={loggedOut}
                     >
-                        <LogOut />
+                        <LogOut className='logout-icon' />
                         {!collapsed && <Text ml={4}>Logout</Text>}
                     </Flex>
                 )}
             </Flex>
+            <InterviewModal isOpen={isModalOpen} onClose={closeModal} />
         </Box>
     );
 };
