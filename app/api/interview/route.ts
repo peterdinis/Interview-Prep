@@ -72,11 +72,13 @@ export async function POST(req: NextRequest) {
                 jobExperience: jobExperience,
                 mockInterview: generatedText,
                 questions: {
-                    create: questions.map((question: string, index: number) => ({
-                        question,
-                        // Include user answer field for each question
-                        userAnswer: index < numQuestions ? '' : undefined,
-                    })),
+                    create: questions.map(
+                        (question: string, index: number) => ({
+                            question,
+                            // Include user answer field for each question
+                            userAnswer: index < numQuestions ? '' : undefined,
+                        }),
+                    ),
                 },
             },
             include: {
