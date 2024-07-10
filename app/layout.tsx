@@ -14,7 +14,7 @@ const inter = Nunito({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
     title: 'Interview Prep',
-    description: 'Use us before your next coding interview',
+    description: 'Use us before your next interview',
 };
 
 export default function RootLayout({
