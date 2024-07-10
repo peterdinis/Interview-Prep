@@ -23,8 +23,7 @@ import { Question } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { queryClient } from 'app/_store/queryClient';
 
-const InterviewModal: FC = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
     const [jobPosition, setJobPosition] = useState('');
     const [jobDesc, setJobDesc] = useState('');
     const [jobExperience, setJobExperience] = useState('0');
@@ -96,148 +95,140 @@ const InterviewModal: FC = () => {
     };
 
     return (
-        <>
-            <Text onClick={onOpen} cursor='pointer'>
-                New Interview
-            </Text>
+        <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader
+                    display='flex'
+                    justifyContent='center'
+                    fontSize='2rem'
+                    mt={5}
+                    alignItems='center'
+                >
+                    New Interview
+                </ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    <Text fontWeight='bold' color='red.600' p={1}>
+                        Tell us more about your job interviewing <br />
+                        Add details about your job position/description and
+                        more..
+                    </Text>
+                    <Stack mt={5} spacing={3}>
+                        <form onSubmit={onHandleSubmit}>
+                            <Text mt={3} fontWeight='bold'>
+                                Your Job position / role
+                            </Text>
+                            <Input
+                                mt={2}
+                                type='text'
+                                required
+                                value={jobPosition}
+                                onChange={(e) =>
+                                    setJobPosition(e.target.value)
+                                }
+                                placeholder='Ex. Fullstack developer'
+                            />
 
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader
-                        display='flex'
-                        justifyContent='center'
-                        fontSize='2rem'
-                        mt={5}
-                        alignItems='center'
-                    >
-                        New Interview
-                    </ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <Text fontWeight='bold' color='red.600' p={1}>
-                            Tell us more about your job interviewing <br />
-                            Add details about your job position/description and
-                            more..
-                        </Text>
+                            <Text mt={3} fontWeight='bold'>
+                                Job Description / stack
+                            </Text>
+                            <Textarea
+                                mt={2}
+                                required
+                                placeholder='Ex. React Angular Node.js'
+                                value={jobDesc}
+                                onChange={(e) => setJobDesc(e.target.value)}
+                            />
+
+                            <Text mt={3} fontWeight='bold'>
+                                Years of experience
+                            </Text>
+                            <Input
+                                mt={2}
+                                required
+                                type='text'
+                                value={jobExperience}
+                                onChange={(e) =>
+                                    setJobExperience(e.target.value)
+                                }
+                            />
+
+                            <Text mt={3} fontWeight='bold'>
+                                Number of Questions (1-10)
+                            </Text>
+                            <Input
+                                mt={2}
+                                type='number'
+                                min={1}
+                                max={10}
+                                value={numQuestions}
+                                onChange={(e) =>
+                                    setNumQuestions(parseInt(e.target.value))
+                                }
+                                required
+                            />
+
+                            <Button
+                                colorScheme='purple'
+                                mt={4}
+                                type='submit'
+                                isLoading={
+                                    createInterviewMutation.isPending
+                                }
+                            >
+                                Generate
+                            </Button>
+                        </form>
+                    </Stack>
+                    {createInterviewMutation.isPending && <Spinner />}
+                    {questions.length > 0 && (
                         <Stack mt={5} spacing={3}>
-                            <form onSubmit={onHandleSubmit}>
-                                <Text mt={3} fontWeight='bold'>
-                                    Your Job position / role
-                                </Text>
-                                <Input
-                                    mt={2}
-                                    type='text'
-                                    required
-                                    value={jobPosition}
-                                    onChange={(e) =>
-                                        setJobPosition(e.target.value)
-                                    }
-                                    placeholder='Ex. Fullstack developer'
-                                />
-
-                                <Text mt={3} fontWeight='bold'>
-                                    Job Description / stack
-                                </Text>
-                                <Textarea
-                                    mt={2}
-                                    required
-                                    placeholder='Ex. React Angular Node.js'
-                                    value={jobDesc}
-                                    onChange={(e) => setJobDesc(e.target.value)}
-                                />
-
-                                <Text mt={3} fontWeight='bold'>
-                                    Years of experience
-                                </Text>
-                                <Input
-                                    mt={2}
-                                    required
-                                    type='text'
-                                    value={jobExperience}
-                                    onChange={(e) =>
-                                        setJobExperience(e.target.value)
-                                    }
-                                />
-
-                                <Text mt={3} fontWeight='bold'>
-                                    Number of Questions (1-10)
-                                </Text>
-                                <Input
-                                    mt={2}
-                                    type='number'
-                                    min={1}
-                                    max={10}
-                                    value={numQuestions}
-                                    onChange={(e) =>
-                                        setNumQuestions(
-                                            parseInt(e.target.value),
-                                        )
-                                    }
-                                    required
-                                />
-
-                                <Button
-                                    colorScheme='purple'
-                                    mt={4}
-                                    type='submit'
-                                    isLoading={
-                                        createInterviewMutation.isPending
-                                    }
-                                >
-                                    Generate
-                                </Button>
-                            </form>
+                            {questions.map((q: Question, index: number) => (
+                                <div key={q.id}>
+                                    <Text mt={3} fontWeight='bold'>
+                                        Question {index + 1}
+                                    </Text>
+                                    <Text mt={2}>{q.question}</Text>
+                                    <Textarea
+                                        mt={2}
+                                        placeholder='Your answer...'
+                                        value={answers[q.id] || ''}
+                                        onChange={(e) =>
+                                            setAnswers((prev) => ({
+                                                ...prev,
+                                                [q.id]: e.target.value,
+                                            }))
+                                        }
+                                        onBlur={() =>
+                                            onHandleAnswerSubmit(
+                                                q.id,
+                                                answers[
+                                                    q.id
+                                                ] as unknown as string,
+                                            )
+                                        }
+                                    />
+                                </div>
+                            ))}
                         </Stack>
-                        {createInterviewMutation.isPending && <Spinner />}
-                        {questions.length > 0 && (
-                            <Stack mt={5} spacing={3}>
-                                {questions.map((q: Question, index: number) => (
-                                    <div key={q.id}>
-                                        <Text mt={3} fontWeight='bold'>
-                                            Question {index + 1}
-                                        </Text>
-                                        <Text mt={2}>{q.question}</Text>
-                                        <Textarea
-                                            mt={2}
-                                            placeholder='Your answer...'
-                                            value={answers[q.id] || ''}
-                                            onChange={(e) =>
-                                                setAnswers((prev) => ({
-                                                    ...prev,
-                                                    [q.id]: e.target.value,
-                                                }))
-                                            }
-                                            onBlur={() =>
-                                                onHandleAnswerSubmit(
-                                                    q.id,
-                                                    answers[
-                                                        q.id
-                                                    ] as unknown as string,
-                                                )
-                                            }
-                                        />
-                                    </div>
-                                ))}
-                            </Stack>
-                        )}
-                    </ModalBody>
+                    )}
+                </ModalBody>
 
-                    <ModalFooter>
-                        <Button
-                            colorScheme='blue'
-                            mr={3}
-                            onClick={onSaveInterview}
-                        >
-                            Save Interview
-                        </Button>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
-        </>
+                <ModalFooter>
+                    <Button
+                        colorScheme='blue'
+                        mr={3}
+                        onClick={onSaveInterview}
+                    >
+                        Save Interview
+                    </Button>
+                    <Button colorScheme='blue' mr={3} onClick={onClose}>
+                        Close
+                    </Button>
+                </ModalFooter>
+            </ModalContent>
+        </Modal>
     );
 };
 
