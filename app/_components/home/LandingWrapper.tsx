@@ -34,10 +34,10 @@ export default function HeroSection() {
                         </Text>
                     </Heading>
                     <Text>
-                        Prepare for your next job interview with confidence.
-                        Our platform provides you with the tools and resources
-                        to practice mock interviews, receive constructive
-                        feedback, and improve your interview skills.
+                        Prepare for your next job interview with confidence. Our
+                        platform provides you with the tools and resources to
+                        practice mock interviews, receive constructive feedback,
+                        and improve your interview skills.
                     </Text>
                     <Stack
                         mt={5}
