@@ -34,7 +34,7 @@ const parseMockInterview = (text: string): QA[] => {
     let currentAnswer = '';
 
     lines.forEach((line) => {
-        if (line.startsWith('Interviewer:')) {
+        if (line.startsWith('Question:')) {
             if (currentQuestion && currentAnswer) {
                 qaPairs.push({
                     question: currentQuestion,
@@ -42,16 +42,14 @@ const parseMockInterview = (text: string): QA[] => {
                 });
                 currentAnswer = ''; // reset answer for the next pair
             }
-            currentQuestion = line.replace('Interviewer:', '').trim();
-        } else if (line.startsWith('Candidate:')) {
-            currentAnswer = line.replace('Candidate:', '').trim();
+            currentQuestion = line.replace('Question:', '').trim();
+        } else if (line.startsWith('Answer:')) {
+            currentAnswer = line.replace('Answer:', '').trim();
         } else if (currentAnswer) {
-            // Append any additional answer content to the existing answer
             currentAnswer += ' ' + line.trim();
         }
     });
 
-    // Add the last pair if present
     if (currentQuestion && currentAnswer) {
         qaPairs.push({ question: currentQuestion, answer: currentAnswer });
     }
@@ -66,6 +64,9 @@ const InterviewDetail: FC = () => {
         queryFn: async () => fetchInterview(id),
         staleTime: Infinity,
     });
+
+
+    console.log("D", data);
 
     const [qaList, setQaList] = useState<QA[]>([]);
 

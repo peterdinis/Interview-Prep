@@ -13,6 +13,15 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        // Generate prompt including user answer placeholders
+        const prompt = `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience. Generate ${numQuestions} questions.\n\n`;
+        const userAnswers: string[] = [];
+        for (let i = 0; i < numQuestions; i++) {
+            userAnswers.push(`Answer: `); // Placeholder for user answer
+        }
+        const promptWithAnswers = prompt + userAnswers.join('\n');
+
+        // Call OpenAI API
         const openaiResponse = await fetch(
             'https://api.openai.com/v1/completions',
             {
@@ -22,7 +31,7 @@ export async function POST(req: NextRequest) {
                     Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
                 },
                 body: JSON.stringify({
-                    prompt: `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience. Generate ${numQuestions} questions.`,
+                    prompt: promptWithAnswers,
                     model: 'gpt-3.5-turbo-instruct',
                     max_tokens: 2048,
                     n: 1,
@@ -50,11 +59,12 @@ export async function POST(req: NextRequest) {
         }
 
         const generatedText = data.choices[0].text.trim();
-        let questions = generatedText
+        const questions = generatedText
             .split('\n')
-            .filter((q: any) => q.trim().length > 0)
+            .filter((q: string) => q.trim().length > 0)
             .slice(0, numQuestions); // Limit the number of questions to the requested number
 
+        // Create new interview in the database
         const newInterview = await db.interview.create({
             data: {
                 jobPosition,
@@ -62,8 +72,10 @@ export async function POST(req: NextRequest) {
                 jobExperience: jobExperience,
                 mockInterview: generatedText,
                 questions: {
-                    create: questions.map((question: string) => ({
+                    create: questions.map((question: string, index: number) => ({
                         question,
+                        // Include user answer field for each question
+                        userAnswer: index < numQuestions ? '' : undefined,
                     })),
                 },
             },
@@ -77,32 +89,6 @@ export async function POST(req: NextRequest) {
         console.error('Error generating mock interview:', error);
         return NextResponse.json(
             { error: 'Error generating mock interview' },
-            { status: 500 },
-        );
-    }
-}
-
-export async function PATCH(req: NextRequest) {
-    try {
-        const { questionId, answer } = await req.json();
-
-        if (!questionId || !answer) {
-            return NextResponse.json(
-                { error: 'Missing required fields' },
-                { status: 400 },
-            );
-        }
-
-        const updatedQuestion = await db.question.update({
-            where: { id: parseInt(questionId) },
-            data: { answer },
-        });
-
-        return NextResponse.json(updatedQuestion, { status: 200 });
-    } catch (error) {
-        console.error('Error saving answer:', error);
-        return NextResponse.json(
-            { error: 'Error saving answer' },
             { status: 500 },
         );
     }
