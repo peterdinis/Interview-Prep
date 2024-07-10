@@ -34,10 +34,10 @@ export default function HeroSection() {
                         </Text>
                     </Heading>
                     <Text>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        A non illum id minus eligendi officiis provident error
-                        dolores tempora distinctio et molestiae vero quo ex,
-                        itaque unde odio voluptatem corrupti.
+                        Prepare for your next job interview with confidence.
+                        Our platform provides you with the tools and resources
+                        to practice mock interviews, receive constructive
+                        feedback, and improve your interview skills.
                     </Text>
                     <Stack
                         mt={5}
@@ -79,7 +79,7 @@ export default function HeroSection() {
                                 ml={5}
                                 transform={'rotate(10deg)'}
                             >
-                                Need mock interview ?
+                                Need mock interview practice?
                             </Text>
                         </Box>
                     </Stack>
