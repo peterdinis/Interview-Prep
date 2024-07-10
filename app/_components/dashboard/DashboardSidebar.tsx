@@ -104,7 +104,7 @@ const DashboardSidebar: FC = () => {
                         width='100%'
                         onClick={loggedOut}
                     >
-                        <LogOut  />
+                        <LogOut />
                         {!collapsed && <Text ml={4}>Logout</Text>}
                     </Flex>
                 )}

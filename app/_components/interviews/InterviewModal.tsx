@@ -23,7 +23,10 @@ import { Question } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { queryClient } from 'app/_store/queryClient';
 
-const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
+const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
+    isOpen,
+    onClose,
+}) => {
     const [jobPosition, setJobPosition] = useState('');
     const [jobDesc, setJobDesc] = useState('');
     const [jobExperience, setJobExperience] = useState('0');
@@ -124,9 +127,7 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, 
                                 type='text'
                                 required
                                 value={jobPosition}
-                                onChange={(e) =>
-                                    setJobPosition(e.target.value)
-                                }
+                                onChange={(e) => setJobPosition(e.target.value)}
                                 placeholder='Ex. Fullstack developer'
                             />
 
@@ -173,9 +174,7 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, 
                                 colorScheme='purple'
                                 mt={4}
                                 type='submit'
-                                isLoading={
-                                    createInterviewMutation.isPending
-                                }
+                                isLoading={createInterviewMutation.isPending}
                             >
                                 Generate
                             </Button>
@@ -216,11 +215,7 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, 
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button
-                        colorScheme='blue'
-                        mr={3}
-                        onClick={onSaveInterview}
-                    >
+                    <Button colorScheme='blue' mr={3} onClick={onSaveInterview}>
                         Save Interview
                     </Button>
                     <Button colorScheme='blue' mr={3} onClick={onClose}>
