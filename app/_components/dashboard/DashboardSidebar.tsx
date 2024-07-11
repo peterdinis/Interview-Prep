@@ -14,6 +14,7 @@ import { LogOut } from 'lucide-react';
 import InterviewModal from '../interviews/InterviewModal';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 const DashboardSidebar: FC = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -63,35 +64,24 @@ const DashboardSidebar: FC = () => {
     };
 
     return (
-        <Box
-            as='nav'
-            position='sticky'
-            top='56px'
-            transition='width 0.2s'
-            bg={bgColor}
-            color={color}
-            height='100vh'
+        <motion.div
+            transition={{ duration: 0.5 }}
         >
-            <Flex justifyContent='flex-end' p={3}>
-                <Button onClick={toggleCollapse} size='sm'>
-                    {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                </Button>
-            </Flex>
-            <Flex direction='column' alignItems='flex-start' p={3}>
-                <Flex
-                    align='center'
-                    p={5}
-                    mt={10}
-                    fontWeight='bold'
-                    fontSize='1.3rem'
-                    _hover={{ bg: hoverBgColor, cursor: 'pointer' }}
-                    width='100%'
-                    onClick={openModal}
-                >
-                    <AddIcon boxSize={collapsed ? 8 : 6} />
-                    {!collapsed && <Text ml={4}>Add Interview</Text>}
+            <Box
+                as='nav'
+                position='sticky'
+                top='56px'
+                bg={bgColor}
+                color={color}
+                height='100vh'
+                overflow='hidden'
+            >
+                <Flex justifyContent='flex-end' p={3}>
+                    <Button onClick={toggleCollapse} size='sm'>
+                        {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    </Button>
                 </Flex>
-                {loggedUser && (
+                <Flex direction='column' alignItems='flex-start' p={3}>
                     <Flex
                         align='center'
                         p={5}
@@ -100,15 +90,42 @@ const DashboardSidebar: FC = () => {
                         fontSize='1.3rem'
                         _hover={{ bg: hoverBgColor, cursor: 'pointer' }}
                         width='100%'
-                        onClick={loggedOut}
+                        onClick={openModal}
                     >
-                        <LogOut size={collapsed ? 30 : 24} />
-                        {!collapsed && <Text ml={4}>Logout</Text>}
+                        <AddIcon boxSize={collapsed ? 8 : 6} />
+                        <motion.div
+                            initial={{ opacity: collapsed ? 0 : 1 }}
+                            animate={{ opacity: collapsed ? 0 : 1 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            {!collapsed && <Text ml={4}>Add Interview</Text>}
+                        </motion.div>
                     </Flex>
-                )}
-            </Flex>
-            <InterviewModal isOpen={isModalOpen} onClose={closeModal} />
-        </Box>
+                    {loggedUser && (
+                        <Flex
+                            align='center'
+                            p={5}
+                            mt={10}
+                            fontWeight='bold'
+                            fontSize='1.3rem'
+                            _hover={{ bg: hoverBgColor, cursor: 'pointer' }}
+                            width='100%'
+                            onClick={loggedOut}
+                        >
+                            <LogOut size={collapsed ? 30 : 24} />
+                            <motion.div
+                                initial={{ opacity: collapsed ? 0 : 1 }}
+                                animate={{ opacity: collapsed ? 0 : 1 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                {!collapsed && <Text ml={4}>Logout</Text>}
+                            </motion.div>
+                        </Flex>
+                    )}
+                </Flex>
+                <InterviewModal isOpen={isModalOpen} onClose={closeModal} />
+            </Box>
+        </motion.div>
     );
 };
 
