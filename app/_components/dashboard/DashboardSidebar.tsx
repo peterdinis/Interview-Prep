@@ -64,9 +64,7 @@ const DashboardSidebar: FC = () => {
     };
 
     return (
-        <motion.div
-            transition={{ duration: 0.5 }}
-        >
+        <motion.div transition={{ duration: 0.5 }}>
             <Box
                 as='nav'
                 position='sticky'
