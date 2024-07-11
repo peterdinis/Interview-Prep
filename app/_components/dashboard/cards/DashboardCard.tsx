@@ -46,7 +46,7 @@ const DashboardCard = (props: InterviewsWrapper) => {
                         width='100%'
                         wrap='wrap'
                     >
-                        <Tooltip hasArrow label='Github link' placement='top'>
+                        <Tooltip hasArrow label={jobPosition} placement='top'>
                             <HStack>
                                 <Text
                                     fontSize={['md', 'lg']}
