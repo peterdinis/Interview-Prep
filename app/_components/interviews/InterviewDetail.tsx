@@ -125,7 +125,12 @@ const InterviewDetail: FC = () => {
                 <AccordionItem>
                     <h2>
                         <AccordionButton>
-                            <Box as='span' fontSize={"1.2rem"} flex='1' textAlign='left'>
+                            <Box
+                                as='span'
+                                fontSize={'1.2rem'}
+                                flex='1'
+                                textAlign='left'
+                            >
                                 Interview Date
                             </Box>
                             <AccordionIcon />
@@ -140,7 +145,12 @@ const InterviewDetail: FC = () => {
                 <AccordionItem>
                     <h2>
                         <AccordionButton>
-                            <Box as='span' flex='1' fontSize={"1.2rem"} textAlign='left'>
+                            <Box
+                                as='span'
+                                flex='1'
+                                fontSize={'1.2rem'}
+                                textAlign='left'
+                            >
                                 Interview Position
                             </Box>
                             <AccordionIcon />
@@ -155,7 +165,12 @@ const InterviewDetail: FC = () => {
                 <AccordionItem>
                     <h2>
                         <AccordionButton>
-                            <Box as='span' fontSize={"1.2rem"} flex='1' textAlign='left'>
+                            <Box
+                                as='span'
+                                fontSize={'1.2rem'}
+                                flex='1'
+                                textAlign='left'
+                            >
                                 Technologies
                             </Box>
                             <AccordionIcon />
@@ -167,7 +182,12 @@ const InterviewDetail: FC = () => {
                 <AccordionItem>
                     <h2>
                         <AccordionButton>
-                            <Box as='span' flex='1' fontSize={"1.2rem"} textAlign='left'>
+                            <Box
+                                as='span'
+                                flex='1'
+                                fontSize={'1.2rem'}
+                                textAlign='left'
+                            >
                                 Interview questions / answers
                             </Box>
                             <AccordionIcon />
