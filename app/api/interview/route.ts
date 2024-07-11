@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         } = await req.json();
 
         // Get the session
-        const session = await getServerSession(authOptions) as CustomSession;
+        const session = (await getServerSession(authOptions)) as CustomSession;
 
         if (!session || !session.user) {
             return NextResponse.json(
