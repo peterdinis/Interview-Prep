@@ -3,10 +3,20 @@ import { db } from 'database/db';
 
 export async function POST(req: NextRequest) {
     try {
-        const { jobPosition, jobDesc, jobExperience, numQuestions, showQuestions } =
-            await req.json();
+        const {
+            jobPosition,
+            jobDesc,
+            jobExperience,
+            numQuestions,
+            showQuestions,
+        } = await req.json();
 
-        if (!jobPosition || !jobDesc || !jobExperience || (showQuestions && !numQuestions)) {
+        if (
+            !jobPosition ||
+            !jobDesc ||
+            !jobExperience ||
+            (showQuestions && !numQuestions)
+        ) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
                 { status: 400 },
@@ -38,7 +48,9 @@ export async function POST(req: NextRequest) {
                 const errorText = await openaiResponse.text();
                 console.error('OpenAI API error:', errorText);
                 return NextResponse.json(
-                    { error: 'Error generating mock interview from OpenAI API' },
+                    {
+                        error: 'Error generating mock interview from OpenAI API',
+                    },
                     { status: openaiResponse.status },
                 );
             }
