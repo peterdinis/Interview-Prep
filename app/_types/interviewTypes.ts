@@ -13,3 +13,8 @@ export type InterviewsWrapper = {
 export interface Answer {
     [questionId: string]: string;
 }
+
+export interface QA {
+    question: string;
+    answer: string;
+}

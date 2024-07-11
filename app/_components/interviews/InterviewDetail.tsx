@@ -20,40 +20,9 @@ import Header from '../shared/Header';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { fetchInterview } from 'app/_store/queries/applicationQueries';
+import { QA } from 'app/_types/interviewTypes';
+import { parseMockInterview } from '../_utils/interviewHelpers';
 
-interface QA {
-    question: string;
-    answer: string;
-}
-
-const parseMockInterview = (text: string): QA[] => {
-    const lines = text.split('\n');
-    const qaPairs: QA[] = [];
-    let currentQuestion = '';
-    let currentAnswer = '';
-
-    lines.forEach((line) => {
-        if (line.startsWith('Interviewer:')) {
-            if (currentQuestion && currentAnswer) {
-                qaPairs.push({
-                    question: currentQuestion,
-                    answer: currentAnswer,
-                });
-                currentAnswer = '';
-            }
-            currentQuestion = line.replace('Interviewer:', '').trim();
-        } else if (line.startsWith('Candidate:')) {
-            currentAnswer = line.replace('Candidate:', '').trim();
-        } else if (currentAnswer) {
-            currentAnswer += ' ' + line.trim();
-        }
-    });
-    if (currentQuestion && currentAnswer) {
-        qaPairs.push({ question: currentQuestion, answer: currentAnswer });
-    }
-
-    return qaPairs;
-};
 
 const InterviewDetail: FC = () => {
     const { id } = useParams<{ id: string }>();
