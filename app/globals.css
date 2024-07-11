@@ -83,6 +83,27 @@ html::-webkit-scrollbar-track {
     border: 2px solid #551b54;
 }
 
+.loader {
+    margin: 20px;
+    width: 100px;
+    height: 100px;
+
+    /* The animation part: */
+    animation-name: spin;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 @keyframes movebtn {
     0% {
         transform: translateY(0px);
