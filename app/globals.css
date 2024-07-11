@@ -83,7 +83,7 @@ html::-webkit-scrollbar-track {
     border: 2px solid #551b54;
 }
 
-.loader{
+.loader {
     margin: 20px;
     width: 100px;
     height: 100px;
@@ -96,8 +96,12 @@ html::-webkit-scrollbar-track {
 }
 
 @keyframes spin {
-    from {transform:rotate(0deg);}
-    to {transform:rotate(360deg);}
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes movebtn {

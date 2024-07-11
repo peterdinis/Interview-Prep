@@ -17,14 +17,14 @@ const DashboardWrapper: FC = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (status === 'loading') return; // Do nothing while loading
+        if (status === 'loading') return;
         if (!session) {
-            router.push("/login");
+            router.push('/login');
         }
     }, [session, status, router]);
 
     if (status === 'loading') {
-        return <Loader2 className='loader' />
+        return <Loader2 className='loader' />;
     }
 
     return (
