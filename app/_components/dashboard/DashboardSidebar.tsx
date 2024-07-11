@@ -4,14 +4,13 @@ import { FC, useState } from 'react';
 import {
     Box,
     Flex,
-    Icon,
     Text,
     Button,
     useToast,
     useColorModeValue,
 } from '@chakra-ui/react';
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { Home, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import InterviewModal from '../interviews/InterviewModal';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -68,7 +67,7 @@ const DashboardSidebar: FC = () => {
             as='nav'
             position='sticky'
             top='56px'
-            width={collapsed ? '60px' : '240px'}
+            width={{ base: collapsed ? '40px' : '200px', md: collapsed ? '60px' : '240px' }}
             transition='width 0.2s'
             bg={bgColor}
             color={color}
