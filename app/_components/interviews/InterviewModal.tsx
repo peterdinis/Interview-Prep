@@ -119,7 +119,7 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
                         more..
                     </Text>
                     <hr />
-                    <Text mt={4} fontWeight={"bold"}>
+                    <Text mt={4} fontWeight={'bold'}>
                         Application has two modes: <br />
                     </Text>
                     <Text mt={5}>
