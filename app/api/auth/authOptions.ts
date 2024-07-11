@@ -52,6 +52,20 @@ const authOptions: AuthOptions = {
             },
         }),
     ],
+    callbacks: {
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+            }
+            return token;
+        },
+        async session({ session, token }: any) {
+            if (token && session.user) {
+                session.user.id = token.id;
+            }
+            return session;
+        },
+    },
     secret: process.env.NEXT_AUTH_SECRET,
     debug: process.env.NODE_ENV === 'development',
 };
