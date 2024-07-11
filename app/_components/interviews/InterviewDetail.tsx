@@ -14,7 +14,6 @@ import {
     AccordionPanel,
     AccordionIcon,
     Tag,
-    useColorMode,
     useColorModeValue,
 } from '@chakra-ui/react';
 import Header from '../shared/Header';
@@ -40,18 +39,15 @@ const parseMockInterview = (text: string): QA[] => {
                     question: currentQuestion,
                     answer: currentAnswer,
                 });
-                currentAnswer = ''; // reset answer for the next pair
+                currentAnswer = '';
             }
             currentQuestion = line.replace('Interviewer:', '').trim();
         } else if (line.startsWith('Candidate:')) {
             currentAnswer = line.replace('Candidate:', '').trim();
         } else if (currentAnswer) {
-            // Append any additional answer content to the existing answer
             currentAnswer += ' ' + line.trim();
         }
     });
-
-    // Add the last pair if present
     if (currentQuestion && currentAnswer) {
         qaPairs.push({ question: currentQuestion, answer: currentAnswer });
     }
@@ -78,7 +74,8 @@ const InterviewDetail: FC = () => {
 
     const tagColorScheme = useColorModeValue('blue', 'teal');
     const answerColorScheme = useColorModeValue('green', 'purple');
-    const { colorMode, toggleColorMode } = useColorMode();
+
+    console.log("D", data);
 
     if (isLoading) {
         return (
@@ -154,6 +151,20 @@ const InterviewDetail: FC = () => {
                     <AccordionPanel pb={4}>
                         Position is: {data?.jobPosition} with{' '}
                         {data.jobExperience} years of experience
+                    </AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                    <h2>
+                        <AccordionButton>
+                            <Box as='span' flex='1' textAlign='left'>
+                                Technologies
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                       {data?.jobDesc}
                     </AccordionPanel>
                 </AccordionItem>
 
