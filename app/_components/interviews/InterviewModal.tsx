@@ -118,6 +118,18 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
                         Add details about your job position/description and
                         more..
                     </Text>
+                    <hr />
+                    <Text mt={4} fontWeight={"bold"}>
+                        Application has two modes: <br />
+                    </Text>
+                    <Text mt={5}>
+                        1. Classic mode: After submiting form AI Generate all
+                        interview
+                    </Text>
+                    <Text mt={5}>
+                        2. Question mode Ai Generate questions for you and you
+                        answered them
+                    </Text>
                     <Stack mt={5} spacing={3}>
                         <form onSubmit={onHandleSubmit}>
                             <Text mt={3} fontWeight='bold'>
@@ -162,7 +174,9 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
                             <Switch
                                 mt={2}
                                 isChecked={showQuestions}
-                                onChange={(e) => setShowQuestions(e.target.checked)}
+                                onChange={(e) =>
+                                    setShowQuestions(e.target.checked)
+                                }
                             />
 
                             {showQuestions && (
@@ -177,7 +191,9 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
                                         max={10}
                                         value={numQuestions}
                                         onChange={(e) =>
-                                            setNumQuestions(parseInt(e.target.value))
+                                            setNumQuestions(
+                                                parseInt(e.target.value),
+                                            )
                                         }
                                         required
                                     />
