@@ -67,7 +67,6 @@ const DashboardSidebar: FC = () => {
             as='nav'
             position='sticky'
             top='56px'
-            width={{ base: collapsed ? '40px' : '200px', md: collapsed ? '60px' : '240px' }}
             transition='width 0.2s'
             bg={bgColor}
             color={color}
@@ -89,7 +88,7 @@ const DashboardSidebar: FC = () => {
                     width='100%'
                     onClick={openModal}
                 >
-                    <AddIcon boxSize={6} />
+                    <AddIcon boxSize={collapsed ? 8 : 6} />
                     {!collapsed && <Text ml={4}>Add Interview</Text>}
                 </Flex>
                 {loggedUser && (
@@ -103,7 +102,7 @@ const DashboardSidebar: FC = () => {
                         width='100%'
                         onClick={loggedOut}
                     >
-                        <LogOut className='logout-icon' />
+                        <LogOut size={collapsed ? 30 : 24} />
                         {!collapsed && <Text ml={4}>Logout</Text>}
                     </Flex>
                 )}
