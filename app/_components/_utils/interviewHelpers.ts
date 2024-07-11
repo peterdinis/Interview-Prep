@@ -1,4 +1,4 @@
-import { QA } from "app/_types/interviewTypes";
+import { QA } from 'app/_types/interviewTypes';
 
 export const parseMockInterview = (text: string): QA[] => {
     const lines = text.split('\n');

@@ -23,7 +23,6 @@ import { fetchInterview } from 'app/_store/queries/applicationQueries';
 import { QA } from 'app/_types/interviewTypes';
 import { parseMockInterview } from '../_utils/interviewHelpers';
 
-
 const InterviewDetail: FC = () => {
     const { id } = useParams<{ id: string }>();
     const { data, isLoading, isError } = useQuery({
