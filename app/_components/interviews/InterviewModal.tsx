@@ -3,7 +3,6 @@
 import { FC, FormEvent, useState } from 'react';
 import axios from 'axios';
 import {
-    useDisclosure,
     Button,
     Modal,
     ModalOverlay,
@@ -17,6 +16,7 @@ import {
     Input,
     Stack,
     Spinner,
+    Switch,
 } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
 import { Question } from '@prisma/client';
@@ -33,6 +33,7 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
     const [numQuestions, setNumQuestions] = useState(1);
     const [questions, setQuestions] = useState<Question[]>([]);
     const [answers, setAnswers] = useState<Record<number, string>>({});
+    const [showQuestions, setShowQuestions] = useState(false);
     const router = useRouter();
 
     const createInterviewMutation = useMutation({
@@ -117,6 +118,18 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
                         Add details about your job position/description and
                         more..
                     </Text>
+                    <hr />
+                    <Text mt={4} fontWeight={'bold'}>
+                        Application has two modes: <br />
+                    </Text>
+                    <Text mt={5}>
+                        1. Classic mode: After submiting form AI Generate all
+                        interview
+                    </Text>
+                    <Text mt={5}>
+                        2. Question mode Ai Generate questions for you and you
+                        answered them
+                    </Text>
                     <Stack mt={5} spacing={3}>
                         <form onSubmit={onHandleSubmit}>
                             <Text mt={3} fontWeight='bold'>
@@ -155,24 +168,41 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
                                 }
                             />
 
-                            <Text mt={3} fontWeight='bold'>
-                                Number of Questions (1-10)
+                            <Text mt={5} fontWeight='bold'>
+                                Show Questions
                             </Text>
-                            <Input
+                            <Switch
                                 mt={2}
-                                type='number'
-                                min={1}
-                                max={10}
-                                value={numQuestions}
+                                isChecked={showQuestions}
                                 onChange={(e) =>
-                                    setNumQuestions(parseInt(e.target.value))
+                                    setShowQuestions(e.target.checked)
                                 }
-                                required
                             />
 
+                            {showQuestions && (
+                                <>
+                                    <Text mt={3} fontWeight='bold'>
+                                        Number of Questions (1-10)
+                                    </Text>
+                                    <Input
+                                        mt={2}
+                                        type='number'
+                                        min={1}
+                                        max={10}
+                                        value={numQuestions}
+                                        onChange={(e) =>
+                                            setNumQuestions(
+                                                parseInt(e.target.value),
+                                            )
+                                        }
+                                        required
+                                    />
+                                </>
+                            )}
+                            <br />
                             <Button
                                 colorScheme='purple'
-                                mt={4}
+                                mt={8}
                                 type='submit'
                                 isLoading={createInterviewMutation.isPending}
                             >
@@ -181,7 +211,7 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
                         </form>
                     </Stack>
                     {createInterviewMutation.isPending && <Spinner />}
-                    {questions.length > 0 && (
+                    {showQuestions && questions.length > 0 && (
                         <Stack mt={5} spacing={3}>
                             {questions.map((q: Question, index: number) => (
                                 <div key={q.id}>
