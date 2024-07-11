@@ -75,7 +75,7 @@ const InterviewDetail: FC = () => {
     const tagColorScheme = useColorModeValue('blue', 'teal');
     const answerColorScheme = useColorModeValue('green', 'purple');
 
-    console.log("D", data);
+    console.log('D', data);
 
     if (isLoading) {
         return (
@@ -163,9 +163,7 @@ const InterviewDetail: FC = () => {
                             <AccordionIcon />
                         </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4}>
-                       {data?.jobDesc}
-                    </AccordionPanel>
+                    <AccordionPanel pb={4}>{data?.jobDesc}</AccordionPanel>
                 </AccordionItem>
 
                 <AccordionItem>
