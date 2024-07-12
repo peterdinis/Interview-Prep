@@ -31,8 +31,6 @@ const InterviewDetail: FC = () => {
         staleTime: Infinity,
     });
 
-    console.log("D", data);
-
     const [qaList, setQaList] = useState<QA[]>([]);
 
     useEffect(() => {
