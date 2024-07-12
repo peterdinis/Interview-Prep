@@ -18,7 +18,7 @@ import {
 import Header from '../shared/Header';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import { fetchInterview } from 'app/_store/queries/applicationQueries';
+import { fetchInterview } from 'app/_store/queries/interviewQuestions';
 import { QA } from 'app/_types/interviewTypes';
 import { parseMockInterview } from '../_utils/interviewHelpers';
 import { tagColorScheme, answerColorScheme } from '../_utils/colorConstants';
