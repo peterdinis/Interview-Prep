@@ -40,7 +40,9 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     useEffect(() => {
         if (data) {
             const filteredList = data.filter((item: InterviewsWrapper) =>
-                item.jobPosition!.toLowerCase().includes(searchQuery.toLowerCase())
+                item
+                    .jobPosition!.toLowerCase()
+                    .includes(searchQuery.toLowerCase()),
             );
             setFilteredData(filteredList);
         }
@@ -52,25 +54,25 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
 
     const paginatedData = filteredData.slice(
         (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
+        currentPage * itemsPerPage,
     );
 
     if (sessionStatus === 'loading' || isLoading) {
         return (
             <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="gray.200"
-                color="blue.500"
-                size="xl"
+                thickness='4px'
+                speed='0.65s'
+                emptyColor='gray.200'
+                color='blue.500'
+                size='xl'
             />
         );
     }
 
     if (isError) {
         return (
-            <Box mt={8} textAlign="center">
-                <Text fontSize="lg" fontWeight="bold">
+            <Box mt={8} textAlign='center'>
+                <Text fontSize='lg' fontWeight='bold'>
                     Something went wrong
                 </Text>
             </Box>
@@ -78,23 +80,25 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     }
 
     return (
-        <Container maxW="7xl" p="5" mx="auto">
+        <Container maxW='7xl' p='5' mx='auto'>
             {paginatedData.length > 0 ? (
                 <SimpleGrid columns={[1, 2, 3]} spacing={4} mt={8}>
-                    {paginatedData.map((item: InterviewsWrapper, index: Key) => (
-                        <DashboardCard
-                            key={index}
-                            interviewId={item.id}
-                            createdAt={item.createdAt}
-                            jobPosition={item.jobPosition}
-                            jobExpirience={item.jobExpirience}
-                            jobDesc={item.jobDesc}
-                        />
-                    ))}
+                    {paginatedData.map(
+                        (item: InterviewsWrapper, index: Key) => (
+                            <DashboardCard
+                                key={index}
+                                interviewId={item.id}
+                                createdAt={item.createdAt}
+                                jobPosition={item.jobPosition}
+                                jobExpirience={item.jobExpirience}
+                                jobDesc={item.jobDesc}
+                            />
+                        ),
+                    )}
                 </SimpleGrid>
             ) : (
-                <Box mt={8} textAlign="center">
-                    <Text fontSize="lg" fontWeight="bold">
+                <Box mt={8} textAlign='center'>
+                    <Text fontSize='lg' fontWeight='bold'>
                         No Interviews found
                     </Text>
                 </Box>
@@ -102,9 +106,9 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
 
             <Box
                 mt={12}
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
+                display='flex'
+                justifyContent='center'
+                alignItems='center'
                 p={4}
             >
                 <DashboardPagination
