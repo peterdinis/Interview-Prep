@@ -14,11 +14,9 @@ export async function GET() {
         );
     }
 
-    const userId = session.user.id;
-
     const interviews = await db.interview.findMany({
         where: {
-            userId,
+            userId: session.user.id,
         },
     });
     if (!interviews) {
