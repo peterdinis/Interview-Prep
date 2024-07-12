@@ -18,10 +18,10 @@ import {
 import Header from '../shared/Header';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import { fetchInterview } from 'app/_store/queries/applicationQueries';
 import { QA } from 'app/_types/interviewTypes';
 import { parseMockInterview } from '../_utils/interviewHelpers';
 import { tagColorScheme, answerColorScheme } from '../_utils/colorConstants';
+import { fetchInterview } from 'app/_store/queries/interviewQueries';
 
 const InterviewDetail: FC = () => {
     const { id } = useParams<{ id: string }>();

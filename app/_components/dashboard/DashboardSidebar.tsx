@@ -8,6 +8,7 @@ import {
     Button,
     useToast,
     useColorModeValue,
+    Tooltip,
 } from '@chakra-ui/react';
 import { AddIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { LogOut } from 'lucide-react';
@@ -90,7 +91,9 @@ const DashboardSidebar: FC = () => {
                         width='100%'
                         onClick={openModal}
                     >
-                        <AddIcon boxSize={collapsed ? 8 : 6} />
+                        <Tooltip hasArrow label='New Interview'>
+                            <AddIcon boxSize={collapsed ? 8 : 6} />
+                        </Tooltip>
                         <motion.div
                             initial={{ opacity: collapsed ? 0 : 1 }}
                             animate={{ opacity: collapsed ? 0 : 1 }}
@@ -110,7 +113,9 @@ const DashboardSidebar: FC = () => {
                             width='100%'
                             onClick={loggedOut}
                         >
-                            <LogOut size={collapsed ? 30 : 24} />
+                            <Tooltip hasArrow label='Logout'>
+                                <LogOut size={collapsed ? 30 : 24} />
+                            </Tooltip>
                             <motion.div
                                 initial={{ opacity: collapsed ? 0 : 1 }}
                                 animate={{ opacity: collapsed ? 0 : 1 }}
