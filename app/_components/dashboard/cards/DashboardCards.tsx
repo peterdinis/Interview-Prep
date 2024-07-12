@@ -9,10 +9,8 @@ import { InterviewsWrapper } from 'app/_types/interviewTypes';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import DashboardPagination from './DashboardPagination';
+import { DashboardCardsProps } from 'app/_types/dashboardTypes';
 
-interface DashboardCardsProps {
-    searchQuery: string;
-}
 
 const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     const { data: sessionData, status: sessionStatus } = useSession();
