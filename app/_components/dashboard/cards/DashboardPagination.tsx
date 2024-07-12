@@ -40,7 +40,7 @@ const DashboardPagination: FC<PaginationProps> = ({
             ))}
             <Button
                 onClick={() => onPageChange(currentPage + 1)}
-                isDisabled={totalItems === 0}
+                isDisabled={totalItems < 9}
             >
                 Next
             </Button>

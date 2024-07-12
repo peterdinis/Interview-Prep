@@ -27,7 +27,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
 
     const [filteredData, setFilteredData] = useState<InterviewsWrapper[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const itemsPerPage = 9;
+    const itemsPerPage = 9 as const;
 
     useEffect(() => {
         if (sessionStatus === 'loading') return;
