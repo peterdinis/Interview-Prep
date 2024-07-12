@@ -20,7 +20,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
         queryFn: async () => {
             return await axios.get('/api/interviews');
         },
-        enabled: !!sessionData?.user?.id,
+        // enabled: !sessionData?.user?.id,
     });
 
     const [filteredData, setFilteredData] = useState<InterviewsWrapper[]>([]);

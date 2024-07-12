@@ -30,7 +30,6 @@
         ".eslintrc.cjs",
         "next-env.d.ts",
         "enviroment.d.ts",
-        "next-auth.d.ts",
         "**/*.ts",
         "**/*.tsx",
         "**/*.cjs",
