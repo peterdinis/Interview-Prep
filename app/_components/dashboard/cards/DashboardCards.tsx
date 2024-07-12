@@ -15,16 +15,20 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     const { data: sessionData, status: sessionStatus } = useSession();
     const router = useRouter();
 
+    const fetchInterviews = async () => {
+        const response = await axios.get('/api/interviews');
+        return response.data;
+    };
+
     const { data, isLoading, isError } = useQuery({
-        queryKey: ['interviews'],
-        queryFn: async () => {
-            return await axios.get('/api/interviews');
-        },
+        queryKey: ['interviews', sessionData?.user?.id],
+        queryFn: fetchInterviews,
+        enabled: !!sessionData?.user?.id, // Only run the query if the user is logged in
     });
 
     const [filteredData, setFilteredData] = useState<InterviewsWrapper[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const itemsPerPage = 9 as const;
+    const itemsPerPage = 9;
 
     useEffect(() => {
         if (sessionStatus === 'loading') return;
@@ -34,8 +38,8 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     }, [sessionData, sessionStatus, router]);
 
     useEffect(() => {
-        if (data?.data) {
-            const filteredList = data.data.filter((item: InterviewsWrapper) =>
+        if (data) {
+            const filteredList = data.filter((item: InterviewsWrapper) =>
                 item
                     .jobPosition!.toLowerCase()
                     .includes(searchQuery.toLowerCase()),
@@ -68,7 +72,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     if (isError) {
         return (
             <Box mt={8} textAlign='center'>
-                <Text fontSize='lg' fontWeight={'bold'}>
+                <Text fontSize='lg' fontWeight='bold'>
                     Something went wrong
                 </Text>
             </Box>
@@ -94,7 +98,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
                 </SimpleGrid>
             ) : (
                 <Box mt={8} textAlign='center'>
-                    <Text fontSize='lg' fontWeight={'bold'}>
+                    <Text fontSize='lg' fontWeight='bold'>
                         No Interviews found
                     </Text>
                 </Box>
@@ -102,9 +106,9 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
 
             <Box
                 mt={12}
-                display={'flex'}
-                justifyContent={'center'}
-                alignItems={'center'}
+                display='flex'
+                justifyContent='center'
+                alignItems='center'
                 p={4}
             >
                 <DashboardPagination
