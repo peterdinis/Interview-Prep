@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from 'database/db';
-import { DefaultSession, getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth';
 import authOptions from '../auth/authOptions';
 import { CustomSession } from 'app/_types/sessionTypes';
 
