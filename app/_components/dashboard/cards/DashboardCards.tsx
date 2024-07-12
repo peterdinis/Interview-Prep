@@ -11,7 +11,6 @@ import { useRouter } from 'next/navigation';
 import DashboardPagination from './DashboardPagination';
 import { DashboardCardsProps } from 'app/_types/dashboardTypes';
 
-
 const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     const { data: sessionData, status: sessionStatus } = useSession();
     const router = useRouter();
