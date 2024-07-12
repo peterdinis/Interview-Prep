@@ -4,21 +4,16 @@ import { FC, Key, useEffect, useState } from 'react';
 import { SimpleGrid, Container, Text, Box, Spinner } from '@chakra-ui/react';
 import DashboardCard from './DashboardCard';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { InterviewsWrapper } from 'app/_types/interviewTypes';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import DashboardPagination from './DashboardPagination';
 import { DashboardCardsProps } from 'app/_types/dashboardTypes';
+import { fetchInterviews } from 'app/_store/queries/interviewQueries';
 
 const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     const { data: sessionData, status: sessionStatus } = useSession();
     const router = useRouter();
-
-    const fetchInterviews = async () => {
-        const response = await axios.get('/api/interviews');
-        return response.data;
-    };
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ['interviews', sessionData?.user?.id],
