@@ -14,7 +14,6 @@ import {
     AccordionPanel,
     AccordionIcon,
     Tag,
-    useColorModeValue,
 } from '@chakra-ui/react';
 import Header from '../shared/Header';
 import Link from 'next/link';
@@ -22,6 +21,7 @@ import { format } from 'date-fns';
 import { fetchInterview } from 'app/_store/queries/applicationQueries';
 import { QA } from 'app/_types/interviewTypes';
 import { parseMockInterview } from '../_utils/interviewHelpers';
+import { tagColorScheme, answerColorScheme } from '../_utils/colorConstants';
 
 const InterviewDetail: FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -39,9 +39,6 @@ const InterviewDetail: FC = () => {
             setQaList(parsedQA);
         }
     }, [data]);
-
-    const tagColorScheme = useColorModeValue('blue', 'teal');
-    const answerColorScheme = useColorModeValue('green', 'purple');
 
     if (isLoading) {
         return (

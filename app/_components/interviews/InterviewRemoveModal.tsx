@@ -7,7 +7,6 @@ import {
     ModalContent,
     ModalHeader,
     ModalFooter,
-    ModalBody,
     ModalCloseButton,
     useDisclosure,
     Button,
@@ -81,10 +80,6 @@ const InterviewRemoveModal: FC<InterviewRemoveModalIProps> = ({
                         Do you want to delete this mock interview ?
                     </ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Consequuntur, numquam?
-                    </ModalBody>
 
                     <ModalFooter>
                         <Button colorScheme='blue' mr={3} onClick={onClose}>

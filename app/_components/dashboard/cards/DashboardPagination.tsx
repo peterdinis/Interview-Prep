@@ -2,13 +2,7 @@
 
 import { FC } from 'react';
 import { HStack, Button } from '@chakra-ui/react';
-
-interface PaginationProps {
-    totalItems: number;
-    itemsPerPage: number;
-    currentPage: number;
-    onPageChange: (page: number) => void;
-}
+import { PaginationProps } from 'app/_types/dashboardTypes';
 
 const DashboardPagination: FC<PaginationProps> = ({
     totalItems,
@@ -40,7 +34,7 @@ const DashboardPagination: FC<PaginationProps> = ({
             ))}
             <Button
                 onClick={() => onPageChange(currentPage + 1)}
-                isDisabled={totalItems === 0}
+                isDisabled={totalItems < 9}
             >
                 Next
             </Button>

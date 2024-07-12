@@ -9,10 +9,7 @@ import { InterviewsWrapper } from 'app/_types/interviewTypes';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import DashboardPagination from './DashboardPagination';
-
-interface DashboardCardsProps {
-    searchQuery: string;
-}
+import { DashboardCardsProps } from 'app/_types/dashboardTypes';
 
 const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
     const { data: sessionData, status: sessionStatus } = useSession();
@@ -27,7 +24,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({ searchQuery }) => {
 
     const [filteredData, setFilteredData] = useState<InterviewsWrapper[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const itemsPerPage = 9;
+    const itemsPerPage = 9 as const;
 
     useEffect(() => {
         if (sessionStatus === 'loading') return;

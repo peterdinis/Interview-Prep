@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from 'database/db';
+import { getServerSession } from 'next-auth';
+import authOptions from '../auth/authOptions';
+import { CustomSession } from 'app/_types/sessionTypes';
 
 export async function POST(req: NextRequest) {
     try {
@@ -10,6 +13,18 @@ export async function POST(req: NextRequest) {
             numQuestions,
             showQuestions,
         } = await req.json();
+
+        // Get the session
+        const session = (await getServerSession(authOptions)) as CustomSession;
+
+        if (!session || !session.user) {
+            return NextResponse.json(
+                { error: 'Not authenticated' },
+                { status: 401 },
+            );
+        }
+
+        const userId = session.user.id;
 
         if (
             !jobPosition ||
@@ -94,6 +109,7 @@ export async function POST(req: NextRequest) {
                 jobDesc,
                 jobExperience: jobExperience,
                 mockInterview: generatedText,
+                userId,
                 questions: {
                     create: questions.map(
                         (question: string, index: number) => ({
