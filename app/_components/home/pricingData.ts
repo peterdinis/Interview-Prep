@@ -5,10 +5,10 @@ export const pricingList = {
             price: '5€',
             description:
                 'Get access to basic mock interviews and prepare for entry-level positions.',
-                features: [
-                    { isActive: true, label: 'Advanced Mock Interviews' },
-                    { isActive: true, label: 'You can create 10 mock interviews' },
-                ],
+            features: [
+                { isActive: true, label: 'Advanced Mock Interviews' },
+                { isActive: true, label: 'You can create 10 mock interviews' },
+            ],
             isActive: false,
         },
         {
