@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import './globals.css';
-import 'react-vertical-timeline-component/style.min.css';
 import Navbar from './_components/shared/Navbar';
 import ChakraUiProvider from './_components/shared/providers/ChakraUiProvider';
 import SassUiProvider from './_components/shared/providers/SassUiProvider';

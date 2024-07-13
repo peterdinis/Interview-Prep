@@ -1,30 +1,44 @@
 export const pricingList = {
     pricing: [
         {
-            planTitle: 'Basic',
-            price: '$99',
+            planTitle: 'Starter',
+            price: '5€',
             description:
-                'More off this less hello salamander lied porpoise much over tightly circa horse taped.',
+                'Get access to basic mock interviews and prepare for entry-level positions.',
             features: [
-                { isActive: true, label: 'Build Links' },
-                { isActive: true, label: 'Over 66 complex' },
-                { isActive: false, label: '24/7 Contact support' },
-                { isActive: false, label: 'Build Tools easily' },
-                { isActive: false, label: '6TB storage' },
+                { isActive: true, label: 'Basic Mock Interviews' },
+                { isActive: true, label: 'Access to 10 Questions' },
+                { isActive: false, label: 'Performance Analysis' },
+                { isActive: false, label: 'Advanced Simulations' },
+                { isActive: false, label: '24/7 Support' },
             ],
             isActive: false,
         },
         {
-            planTitle: 'Premium',
-            price: '$299',
+            planTitle: 'Pro',
+            price: '50€',
             description:
-                'It’s easier to reach your savings goals when you have the right savings account.',
+                'Prepare for higher-level interviews and improve your chances of success.',
             features: [
-                { isActive: true, label: 'Build Links' },
-                { isActive: true, label: 'Over 66 complex' },
-                { isActive: true, label: '24/7 Contact support' },
-                { isActive: true, label: 'Build Tools easily' },
-                { isActive: true, label: '6TB storage' },
+                { isActive: true, label: 'Advanced Mock Interviews' },
+                { isActive: true, label: 'Access to 50 Questions' },
+                { isActive: true, label: 'Performance Analysis' },
+                { isActive: true, label: 'Advanced Simulations' },
+                { isActive: false, label: '24/7 Support' },
+            ],
+            isActive: false,
+        },
+        {
+            planTitle: 'Expert',
+            price: '150€',
+            description:
+                'Comprehensive preparation for any interview with unlimited access to all features.',
+            features: [
+                { isActive: true, label: 'Unlimited Mock Interviews' },
+                { isActive: true, label: 'Access to Unlimited Questions' },
+                { isActive: true, label: 'Performance Analysis' },
+                { isActive: true, label: 'Advanced Simulations' },
+                { isActive: true, label: '24/7 Support' },
             ],
             isActive: true,
         },
