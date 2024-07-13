@@ -47,7 +47,7 @@ const LandingInfo: FC = () => {
         <Container id='description' maxWidth='7xl' p={{ base: 2, sm: 10 }}>
             <Header text='How InterviewPrep Works' />
             {milestones.map((milestone) => (
-                <Flex key={milestone.id} mb='10px'>
+                <Flex key={milestone.id} mt={5} mb='10px'>
                     {/* Desktop view(left card) */}
                     {isDesktop && milestone.id % 2 === 0 && (
                         <>
