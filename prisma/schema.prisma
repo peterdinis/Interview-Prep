@@ -35,16 +35,18 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  email         String    @unique
-  name          String
-  password      String
-  accounts      Account[]
-  sessions      Session[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  interviews    Interview[]  // Define the relationship to Interview model
+  id                String           @id @default(uuid())
+  email             String           @unique
+  name              String
+  password          String
+  accounts          Account[]
+  sessions          Session[]
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  interviews        Interview[]      // Define the relationship to Interview model
+  subscription      Subscription?    
 }
+
 model VerificationToken {
   identifier String   @id @default(uuid())
   token      String   @unique
@@ -62,7 +64,7 @@ model Interview {
   createdAt        DateTime   @default(now())
   updatedAt        DateTime   @updatedAt
   user             User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
-  userId           String?    @default(uuid())
+  userId           String?    
   questions        Question[] @relation("InterviewQuestions")
 }
 
@@ -72,4 +74,17 @@ model Question {
   interview    Interview  @relation("InterviewQuestions", fields: [interviewId], references: [id], onDelete: Cascade)
   question     String
   answer       String?
+}
+
+model Subscription {
+  id                   String   @id @default(uuid())
+  userId               String   @unique
+  stripeCustomerId     String   @unique
+  stripeSubscriptionId String   @unique
+  plan                 String
+  status               String
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
