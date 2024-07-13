@@ -20,6 +20,9 @@ dependencies:
     '@emotion/styled':
         specifier: ^11.11.5
         version: 11.11.5(@emotion/react@11.11.4)(@types/react@18.3.3)(react@18.3.1)
+    '@hookform/resolvers':
+        specifier: ^3.9.0
+        version: 3.9.0(react-hook-form@7.52.1)
     '@next-auth/prisma-adapter':
         specifier: ^1.0.7
         version: 1.0.7(@prisma/client@5.16.2)(next-auth@4.24.7)
@@ -68,9 +71,15 @@ dependencies:
     react-dom:
         specifier: ^18
         version: 18.3.1(react@18.3.1)
+    react-hook-form:
+        specifier: ^7.52.1
+        version: 7.52.1(react@18.3.1)
     stripe:
         specifier: ^16.2.0
         version: 16.2.0
+    zod:
+        specifier: ^3.23.8
+        version: 3.23.8
 
 devDependencies:
     '@types/bcrypt':
@@ -1883,15 +1892,15 @@ packages:
         engines: { node: ^12.22.0 || ^14.17.0 || >=16.0.0 }
         dev: true
 
-    /@hookform/resolvers@3.6.0(react-hook-form@7.51.5):
+    /@hookform/resolvers@3.9.0(react-hook-form@7.52.1):
         resolution:
             {
-                integrity: sha512-UBcpyOX3+RR+dNnqBd0lchXpoL8p4xC21XP8H6Meb8uve5Br1GCnmg0PcBoKKqPKgGu9GHQ/oygcmPrQhetwqw==,
+                integrity: sha512-bU0Gr4EepJ/EQsH/IwEzYLsT/PEj5C0ynLQ4m+GSHS+xKH4TfSelhluTgOaoc4kA5s7eCsQbM4wvZLzELmWzUg==,
             }
         peerDependencies:
             react-hook-form: ^7.0.0
         dependencies:
-            react-hook-form: 7.51.5(react@18.3.1)
+            react-hook-form: 7.52.1(react@18.3.1)
         dev: false
 
     /@humanwhocodes/config-array@0.11.14:
@@ -2413,12 +2422,12 @@ packages:
             '@chakra-ui/utils': 2.0.15
             '@emotion/react': 11.11.4(@types/react@18.3.3)(react@18.3.1)
             '@emotion/styled': 11.11.5(@emotion/react@11.11.4)(@types/react@18.3.3)(react@18.3.1)
-            '@hookform/resolvers': 3.6.0(react-hook-form@7.51.5)
+            '@hookform/resolvers': 3.9.0(react-hook-form@7.52.1)
             '@saas-ui/core': 2.5.3(@chakra-ui/react@2.8.2)(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(framer-motion@11.2.10)(react-dom@18.3.1)(react@18.3.1)
             framer-motion: 11.2.10(react-dom@18.3.1)(react@18.3.1)
             react: 18.3.1
             react-dom: 18.3.1(react@18.3.1)
-            react-hook-form: 7.51.5(react@18.3.1)
+            react-hook-form: 7.52.1(react@18.3.1)
         dev: false
 
     /@saas-ui/hooks@2.0.3(@chakra-ui/react@2.8.2)(react@18.3.1):
@@ -6165,14 +6174,14 @@ packages:
             use-sidecar: 1.1.2(@types/react@18.3.3)(react@18.3.1)
         dev: false
 
-    /react-hook-form@7.51.5(react@18.3.1):
+    /react-hook-form@7.52.1(react@18.3.1):
         resolution:
             {
-                integrity: sha512-J2ILT5gWx1XUIJRETiA7M19iXHlG74+6O3KApzvqB/w8S5NQR7AbU8HVZrMALdmDgWpRPYiZJl0zx8Z4L2mP6Q==,
+                integrity: sha512-uNKIhaoICJ5KQALYZ4TOaOLElyM+xipord+Ha3crEFhTntdLvWZqVY49Wqd/0GiVCA/f9NjemLeiNPjG7Hpurg==,
             }
         engines: { node: '>=12.22.0' }
         peerDependencies:
-            react: ^16.8.0 || ^17 || ^18
+            react: ^16.8.0 || ^17 || ^18 || ^19
         dependencies:
             react: 18.3.1
         dev: false
@@ -7213,3 +7222,10 @@ packages:
             }
         engines: { node: '>=10' }
         dev: true
+
+    /zod@3.23.8:
+        resolution:
+            {
+                integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==,
+            }
+        dev: false
