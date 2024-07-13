@@ -16,55 +16,50 @@ import {
     Link,
     useToast,
 } from '@chakra-ui/react';
-import { FC, useState, FormEvent } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { registerSchema } from './authSchemas';
 
 const RegisterForm: FC = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+        resolver: zodResolver(registerSchema),
+    });
     const router = useRouter();
     const toast = useToast();
 
     const registerUserMut = useMutation({
         mutationKey: ['registerUser'],
-        mutationFn: async () => {
-            await axios.post('/api/register', {
-                name,
-                email,
-                password,
-            });
+        mutationFn: async (data: any) => {
+            await axios.post('/api/register', data);
         },
-    });
-
-    const registerUser = async (e: FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-
-        try {
-            registerUserMut.mutate();
+        onSuccess: () => {
             toast({
-                title: 'Successfully register to app',
+                title: 'Successfully registered to the app',
                 status: 'success',
                 duration: 3000,
                 isClosable: true,
             });
             router.push('/login');
-        } catch (error) {
+        },
+        onError: () => {
             toast({
                 title: 'Something went wrong',
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
             });
-        } finally {
-            setLoading(false);
-        }
+        },
+    });
+
+    const onSubmit = (data: any) => {
+        registerUserMut.mutate(data);
+        reset();
     };
 
     return (
@@ -81,61 +76,54 @@ const RegisterForm: FC = () => {
                     boxShadow={'lg'}
                     p={8}
                 >
-                    <form onSubmit={registerUser}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <Stack spacing={4}>
-                            <FormControl mt={3} id='name' isRequired>
+                            <FormControl mt={3} id='name' isInvalid={!!errors.name}>
                                 <FormLabel>Name</FormLabel>
                                 <Input
-                                    disabled={loading}
+                                    {...register('name')}
                                     type='text'
                                     size={'lg'}
-                                    onChange={(e) => setName(e.target.value)}
-                                    value={name}
                                 />
+                                {errors.name && (
+                                    <Text color='red.500'>{errors.name.message as unknown as ReactNode}</Text>
+                                )}
                             </FormControl>
-                            <FormControl mt={3} id='email' isRequired>
+                            <FormControl mt={3} id='email' isInvalid={!!errors.email}>
                                 <FormLabel>Email address</FormLabel>
                                 <Input
-                                    disabled={loading}
+                                    {...register('email')}
                                     type='email'
                                     size={'lg'}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    value={email}
                                 />
+                                {errors.email && (
+                                    <Text color='red.500'>{errors.email.message as unknown as ReactNode}</Text>
+                                )}
                             </FormControl>
-                            <FormControl mt={3} id='password' isRequired>
+                            <FormControl mt={3} id='password' isInvalid={!!errors.password}>
                                 <FormLabel>Password</FormLabel>
                                 <InputGroup>
                                     <Input
+                                        {...register('password')}
                                         size={'lg'}
-                                        disabled={loading}
-                                        onChange={(e) =>
-                                            setPassword(e.target.value)
-                                        }
-                                        value={password}
-                                        type={
-                                            showPassword ? 'text' : 'password'
-                                        }
+                                        type={showPassword ? 'text' : 'password'}
                                     />
                                     <InputRightElement h={'full'}>
                                         <Button
                                             variant={'ghost'}
-                                            onClick={() =>
-                                                setShowPassword(!showPassword)
-                                            }
+                                            onClick={() => setShowPassword(!showPassword)}
                                         >
-                                            {showPassword ? (
-                                                <ViewIcon />
-                                            ) : (
-                                                <ViewOffIcon />
-                                            )}
+                                            {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                                         </Button>
                                     </InputRightElement>
                                 </InputGroup>
+                                {errors.password && (
+                                    <Text color='red.500'>{errors.password.message as unknown as ReactNode}</Text>
+                                )}
                             </FormControl>
                             <Stack mt={3} spacing={10} pt={2}>
                                 <Button
-                                    isLoading={loading}
+                                    isLoading={registerUserMut.isPending}
                                     type='submit'
                                     size='lg'
                                     bg={'blue.400'}
