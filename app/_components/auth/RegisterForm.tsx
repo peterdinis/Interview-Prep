@@ -27,7 +27,12 @@ import { registerSchema } from './authSchemas';
 
 const RegisterForm: FC = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+    } = useForm({
         resolver: zodResolver(registerSchema),
     });
     const router = useRouter();
@@ -78,7 +83,11 @@ const RegisterForm: FC = () => {
                 >
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Stack spacing={4}>
-                            <FormControl mt={3} id='name' isInvalid={!!errors.name}>
+                            <FormControl
+                                mt={3}
+                                id='name'
+                                isInvalid={!!errors.name}
+                            >
                                 <FormLabel>Name</FormLabel>
                                 <Input
                                     {...register('name')}
@@ -86,10 +95,19 @@ const RegisterForm: FC = () => {
                                     size={'lg'}
                                 />
                                 {errors.name && (
-                                    <Text color='red.500'>{errors.name.message as unknown as ReactNode}</Text>
+                                    <Text color='red.500'>
+                                        {
+                                            errors.name
+                                                .message as unknown as ReactNode
+                                        }
+                                    </Text>
                                 )}
                             </FormControl>
-                            <FormControl mt={3} id='email' isInvalid={!!errors.email}>
+                            <FormControl
+                                mt={3}
+                                id='email'
+                                isInvalid={!!errors.email}
+                            >
                                 <FormLabel>Email address</FormLabel>
                                 <Input
                                     {...register('email')}
@@ -97,28 +115,50 @@ const RegisterForm: FC = () => {
                                     size={'lg'}
                                 />
                                 {errors.email && (
-                                    <Text color='red.500'>{errors.email.message as unknown as ReactNode}</Text>
+                                    <Text color='red.500'>
+                                        {
+                                            errors.email
+                                                .message as unknown as ReactNode
+                                        }
+                                    </Text>
                                 )}
                             </FormControl>
-                            <FormControl mt={3} id='password' isInvalid={!!errors.password}>
+                            <FormControl
+                                mt={3}
+                                id='password'
+                                isInvalid={!!errors.password}
+                            >
                                 <FormLabel>Password</FormLabel>
                                 <InputGroup>
                                     <Input
                                         {...register('password')}
                                         size={'lg'}
-                                        type={showPassword ? 'text' : 'password'}
+                                        type={
+                                            showPassword ? 'text' : 'password'
+                                        }
                                     />
                                     <InputRightElement h={'full'}>
                                         <Button
                                             variant={'ghost'}
-                                            onClick={() => setShowPassword(!showPassword)}
+                                            onClick={() =>
+                                                setShowPassword(!showPassword)
+                                            }
                                         >
-                                            {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                                            {showPassword ? (
+                                                <ViewIcon />
+                                            ) : (
+                                                <ViewOffIcon />
+                                            )}
                                         </Button>
                                     </InputRightElement>
                                 </InputGroup>
                                 {errors.password && (
-                                    <Text color='red.500'>{errors.password.message as unknown as ReactNode}</Text>
+                                    <Text color='red.500'>
+                                        {
+                                            errors.password
+                                                .message as unknown as ReactNode
+                                        }
+                                    </Text>
                                 )}
                             </FormControl>
                             <Stack mt={3} spacing={10} pt={2}>
