@@ -16,7 +16,6 @@ import Header from '../shared/Header';
 import { CardProps } from 'app/_types/cardTypes';
 import { milestones } from './milestones';
 
-
 const LandingInfo: FC = () => {
     const isMobile = useBreakpointValue({ base: true, md: false });
     const isDesktop = useBreakpointValue({ base: false, md: true });
@@ -148,7 +147,7 @@ const LineWithDot = () => {
                     borderRadius='100px'
                     backgroundImage='none'
                     opacity={1}
-               />
+                />
             </Box>
         </Flex>
     );
