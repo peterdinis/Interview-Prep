@@ -6,6 +6,8 @@ declare global {
             NEXTAUTH_SECRET: string;
             CUSTOM_PASSWORD: string;
             NEXT_PUBLIC_OPENAI_API_KEY: string;
+            STRIPE_SECRET_KEY: string;
+            STRIPE_PUBLIC_KEY: string;
         }
     }
 }

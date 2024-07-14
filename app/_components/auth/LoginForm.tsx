@@ -26,7 +26,11 @@ import { loginSchema } from './authSchemas';
 
 const LoginForm: FC = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
         resolver: zodResolver(loginSchema),
     });
     const router = useRouter();
@@ -86,7 +90,11 @@ const LoginForm: FC = () => {
                 >
                     <Stack spacing={6}>
                         <form onSubmit={handleSubmit(loginUser)}>
-                            <FormControl mt={3} id='email' isInvalid={!!errors.email}>
+                            <FormControl
+                                mt={3}
+                                id='email'
+                                isInvalid={!!errors.email}
+                            >
                                 <FormLabel>Email address</FormLabel>
                                 <Input
                                     disabled={loading}
@@ -95,29 +103,51 @@ const LoginForm: FC = () => {
                                     {...register('email')}
                                 />
                                 {errors.email && (
-                                    <Text color='red.500'>{errors.email.message as unknown as ReactNode}</Text>
+                                    <Text color='red.500'>
+                                        {
+                                            errors.email
+                                                .message as unknown as ReactNode
+                                        }
+                                    </Text>
                                 )}
                             </FormControl>
-                            <FormControl mt={3} id='password' isInvalid={!!errors.password}>
+                            <FormControl
+                                mt={3}
+                                id='password'
+                                isInvalid={!!errors.password}
+                            >
                                 <FormLabel>Password</FormLabel>
                                 <InputGroup>
                                     <Input
                                         disabled={loading}
                                         {...register('password')}
                                         size={'lg'}
-                                        type={showPassword ? 'text' : 'password'}
+                                        type={
+                                            showPassword ? 'text' : 'password'
+                                        }
                                     />
                                     <InputRightElement h={'full'}>
                                         <Button
                                             variant={'ghost'}
-                                            onClick={() => setShowPassword(!showPassword)}
+                                            onClick={() =>
+                                                setShowPassword(!showPassword)
+                                            }
                                         >
-                                            {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                                            {showPassword ? (
+                                                <ViewIcon />
+                                            ) : (
+                                                <ViewOffIcon />
+                                            )}
                                         </Button>
                                     </InputRightElement>
                                 </InputGroup>
                                 {errors.password && (
-                                    <Text color='red.500'>{errors.password.message as unknown as ReactNode}</Text>
+                                    <Text color='red.500'>
+                                        {
+                                            errors.password
+                                                .message as unknown as ReactNode
+                                        }
+                                    </Text>
                                 )}
                             </FormControl>
                             <Stack mt={3} spacing={10} pt={2}>

@@ -13,31 +13,8 @@ import {
     useBreakpointValue,
 } from '@chakra-ui/react';
 import Header from '../shared/Header';
-
-const milestones = [
-    {
-        id: 1,
-        date: 'Step 1',
-        title: 'Sign Up and Create Profile',
-        description: `Users sign up and create a detailed profile to tailor the interview preparation experience to their needs.`,
-    },
-    {
-        id: 2,
-        date: 'Step 2',
-        title: 'Create mock interview',
-        description: `Test your knowledge on a mock interview so that you can star in the real interview. You can choose between two modes. Classic & Questions Mode.
-        Classic mode -> AI generate all interview for you(Questions and answers).
-        Question mode -> AI generate question for you and you answer for this questions.
-
-        `,
-    },
-    {
-        id: 3,
-        date: 'Step 3',
-        title: 'After experience, you will succeed in a real interview',
-        description: `Try try try and you'll see 😉`,
-    },
-];
+import { CardProps } from 'app/_types/cardTypes';
+import { milestones } from './milestones';
 
 const LandingInfo: FC = () => {
     const isMobile = useBreakpointValue({ base: true, md: false });
@@ -47,7 +24,7 @@ const LandingInfo: FC = () => {
         <Container id='description' maxWidth='7xl' p={{ base: 2, sm: 10 }}>
             <Header text='How InterviewPrep Works' />
             {milestones.map((milestone) => (
-                <Flex key={milestone.id} mb='10px'>
+                <Flex key={milestone.id} mt={5} mb='10px'>
                     {/* Desktop view(left card) */}
                     {isDesktop && milestone.id % 2 === 0 && (
                         <>
@@ -79,13 +56,6 @@ const LandingInfo: FC = () => {
         </Container>
     );
 };
-
-interface CardProps {
-    id: number;
-    title: string;
-    description: string;
-    date: string;
-}
 
 const Card = ({ id, title, description, date }: CardProps) => {
     const isEvenId = id % 2 == 0;
@@ -160,7 +130,7 @@ const LineWithDot = () => {
                 border='1px solid'
                 borderColor={useColorModeValue('gray.200', 'gray.700')}
                 top='0px'
-            ></chakra.span>
+            />
             <Box pos='relative' p='10px'>
                 <Box
                     pos='absolute'
@@ -177,7 +147,7 @@ const LineWithDot = () => {
                     borderRadius='100px'
                     backgroundImage='none'
                     opacity={1}
-                ></Box>
+                />
             </Box>
         </Flex>
     );
@@ -189,7 +159,7 @@ const EmptyCard = () => {
             flex={{ base: 0, md: 1 }}
             p={{ base: 0, md: 6 }}
             bg='transparent'
-        ></Box>
+        />
     );
 };
 
