@@ -33,7 +33,7 @@ const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
 
-    const mutation = useMutation(createCheckoutSession, {
+/*     const mutation = useMutation(createCheckoutSession, {
         onSuccess: (data) => {
             const { id } = data;
             const stripe = window.Stripe(
@@ -48,7 +48,7 @@ const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
 
     const handleCheckout = () => {
         mutation.mutate(planId);
-    };
+    }; */
 
     return (
         <Box
@@ -84,7 +84,7 @@ const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
                 color={isActive ? 'black' : 'white'}
                 _hover={{ bg: isActive ? 'gray.200' : 'blue.700' }}
                 borderRadius='md'
-                onClick={handleCheckout}
+               /*  onClick={handleCheckout} */
             >
                 Choose plan
             </Button>
@@ -96,13 +96,13 @@ const LandingPricing: FC = () => {
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
 
-    const content = useMemo(() => {
+    /* const content = useMemo(() => {
         return pricingList.pricing.map((pricing, i) => (
             <Box maxW='md' mt={6} key={i}>
                 <PricingItem pricing={pricing} />
             </Box>
         ));
-    }, []);
+    }, []); */
 
     return (
         <Box
@@ -130,7 +130,7 @@ const LandingPricing: FC = () => {
                     gap={6}
                     mt={6}
                 >
-                    {content}
+                    {/* {content} */} TODO: BROKEN
                 </Flex>
             </Box>
         </Box>
