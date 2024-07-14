@@ -11,9 +11,9 @@
         "checkJs": true,
         "lib": ["dom", "dom.iterable", "ES2022"],
         "module": "CommonJS",
-        "moduleResolution": "Node",
+        "moduleResolution": "nodenext",
         "jsx": "preserve",
-        "types": ["node"],
+        "types": ["bun-types"],
         "plugins": [
             {
                 "name": "next"
