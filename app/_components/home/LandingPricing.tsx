@@ -1,3 +1,5 @@
+/* TODO: Later update logic for pricing */
+
 'use client';
 
 import {
