@@ -4,6 +4,7 @@ export interface Feature {
 }
 
 export interface Pricing {
+    planId: string;
     planTitle: string;
     price: string;
     description: string;

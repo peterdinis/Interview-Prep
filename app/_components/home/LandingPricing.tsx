@@ -10,12 +10,42 @@ import {
 } from '@chakra-ui/react';
 import { PricingItemProps } from 'app/_types/pricingTypes';
 import { FC, useMemo } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { pricingList } from './pricingData';
 
+const createCheckoutSession = async (planId: string) => {
+    const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ planId }),
+    });
+    if (!response.ok) {
+        throw new Error('Failed to create checkout session');
+    }
+    return response.json();
+};
+
 const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
-    const { planTitle, price, description, features, isActive } = pricing;
+    const { planTitle, price, description, features, isActive, planId } = pricing; // Ensure planId is included
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
+
+    const mutation = useMutation(createCheckoutSession, {
+        onSuccess: (data) => {
+            const { id } = data;
+            const stripe = window.Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+            stripe.redirectToCheckout({ sessionId: id });
+        },
+        onError: (error) => {
+            console.error('Error creating checkout session:', error);
+        },
+    });
+
+    const handleCheckout = () => {
+        mutation.mutate(planId);
+    };
 
     return (
         <Box
@@ -51,6 +81,7 @@ const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
                 color={isActive ? 'black' : 'white'}
                 _hover={{ bg: isActive ? 'gray.200' : 'blue.700' }}
                 borderRadius='md'
+                onClick={handleCheckout}
             >
                 Choose plan
             </Button>
