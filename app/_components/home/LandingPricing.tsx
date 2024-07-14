@@ -28,14 +28,17 @@ const createCheckoutSession = async (planId: string) => {
 };
 
 const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
-    const { planTitle, price, description, features, isActive, planId } = pricing; // Ensure planId is included
+    const { planTitle, price, description, features, isActive, planId } =
+        pricing; // Ensure planId is included
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
 
     const mutation = useMutation(createCheckoutSession, {
         onSuccess: (data) => {
             const { id } = data;
-            const stripe = window.Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+            const stripe = window.Stripe(
+                process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+            );
             stripe.redirectToCheckout({ sessionId: id });
         },
         onError: (error) => {

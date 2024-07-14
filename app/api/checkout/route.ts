@@ -13,7 +13,10 @@ export async function POST(request: NextRequest) {
         });
 
         if (!subscription || subscription.attemps <= 0) {
-            return NextResponse.json({ error: 'No attempts left.' }, { status: 400 });
+            return NextResponse.json(
+                { error: 'No attempts left.' },
+                { status: 400 },
+            );
         }
 
         // Decrement attempts
