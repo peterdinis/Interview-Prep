@@ -10,7 +10,7 @@
         "format": "prettier --check --ignore-path .gitignore .",
         "format:fix": "prettier --write --ignore-path .gitignore .",
         "prepare": "husky",
-        "studio": "pnpm prisma studio"
+        "studio": "bun prisma studio"
     },
     "dependencies": {
         "@chakra-ui/icons": "^2.1.1",
