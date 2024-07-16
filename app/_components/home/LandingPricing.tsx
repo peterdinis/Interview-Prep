@@ -98,14 +98,14 @@ const LandingPricing: FC = () => {
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
 
-   const content = useMemo(() => {
+    const content = useMemo(() => {
         return pricingList.pricing.map((pricing, i) => (
             <Box maxW='md' mt={6} key={i}>
                 {/* <PricingItem pricing={pricing} /> */}
                 LATER
             </Box>
         ));
-    }, []); 
+    }, []);
 
     return (
         <Box
