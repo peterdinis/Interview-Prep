@@ -90,7 +90,7 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
 
     const onHandleAnswerSubmit = (questionId: number, answer: string) => {
         submitAnswerMutation.mutate({ questionId, answer });
-        setAnswers((prev: any) => ({ ...prev, [questionId]: answer }));
+        setAnswers((prev) => ({ ...prev, [questionId]: answer }));
         router.prefetch('/dashboard');
     };
 
@@ -161,7 +161,8 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
                             <Input
                                 mt={2}
                                 required
-                                type='text'
+                                type='number'
+                                min={0}
                                 value={jobExperience}
                                 onChange={(e) =>
                                     setJobExperience(e.target.value)
