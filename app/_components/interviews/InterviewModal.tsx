@@ -126,10 +126,6 @@ const InterviewModal: FC<{ isOpen: boolean; onClose: () => void }> = ({
                         1. Classic mode: After submiting form AI Generate all
                         interview
                     </Text>
-                    <Text mt={5}>
-                        2. Question mode Ai Generate questions for you and you
-                        answered them
-                    </Text>
                     <Stack mt={5} spacing={3}>
                         <form onSubmit={onHandleSubmit}>
                             <Text mt={3} fontWeight='bold'>
