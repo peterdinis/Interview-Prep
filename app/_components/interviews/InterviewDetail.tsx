@@ -20,7 +20,10 @@ import Link from 'next/link';
 import { format } from 'date-fns';
 import { QA } from 'app/_types/interviewTypes';
 import { parseMockInterview } from '../_utils/interviewHelpers';
-import { tagColorScheme, answerColorScheme } from '../_constants/colorConstants';
+import {
+    tagColorScheme,
+    answerColorScheme,
+} from '../_constants/colorConstants';
 import { fetchInterview } from 'app/_store/queries/interviewQueries';
 
 const InterviewDetail: FC = () => {
