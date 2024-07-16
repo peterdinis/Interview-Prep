@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
                 },
                 body: JSON.stringify({
                     prompt: showQuestions
-                        ? `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience. Generate ${numQuestions} questions.`
+                        ? `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience. Generate ${numQuestions} questions. Do not generate answers.`
                         : `Create a mock interview for a ${jobPosition} with experience in ${jobDesc} and ${jobExperience} years of experience. Generate ${numQuestions} questions with detailed answers.`,
                     model: 'gpt-3.5-turbo-instruct',
                     max_tokens: 2048,
