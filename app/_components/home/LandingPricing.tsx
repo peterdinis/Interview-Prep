@@ -13,7 +13,7 @@ import { FC, useMemo } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { pricingList } from './pricingData';
 
-const createCheckoutSession = async (planId: string) => {
+/* const createCheckoutSession = async (planId: string) => {
     const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -25,7 +25,7 @@ const createCheckoutSession = async (planId: string) => {
         throw new Error('Failed to create checkout session');
     }
     return response.json();
-};
+}; */
 
 const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
     const { planTitle, price, description, features, isActive, planId } =
@@ -33,7 +33,7 @@ const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
     const { colorMode } = useColorMode();
     const isDarkMode = colorMode === 'dark';
 
-    const mutation = useMutation(createCheckoutSession, {
+    /* const mutation = useMutation(createCheckoutSession, {
         onSuccess: (data) => {
             const { id } = data;
             const stripe = window.Stripe(
@@ -48,7 +48,7 @@ const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
 
     const handleCheckout = () => {
         mutation.mutate(planId);
-    };
+    }; */
 
     return (
         <Box
@@ -84,7 +84,7 @@ const PricingItem: FC<PricingItemProps> = ({ pricing }) => {
                 color={isActive ? 'black' : 'white'}
                 _hover={{ bg: isActive ? 'gray.200' : 'blue.700' }}
                 borderRadius='md'
-                onClick={handleCheckout}
+                /* onClick={handleCheckout} */
             >
                 Choose plan
             </Button>
@@ -99,7 +99,8 @@ const LandingPricing: FC = () => {
     const content = useMemo(() => {
         return pricingList.pricing.map((pricing, i) => (
             <Box maxW='md' mt={6} key={i}>
-                <PricingItem pricing={pricing} />
+                {/* <PricingItem pricing={pricing} /> */}
+                LATER
             </Box>
         ));
     }, []);
