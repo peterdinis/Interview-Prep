@@ -142,7 +142,8 @@ export async function POST(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
     try {
-        const { questionId, answer }: { questionId: number; answer: string } = await req.json();
+        const { questionId, answer }: { questionId: number; answer: string } =
+            await req.json();
 
         if (!questionId || !answer) {
             return NextResponse.json(
