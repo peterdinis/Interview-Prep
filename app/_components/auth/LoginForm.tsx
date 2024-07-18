@@ -19,7 +19,7 @@ import {
 import { FC, ReactNode, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { signIn, SignInOptions } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from './authSchemas';
@@ -37,7 +37,7 @@ const LoginForm: FC = () => {
     const toast = useToast();
     const [loading, setLoading] = useState(false);
 
-    const loginUser = async (data: any) => {
+    const loginUser = async (data: SignInOptions | undefined) => {
         setLoading(true);
 
         try {

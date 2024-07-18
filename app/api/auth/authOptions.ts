@@ -9,7 +9,7 @@ const authOptions: AuthOptions = {
         strategy: 'jwt',
     },
     pages: {
-        signIn: '/login', // To provide a custom route path
+        signIn: '/login',
     },
     adapter: PrismaAdapter(db),
     providers: [
@@ -19,16 +19,16 @@ const authOptions: AuthOptions = {
                 email: { label: 'Email', type: 'text', placeholder: 'jsmith' },
                 password: { label: 'Password', type: 'password' },
             },
-            async authorize(credentials: any) {
+            async authorize(credentials) {
                 // check to see if email and password is there
-                if (!credentials.email || !credentials.password) {
+                if (!credentials!.email || !credentials!.password) {
                     throw new Error('Please enter an email and password');
                 }
 
                 // check to see if user exists
                 const user = await db.user.findUnique({
                     where: {
-                        email: credentials.email,
+                        email: credentials!.email,
                     },
                 });
 
@@ -39,7 +39,7 @@ const authOptions: AuthOptions = {
 
                 // check to see if password matches
                 const passwordMatch = await bcrypt.compare(
-                    credentials.password,
+                    credentials!.password,
                     user.password,
                 );
 
