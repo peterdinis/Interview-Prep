@@ -4,6 +4,10 @@ import { getServerSession } from 'next-auth';
 import authOptions from '../auth/authOptions';
 import { CustomSession } from 'app/_types/sessionTypes';
 
+interface OpenAIResponse {
+    choices: Array<{ text: string }>;
+}
+
 export async function POST(req: NextRequest) {
     try {
         const {
@@ -12,6 +16,12 @@ export async function POST(req: NextRequest) {
             jobExperience,
             numQuestions,
             showQuestions,
+        }: {
+            jobPosition: string;
+            jobDesc: string;
+            jobExperience: string;
+            numQuestions: number;
+            showQuestions: boolean;
         } = await req.json();
 
         // Get the session
@@ -67,7 +77,7 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const data = await openaiResponse.json();
+        const data: OpenAIResponse = await openaiResponse.json();
 
         if (!data.choices || data.choices.length === 0) {
             return NextResponse.json(
@@ -76,47 +86,43 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const generatedText = data.choices[0].text.trim();
-        let questions = [];
-        let answers: any[] = [];
+        const generatedText = data.choices[0]!.text.trim();
+        let questions: string[] = [];
+        let answers: string[] = [];
 
         if (showQuestions) {
             questions = generatedText
                 .split('\n')
-                .filter((q: string) => q.trim().length > 0)
+                .filter((q) => q.trim().length > 0)
                 .slice(0, numQuestions); // Limit the number of questions to the requested number
         } else {
             const qnaPairs = generatedText
                 .split('\n\n')
-                .filter((qna: string) => qna.trim().length > 0)
+                .filter((qna) => qna.trim().length > 0)
                 .slice(0, numQuestions); // Limit the number of questions to the requested number
 
-            qnaPairs.forEach(
-                (pair: { split: (arg0: string) => [any, ...any[]] }) => {
-                    const [question, ...answerParts] = pair.split('\n');
-                    const answer = answerParts.join(' ').trim();
-                    if (question && answer) {
-                        questions.push(question.trim());
-                        answers.push(answer);
-                    }
-                },
-            );
+            qnaPairs.forEach((pair) => {
+                const [question, ...answerParts] = pair.split('\n');
+                const answer = answerParts.join(' ').trim();
+                if (question && answer) {
+                    questions.push(question.trim());
+                    answers.push(answer);
+                }
+            });
         }
 
         const newInterview = await db.interview.create({
             data: {
                 jobPosition,
                 jobDesc,
-                jobExperience: jobExperience,
+                jobExperience,
                 mockInterview: generatedText,
                 userId,
                 questions: {
-                    create: questions.map(
-                        (question: string, index: number) => ({
-                            question,
-                            answer: showQuestions ? '' : answers[index] || '',
-                        }),
-                    ),
+                    create: questions.map((question, index) => ({
+                        question,
+                        answer: showQuestions ? '' : answers[index] || '',
+                    })),
                 },
             },
             include: {
@@ -125,7 +131,7 @@ export async function POST(req: NextRequest) {
         });
 
         return NextResponse.json({ interview: newInterview }, { status: 200 });
-    } catch (error) {
+    } catch (error: unknown) {
         console.error('Error generating mock interview:', error);
         return NextResponse.json(
             { error: 'Error generating mock interview' },
@@ -136,7 +142,7 @@ export async function POST(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
     try {
-        const { questionId, answer } = await req.json();
+        const { questionId, answer }: { questionId: number; answer: string } = await req.json();
 
         if (!questionId || !answer) {
             return NextResponse.json(
@@ -146,12 +152,12 @@ export async function PATCH(req: NextRequest) {
         }
 
         const updatedQuestion = await db.question.update({
-            where: { id: parseInt(questionId) },
+            where: { id: questionId },
             data: { answer },
         });
 
         return NextResponse.json(updatedQuestion, { status: 200 });
-    } catch (error) {
+    } catch (error: unknown) {
         console.error('Error saving answer:', error);
         return NextResponse.json(
             { error: 'Error saving answer' },
