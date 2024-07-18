@@ -21,9 +21,9 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { FieldValues, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema } from './authSchemas';
+import { registerSchema, RegisterSchemaType } from './authSchemas';
 
 const RegisterForm: FC = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +32,7 @@ const RegisterForm: FC = () => {
         handleSubmit,
         formState: { errors },
         reset,
-    } = useForm({
+    } = useForm<RegisterSchemaType>({
         resolver: zodResolver(registerSchema),
     });
     const router = useRouter();
@@ -40,7 +40,7 @@ const RegisterForm: FC = () => {
 
     const registerUserMut = useMutation({
         mutationKey: ['registerUser'],
-        mutationFn: async (data) => {
+        mutationFn: async (data: RegisterSchemaType) => {
             await axios.post('/api/register', data);
         },
         onSuccess: () => {
@@ -62,7 +62,7 @@ const RegisterForm: FC = () => {
         },
     });
 
-    const onSubmit = (data: void) => {
+    const onSubmit = (data: RegisterSchemaType) => {
         registerUserMut.mutate(data);
         reset();
     };
@@ -96,10 +96,7 @@ const RegisterForm: FC = () => {
                                 />
                                 {errors.name && (
                                     <Text color='red.500'>
-                                        {
-                                            errors.name
-                                                .message as unknown as ReactNode
-                                        }
+                                        {errors.name.message as ReactNode}
                                     </Text>
                                 )}
                             </FormControl>
@@ -116,10 +113,7 @@ const RegisterForm: FC = () => {
                                 />
                                 {errors.email && (
                                     <Text color='red.500'>
-                                        {
-                                            errors.email
-                                                .message as unknown as ReactNode
-                                        }
+                                        {errors.email.message as ReactNode}
                                     </Text>
                                 )}
                             </FormControl>
@@ -154,10 +148,7 @@ const RegisterForm: FC = () => {
                                 </InputGroup>
                                 {errors.password && (
                                     <Text color='red.500'>
-                                        {
-                                            errors.password
-                                                .message as unknown as ReactNode
-                                        }
+                                        {errors.password.message as ReactNode}
                                     </Text>
                                 )}
                             </FormControl>

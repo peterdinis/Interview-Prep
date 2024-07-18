@@ -1,10 +1,11 @@
 import { db } from 'database/db';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(request: NextRequest) {
-    const { planId, userId } = await request.json(); // Include userId from the request
+    const { planId, userId } = await request.json();
 
     try {
         // Retrieve the subscription for the user
@@ -39,7 +40,8 @@ export async function POST(request: NextRequest) {
         });
 
         return NextResponse.json({ id: session.id });
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+        return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }
