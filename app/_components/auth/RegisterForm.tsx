@@ -21,7 +21,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from './authSchemas';
 
@@ -40,7 +40,7 @@ const RegisterForm: FC = () => {
 
     const registerUserMut = useMutation({
         mutationKey: ['registerUser'],
-        mutationFn: async (data: any) => {
+        mutationFn: async (data) => {
             await axios.post('/api/register', data);
         },
         onSuccess: () => {
@@ -62,7 +62,7 @@ const RegisterForm: FC = () => {
         },
     });
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: void) => {
         registerUserMut.mutate(data);
         reset();
     };
