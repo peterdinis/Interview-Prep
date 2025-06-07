@@ -10,7 +10,7 @@ const stats = [
 
 const StatsSection: FC = () => {
     return (
-        <section className="relative py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 overflow-hidden">
+        <section className="p-20 relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 overflow-hidden">
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
