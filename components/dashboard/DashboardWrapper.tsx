@@ -1,9 +1,7 @@
-import { FC } from "react";
+import type { FC } from "react";
 
 const DashboardWrapper: FC = () => {
-    return (
-        <>Dashboard</>
-    )
-}
+	return <>Dashboard</>;
+};
 
-export default DashboardWrapper
+export default DashboardWrapper;
