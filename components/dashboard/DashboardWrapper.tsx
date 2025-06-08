@@ -58,8 +58,7 @@ const DashboardWrapper: FC = () => {
 						variant="outline"
 						className="bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-gray-50 shadow-sm"
 					>
-						<Filter className="h-4 w-4 mr-2" />                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+						<Filter className="h-4 w-4 mr-2" />
 						Filter
 					</Button>
 				</div>
