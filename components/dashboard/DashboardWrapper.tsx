@@ -18,9 +18,10 @@ const DashboardWrapper: FC = () => {
 						</div>
 						<div className="mt-6 lg:mt-0">
 							<Button
+								className="bg-sky-600 rounded-lg text-base"
 								size="lg"
 							>
-								<Plus className="h-5 w-5 mr-2" />
+								<Plus className="h-7 w-7 mr-2" />
 								Create New Interview
 							</Button>
 						</div>
