@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Target } from "lucide-react"
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 const Navigation: FC = () => {
     return (
@@ -17,10 +18,9 @@ const Navigation: FC = () => {
                     </div>
                     <div className="flex justify-end">
                         <Button className="rounded-lg">
-                            Sign In
-                        </Button>
-                        <Button className="rounded-lg ml-4">
-                            Sign Up
+                            <Link href={"/account/create"}>
+                                Create new account
+                            </Link>
                         </Button>
                     </div>
                 </div>
