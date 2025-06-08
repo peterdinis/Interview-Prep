@@ -70,6 +70,10 @@ const DashboardWrapper: FC = () => {
 			</div>
 
 			<div className="">YOUR INTERVIEWS</div>
+
+			<div className="flex mt-6 justify-center items-center">
+				PAGINTAION
+			</div>
 		</main>
 	);
 };
