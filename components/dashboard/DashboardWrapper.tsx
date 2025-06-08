@@ -10,9 +10,7 @@ const DashboardWrapper: FC = () => {
 				<div className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white shadow-xl">
 					<div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 						<div>
-							<h1 className="text-3xl font-bold mb-2">
-								Welcome back 👋
-							</h1>
+							<h1 className="text-3xl font-bold mb-2">Welcome back 👋</h1>
 							<p className="text-blue-100 text-lg">
 								Ready to practice and improve your interview skills today?
 							</p>
@@ -36,17 +34,24 @@ const DashboardWrapper: FC = () => {
 
 			<div className="mb-8">
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-					<div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+					<div
+						className="animate-fade-in-up"
+						style={{ animationDelay: "200ms" }}
+					>
 						<h2 className="text-2xl font-bold text-gray-900 mb-2">
 							Your Test Interviews
 						</h2>
 						<p className="text-gray-600">
-							Practice and improve your interview skills with personalized mock interviews.
+							Practice and improve your interview skills with personalized mock
+							interviews.
 						</p>
 					</div>
 				</div>
 
-				<div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+				<div
+					className="flex flex-col sm:flex-row gap-4 animate-fade-in-up"
+					style={{ animationDelay: "300ms" }}
+				>
 					<div className="relative flex-1">
 						<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
 						<Input
@@ -64,11 +69,9 @@ const DashboardWrapper: FC = () => {
 				</div>
 			</div>
 
-			<div className="">
-				YOUR INTERVIEWS
-			</div>
+			<div className="">YOUR INTERVIEWS</div>
 		</main>
-	)
+	);
 };
 
 export default DashboardWrapper;
