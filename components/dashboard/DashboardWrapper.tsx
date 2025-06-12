@@ -8,10 +8,16 @@ import DashboardInterviews from "./DashboardInterviews";
 import DashboardPagination from "./DashboardPagination";
 import DashboardStats from "./DashboardStats";
 import DashboardDialog from "./DashboardDialog";
+import {useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
 
 const DashboardWrapper = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
+
+  const {user, getUser} = useKindeBrowserClient();
+const alsoUser = getUser();
+
+console.log(user);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
