@@ -1,29 +1,13 @@
 "use client";
 
-import { Filter, Plus, Search } from "lucide-react";
+import { Filter, Search } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "../ui/pagination";
-
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-  DialogClose,
-} from "../ui/dialog";
 import DashboardInterviews from "./DashboardInterviews";
+import DashboardPagination from "./DashboardPagination";
+import DashboardStats from "./DashboardStats";
+import DashboardDialog from "./DashboardDialog";
 
 const DashboardWrapper = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -62,7 +46,6 @@ const DashboardWrapper = () => {
 
   return (
     <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Welcome Banner */}
       <div className="mb-8 animate-fade-in-up">
         <div className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white shadow-xl">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
@@ -73,48 +56,15 @@ const DashboardWrapper = () => {
               </p>
             </div>
 
-            {/* DialogTrigger použité ako tlačidlo */}
-            <div className="mt-6 lg:mt-0">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button
-                    className="bg-sky-600 hover:bg-sky-900 rounded-lg text-base"
-                    size="lg"
-                  >
-                    <Plus className="h-7 w-7 mr-2" />
-                    Create New Interview
-                  </Button>
-                </DialogTrigger>
-
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Create New Interview</DialogTitle>
-                  </DialogHeader>
-
-                  <div className="space-y-4 mt-2">
-                    <Input placeholder="Interview Title" />
-                    <Input placeholder="Category" />
-                  </div>
-
-                  <DialogFooter className="mt-6 space-x-2">
-                    <DialogClose asChild>
-                      <Button variant="outline">Cancel</Button>
-                    </DialogClose>
-                    <Button className="bg-sky-600 text-white">Create</Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
-            </div>
+            <DashboardDialog />
           </div>
         </div>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        STATS
+        <DashboardStats />
       </div>
 
-      {/* Header Section */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
           <div
@@ -130,8 +80,6 @@ const DashboardWrapper = () => {
             </p>
           </div>
         </div>
-
-        {/* Search & Filter */}
         <div
           className="flex flex-col sm:flex-row gap-4 animate-fade-in-up"
           style={{ animationDelay: "300ms" }}
@@ -155,50 +103,11 @@ const DashboardWrapper = () => {
 
       <DashboardInterviews />
 
-      {/* Pagination */}
-      <div className="flex mt-6 justify-center items-center">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious onClick={() => handlePageChange(currentPage - 1)} />
-            </PaginationItem>
-
-            {getPageNumbers().map((page, idx) => {
-              if (page === -1) {
-                return (
-                  <PaginationItem key={`ellipsis-left-${idx}`}>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                );
-              }
-
-              if (page === -2) {
-                return (
-                  <PaginationItem key={`ellipsis-right-${idx}`}>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                );
-              }
-
-              return (
-                <PaginationItem key={page}>
-                  <PaginationLink
-                    isActive={currentPage === page}
-                    onClick={() => handlePageChange(page)}
-                    href="#"
-                  >
-                    {page}
-                  </PaginationLink>
-                </PaginationItem>
-              );
-            })}
-
-            <PaginationItem>
-              <PaginationNext onClick={() => handlePageChange(currentPage + 1)} />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      </div>
+      <DashboardPagination
+        currentPage={currentPage}
+        getPageNumbers={getPageNumbers}
+        handlePageChange={handlePageChange}
+      />
     </main>
   );
 };
