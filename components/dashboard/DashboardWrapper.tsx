@@ -23,6 +23,7 @@ import {
   DialogFooter,
   DialogClose,
 } from "../ui/dialog";
+import DashboardInterviews from "./DashboardInterviews";
 
 const DashboardWrapper = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -152,8 +153,7 @@ const DashboardWrapper = () => {
         </div>
       </div>
 
-      {/* Interviews List */}
-      <div>YOUR INTERVIEWS (page {currentPage})</div>
+      <DashboardInterviews />
 
       {/* Pagination */}
       <div className="flex mt-6 justify-center items-center">
