@@ -2,6 +2,7 @@ import { Target } from "lucide-react";
 import Link from "next/link";
 import type { FC } from "react";
 import { Button } from "../ui/button";
+import { ModeToggle } from "./ModeToggle";
 
 const Navigation: FC = () => {
 	return (
@@ -20,6 +21,9 @@ const Navigation: FC = () => {
 						<Button className="rounded-lg">
 							<Link href={"/account/create"}>Create new account</Link>
 						</Button>
+						<div className="ml-2">
+							<ModeToggle />
+						</div>
 					</div>
 				</div>
 			</div>
