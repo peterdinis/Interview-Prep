@@ -24,5 +24,5 @@ export async function GET() {
 			.run();
 	}
 
-	return NextResponse.redirect("http://localhost:3000/");
+	return NextResponse.redirect("http://localhost:3000/dashboard");
 }

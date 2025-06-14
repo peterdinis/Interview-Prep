@@ -1,10 +1,15 @@
+"use client"
+
 import { Target } from "lucide-react";
 import Link from "next/link";
 import type { FC } from "react";
 import { Button } from "../ui/button";
 import { ModeToggle } from "./ModeToggle";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import ProfileDropdown from "../auth/ProfileDropdown";
 
 const Navigation: FC = () => {
+	const { user, getUser } = useKindeBrowserClient();
 	return (
 		<header className="bg-white/80 dark:bg-background backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-neutral-500 sticky top-0 z-50">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,6 +26,13 @@ const Navigation: FC = () => {
 						<Button className="rounded-lg">
 							<Link href={"/account/create"}>Create new account</Link>
 						</Button>
+						{user ? (
+							<ProfileDropdown user={user} />
+						) : (
+							<Button className="rounded-lg">
+								<Link href={"/account/create"}>Create new account</Link>
+							</Button>
+						)}
 						<div className="ml-2">
 							<ModeToggle />
 						</div>
