@@ -1,7 +1,4 @@
-import {
-	LoginLink,
-	RegisterLink,
-} from "@kinde-oss/kinde-auth-nextjs/server";
+import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export default async function AccountManagingPage() {
 	return (

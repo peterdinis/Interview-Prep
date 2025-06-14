@@ -1,11 +1,7 @@
-import { FC } from "react";
+import type { FC } from "react";
 
 const DashboardStats: FC = () => {
-    return (
-        <>
-            Stats
-        </>
-    )
-}
+	return <>Stats</>;
+};
 
-export default DashboardStats
+export default DashboardStats;
