@@ -36,7 +36,7 @@ const FeaturesSection: FC = () => {
 		<section className="relative overflow-hidden">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="text-center mb-20">
-					<h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+					<h2 className="text-4xl md:text-5xl font-bold dark:text-sky-50 text-gray-900 mb-6">
 						Loved by
 						<span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
 							{" "}
@@ -45,7 +45,7 @@ const FeaturesSection: FC = () => {
 						<br />
 						Worldwide
 					</h2>
-					<p className="text-xl text-gray-600 max-w-2xl mx-auto">
+					<p className="text-xl text-gray-600 dark:text-blue-100 max-w-2xl mx-auto">
 						Join thousands of successful developers who transformed their
 						careers with InterviewAce.
 					</p>
@@ -55,7 +55,7 @@ const FeaturesSection: FC = () => {
 					{testimonials.map((testimonial, index) => (
 						<div
 							key={index}
-							className="group relative bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100"
+							className="group relative bg-gradient-to-br from-white to-gray-50 dark:bg-foreground p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100"
 							style={{ animationDelay: `${index * 200}ms` }}
 						>
 							<div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

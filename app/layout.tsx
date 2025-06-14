@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/shared/Navigation";
 import QueryProvider from "@/components/shared/providers/QueryProvider";
+import { ThemeProvider } from "@/components/shared/providers/ThemeProvider";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -30,8 +32,16 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<QueryProvider>
-					<Navigation />
-					{children}
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange
+					>
+						<Navigation />
+						{children}
+						<ScrollToTop />
+					</ThemeProvider>
 				</QueryProvider>
 			</body>
 		</html>
