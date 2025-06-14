@@ -4,18 +4,18 @@ import { Button } from "../ui/button";
 
 const CTASeciton: FC = () => {
 	return (
-		<section className="relative py-24 bg-gradient-to-br from-blue-50 to-purple-50 overflow-hidden">
+		<section className="relative py-24 bg-background dark:bg-background overflow-hidden">
 			<div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5"></div>
 			<div className="relative max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-				<div className="bg-white/80 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-white/50">
-					<h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+				<div className="bg-white/80 dark:bg-background  backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-white/50">
+					<h2 className="text-4xl md:text-5xl font-bold dark:text-sky-50 text-gray-900 mb-6">
 						Ready to Ace Your
 						<span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
 							{" "}
 							Next Interview?
 						</span>
 					</h2>
-					<p className="text-xl text-gray-600 mb-10 leading-relaxed">
+					<p className="text-xl text-gray-600 dark:text-blue-100 mb-10 leading-relaxed">
 						Join over 50,000 developers who have successfully prepared with
 						InterviewAce. Start your journey today - completely free, no credit
 						card required!
