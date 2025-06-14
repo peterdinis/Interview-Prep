@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/shared/Navigation";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 import QueryProvider from "@/components/shared/providers/QueryProvider";
 import { ThemeProvider } from "@/components/shared/providers/ThemeProvider";
-import ScrollToTop from "@/components/shared/ScrollToTop";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
 						<Navigation />
 						{children}
 						<ScrollToTop />
+						<Toaster />
 					</ThemeProvider>
 				</QueryProvider>
 			</body>
