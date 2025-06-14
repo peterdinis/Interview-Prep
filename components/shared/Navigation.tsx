@@ -6,7 +6,7 @@ import { ModeToggle } from "./ModeToggle";
 
 const Navigation: FC = () => {
 	return (
-		<header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 sticky top-0 z-50">
+		<header className="bg-white/80 dark:bg-background backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-neutral-500 sticky top-0 z-50">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex justify-between items-center py-4">
 					<div className="flex items-center space-x-3 group">

@@ -13,14 +13,14 @@ const HeroSection: FC = () => {
 								<Zap className="h-4 w-4 mr-2" />
 								Join 50,000+ developers who aced their interviews
 							</div>
-							<h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+							<h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-sky-50 mb-6 leading-tight">
 								Master Your
 								<br />
 								<span className="bg-gradient-to-r from-primary via-secondary to-foreground bg-clip-text text-transparent animate-gradient">
 									Tech Interviews
 								</span>
 							</h1>
-							<p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-4xl mx-auto leading-relaxed">
+							<p className="text-xl md:text-2xl text-gray-600 dark:text-blue-100 mb-10 max-w-4xl mx-auto leading-relaxed">
 								Practice with AI-powered mock interviews, get real-time
 								feedback, and land your dream job. The most comprehensive
 								interview preparation platform for developers.
