@@ -1,9 +1,5 @@
 const DashboardInterviews = () => {
-    return (
-        <>
-            Dashboard Interviews
-        </>
-    )
-}
+	return <>Dashboard Interviews</>;
+};
 
-export default DashboardInterviews
+export default DashboardInterviews;
