@@ -4,6 +4,7 @@ import "./globals.css";
 import Navigation from "@/components/shared/Navigation";
 import QueryProvider from "@/components/shared/providers/QueryProvider";
 import { ThemeProvider } from "@/components/shared/providers/ThemeProvider";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
 					>
 						<Navigation />
 						{children}
+						<ScrollToTop />
 					</ThemeProvider>
 				</QueryProvider>
 			</body>
