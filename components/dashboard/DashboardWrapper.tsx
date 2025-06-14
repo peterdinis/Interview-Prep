@@ -77,10 +77,10 @@ const DashboardWrapper = () => {
 						className="animate-fade-in-up"
 						style={{ animationDelay: "200ms" }}
 					>
-						<h2 className="text-2xl font-bold text-gray-900 mb-2">
+						<h2 className="text-2xl dark:text-sky-50 font-bold text-gray-900 mb-2">
 							Your Test Interviews
 						</h2>
-						<p className="text-gray-600">
+						<p className="text-gray-600 dark:text-blue-100">
 							Practice and improve your interview skills with personalized mock
 							interviews.
 						</p>
