@@ -37,4 +37,4 @@ export async function DELETE(
 		console.error("[INTERVIEWS_DELETE]", error);
 		return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
 	}
-}
+} 
