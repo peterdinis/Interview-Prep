@@ -14,8 +14,7 @@ const DashboardWrapper = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const totalPages = 5;
 
-	const { user, getUser } = useKindeBrowserClient();
-	const alsoUser = getUser();
+	const { user} = useKindeBrowserClient();
 
 	console.log(user);
 
