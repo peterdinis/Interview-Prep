@@ -3,7 +3,7 @@ import { interviews } from "@/db/schema";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { nanoid } from "nanoid";
 import { db } from "@/db";
-
+ 
 export async function POST(req: Request) {
     try {
         const { getUser } = getKindeServerSession();
