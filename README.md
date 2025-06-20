@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎯 Interview Prep – AI Mock Interviews
 
-## Getting Started
+**Interview Prep** is a modern Next.js application designed to help you prepare for job interviews. With the power of AI, it allows you to generate realistic mock interviews and improve your answers to both technical and behavioral questions.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Technology       | Description                                      |
+|------------------|--------------------------------------------------|
+| **Next.js**       | React framework for SSR/ISR                      |
+| **TypeScript**    | Type-safe programming throughout the project     |
+| **Tailwind CSS**  | Fast and responsive styling                      |
+| **Drizzle ORM**   | Type-safe ORM for working with the database      |
+| **Knide Auth**    | Simple and secure user authentication            |
+| **pnpm**          | Fast and efficient package manager               |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧠 Features
 
-## Learn More
+- 🤖 **AI Interviews** – Generate interview questions using AI
+- 📋 **Answer History** – Save and view previous mock interview sessions
+- 🔐 **User Authentication** – Sign up and log in with Knide Auth
+- ⚙️ **Admin Features** – (if applicable) manage users or questions
+- 🎨 **Modern UI** – Beautifully styled with Tailwind CSS
+ 
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 Installation & Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Clone the repository:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   git clone https://github.com/your-username/interview-prep.git
+   cd interview-prep
+   pnpm install
+   pnpm run dev
+   ```
