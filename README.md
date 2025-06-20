@@ -24,7 +24,7 @@
 - 🔐 **User Authentication** – Sign up and log in with Knide Auth
 - ⚙️ **Admin Features** – (if applicable) manage users or questions
 - 🎨 **Modern UI** – Beautifully styled with Tailwind CSS
-
+ 
 ---
 
 ## 🛠 Installation & Setup
