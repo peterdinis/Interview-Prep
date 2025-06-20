@@ -19,7 +19,7 @@ export function useGetInterviews() {
   useEffect(() => {
     const fetchInterviews = async () => {
       try {
-        const res = await fetch("/api/interviews", {
+        const res = await fetch("/api/interviews/me", {
           method: "GET",
         });
 
