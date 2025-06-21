@@ -27,7 +27,7 @@ const DashboardInterviews = () => {
 			) : (
 				<>
 					{interviews.length === 0 ? (
-						<p className="text-muted-foreground">No interviews found.</p>
+						<p className="text-muted-foreground">You do not create any interviews.</p>
 					) : (
 						<div className="grid gap-4">
 							{interviews.map((interview) => (
