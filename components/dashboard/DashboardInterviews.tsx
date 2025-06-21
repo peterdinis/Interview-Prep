@@ -3,9 +3,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetInterviews } from "@/hooks/interviews/useGetInterviews";
+import { Ghost } from "lucide-react";
 import { useState } from "react";
 import DashboardPagination from "./DashboardPagination";
-import { Ghost } from "lucide-react";
 
 const DashboardInterviews = () => {
 	const [page, setPage] = useState(1);
@@ -18,8 +18,8 @@ const DashboardInterviews = () => {
 		const current = meta.page;
 		const delta = 2;
 		const range: (number | -1 | -2)[] = [];
-		let left = Math.max(2, current - delta);
-		let right = Math.min(totalPages - 1, current + delta);
+		const left = Math.max(2, current - delta);
+		const right = Math.min(totalPages - 1, current + delta);
 
 		range.push(1);
 		if (left > 2) range.push(-1); // Ellipsis
@@ -45,7 +45,10 @@ const DashboardInterviews = () => {
 			) : (
 				<>
 					{interviews.length === 0 ? (
-						<p className="text-muted-foreground"><Ghost className="animate-bounce w-8 h-8" />You do not create any interviews.</p>
+						<p className="text-muted-foreground">
+							<Ghost className="animate-bounce w-8 h-8" />
+							You do not create any interviews.
+						</p>
 					) : (
 						<div className="grid gap-4">
 							{interviews.map((interview) => (
