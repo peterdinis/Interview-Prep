@@ -1,16 +1,34 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetInterviews } from "@/hooks/interviews/useGetInterviews";
 import { useState } from "react";
+import DashboardPagination from "./DashboardPagination";
+import { Ghost } from "lucide-react";
 
 const DashboardInterviews = () => {
 	const [page, setPage] = useState(1);
 	const limit = 5;
 
 	const { interviews, meta, loading, error } = useGetInterviews(page, limit);
+
+	const getPageNumbers = () => {
+		const totalPages = meta.totalPages;
+		const current = meta.page;
+		const delta = 2;
+		const range: (number | -1 | -2)[] = [];
+		let left = Math.max(2, current - delta);
+		let right = Math.min(totalPages - 1, current + delta);
+
+		range.push(1);
+		if (left > 2) range.push(-1); // Ellipsis
+		for (let i = left; i <= right; i++) range.push(i);
+		if (right < totalPages - 1) range.push(-2); // Ellipsis
+		if (totalPages > 1) range.push(totalPages);
+
+		return range;
+	};
 
 	return (
 		<div className="space-y-6">
@@ -27,7 +45,7 @@ const DashboardInterviews = () => {
 			) : (
 				<>
 					{interviews.length === 0 ? (
-						<p className="text-muted-foreground">You do not create any interviews.</p>
+						<p className="text-muted-foreground"><Ghost className="animate-bounce w-8 h-8" />You do not create any interviews.</p>
 					) : (
 						<div className="grid gap-4">
 							{interviews.map((interview) => (
@@ -46,25 +64,15 @@ const DashboardInterviews = () => {
 						</div>
 					)}
 
-					<div className="flex justify-between items-center pt-4">
-						<Button
-							variant="outline"
-							disabled={page === 1}
-							onClick={() => setPage((p) => Math.max(p - 1, 1))}
-						>
-							Previous
-						</Button>
-						<p className="text-sm text-muted-foreground">
-							Page {meta.page} of {meta.totalPages}
-						</p>
-						<Button
-							variant="outline"
-							disabled={page === meta.totalPages}
-							onClick={() => setPage((p) => p + 1)}
-						>
-							Next
-						</Button>
-					</div>
+					<DashboardPagination
+						getPageNumbers={getPageNumbers}
+						handlePageChange={(newPage: number) => {
+							if (newPage >= 1 && newPage <= meta.totalPages) {
+								setPage(newPage);
+							}
+						}}
+						currentPage={meta.page}
+					/>
 				</>
 			)}
 		</div>
