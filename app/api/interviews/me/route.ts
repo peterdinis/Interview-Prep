@@ -1,61 +1,29 @@
-"use client";
+import { db } from "@/db";
+import { interviews } from "@/db/schema";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { eq } from "drizzle-orm";
+import { NextResponse } from "next/server";
 
-import { useEffect, useState } from "react";
+export async function GET() {
+	try {
+		const { getUser } = getKindeServerSession();
+		const user = await getUser();
 
-export interface Interview {
-	id: string;
-	userId: string;
-	position: string;
-	company: string;
-	result?: string;
-	date: string;
-}
+		if (!user || !user.id) {
+			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+		}
 
-export interface InterviewsResponse {
-	interviews: Interview[];
-	meta: {
-		page: number;
-		limit: number;
-		total: number;
-		totalPages: number;
-	};
-}
+		const userInterviews = await db
+			.select()
+			.from(interviews)
+			.where(eq(interviews.userId, user.id));
 
-export function useGetInterviews(page = 1, limit = 10) {
-	const [interviews, setInterviews] = useState<Interview[]>([]);
-	const [meta, setMeta] = useState<InterviewsResponse["meta"]>({
-		page,
-		limit,
-		total: 0,
-		totalPages: 0,
-	});
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
-
-	useEffect(() => {
-		const fetchInterviews = async () => {
-			setLoading(true);
-			try {
-				const res = await fetch(
-					`/api/interviews/me?page=${page}&limit=${limit}`,
-				);
-
-				if (!res.ok) {
-					throw new Error("Failed to fetch interviews");
-				}
-
-				const data: InterviewsResponse = await res.json();
-				setInterviews(data.interviews);
-				setMeta(data.meta);
-			} catch (err: any) {
-				setError(err.message ?? "Something went wrong");
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		fetchInterviews();
-	}, [page, limit]);
-
-	return { interviews, meta, loading, error };
+		return NextResponse.json({ interviews: userInterviews });
+	} catch (error) {
+		console.error("[INTERVIEWS_ME_GET]", error);
+		return NextResponse.json(
+			{ error: "Internal Server Error" },
+			{ status: 500 },
+		);
+	}
 }
