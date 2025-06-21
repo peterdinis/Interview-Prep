@@ -1,8 +1,8 @@
 import { db } from "@/db";
 import { interviews, users } from "@/db/schema";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { nanoid } from "nanoid";
 import { eq } from "drizzle-orm";
+import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
