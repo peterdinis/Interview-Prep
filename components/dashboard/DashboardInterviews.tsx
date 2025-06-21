@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetInterviews } from "@/hooks/interviews/useGetInterviews";
-import { Ghost, Search } from "lucide-react";
+import { Ghost } from "lucide-react";
 import { useState } from "react";
 import { Input } from "../ui/input";
 import DashboardPagination from "./DashboardPagination";
@@ -48,21 +48,32 @@ const DashboardInterviews = () => {
 						</p>
 					</div>
 				</div>
-				<div
-					className="flex flex-col sm:flex-row gap-4 animate-fade-in-up"
-					style={{ animationDelay: "300ms" }}
-				>
-					<div className="relative flex-1">
-						<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-						<Input
-							placeholder="Search interviews by title, category, or description..."
-							className="pl-10 bg-white/80 backdrop-blur-sm border-gray-200 focus:border-blue-300 focus:ring-blue-200 shadow-sm"
-						/>
-					</div>
-				</div>
-			</div>
-			<div className="space-y-6">
-				<h1 className="text-2xl font-semibold">My Interviews</h1>
+			) : error ? (
+				<p className="text-red-500">Error: {error}</p>
+			) : (
+				<>
+					{interviews.length === 0 ? (
+						<p className="text-muted-foreground">
+							<Ghost className="animate-bounce w-8 h-8" />
+							You do not create any interviews.
+						</p>
+					) : (
+						<div className="grid gap-4">
+							{interviews.map((interview) => (
+								<Card key={interview.id}>
+									<CardHeader>
+										<CardTitle>
+											{interview.position} @ {interview.company}
+										</CardTitle>
+									</CardHeader>
+									<CardContent className="text-sm text-muted-foreground">
+										<p>Date: {new Date(interview.date).toLocaleDateString()}</p>
+										<p>Result: {interview.result || "Pending"}</p>
+									</CardContent>
+								</Card>
+							))}
+						</div>
+					)}
 
 				{loading ? (
 					<div className="space-y-4">

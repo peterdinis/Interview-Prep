@@ -2,10 +2,8 @@
 
 import { useCreateInterview } from "@/hooks/interviews/useCreateInterview";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus } from "lucide-react";
-import { AlertTriangle } from "lucide-react";
-import { useState } from "react";
-import type { FC } from "react";
+import { Loader2, Plus, AlertTriangle } from "lucide-react";
+import { useState, FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
@@ -138,7 +136,11 @@ const DashboardDialog: FC = () => {
 									className="bg-sky-600 text-white"
 									disabled={loading}
 								>
-									{loading ? "Creating..." : "Create"}
+									{loading ? (
+										<Loader2 className="animate-spin w-8 h-8" />
+									) : (
+										"Create"
+									)}
 								</Button>
 							</DialogFooter>
 						</form>
