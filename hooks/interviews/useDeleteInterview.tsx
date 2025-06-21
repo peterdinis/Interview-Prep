@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../shared/use-toast";
 
 export function useDeleteInterview() {
 	const queryClient = useQueryClient();
-    const {toast} = useToast()
+	const { toast } = useToast();
 
 	return useMutation({
 		mutationFn: async (id: string) => {
@@ -25,16 +25,16 @@ export function useDeleteInterview() {
 			toast({
 				title: "Deleted interview",
 				duration: 2000,
-				className:"bg-green-800 text-white font-bold text-base leading-[130%]"
-			})
+				className: "bg-green-800 text-white font-bold text-base leading-[130%]",
+			});
 			queryClient.invalidateQueries({ queryKey: ["interviews"] });
 		},
 		onError: (error: Error) => {
 			toast({
 				title: "Failed to delete interview",
 				duration: 2000,
-				className:"bg-red-800 text-white font-bold text-base leading-[130%]"
-			})
+				className: "bg-red-800 text-white font-bold text-base leading-[130%]",
+			});
 		},
 	});
 }
