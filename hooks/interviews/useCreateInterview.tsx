@@ -10,7 +10,7 @@ interface InterviewPayload {
 }
 
 async function createInterviewRequest(data: InterviewPayload) {
-	const res = await fetch("/api/interviews", {
+	const res = await fetch("/api/interviews/create", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
