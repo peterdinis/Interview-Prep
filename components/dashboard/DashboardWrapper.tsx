@@ -6,7 +6,6 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import DashboardDialog from "./DashboardDialog";
 import DashboardInterviews from "./DashboardInterviews";
-import DashboardStats from "./DashboardStats";
 
 const DashboardWrapper = () => {
 	const { user } = useKindeBrowserClient();
@@ -27,11 +26,6 @@ const DashboardWrapper = () => {
 					</div>
 				</div>
 			</div>
-
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-				<DashboardStats />
-			</div>
-
 			<div className="mb-8">
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
 					<div
