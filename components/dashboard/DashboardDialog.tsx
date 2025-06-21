@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -133,7 +133,7 @@ const DashboardDialog: FC = () => {
 									className="bg-sky-600 text-white"
 									disabled={loading}
 								>
-									{loading ? "Creating..." : "Create"}
+									{loading ? <Loader2 className="animate-spin w-8 h-8" /> : "Create"}
 								</Button>
 							</DialogFooter>
 						</form>
