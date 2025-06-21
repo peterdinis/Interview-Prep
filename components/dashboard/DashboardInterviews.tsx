@@ -23,9 +23,9 @@ const DashboardInterviews = () => {
 		const right = Math.min(totalPages - 1, current + delta);
 
 		range.push(1);
-		if (left > 2) range.push(-1); // Ellipsis
+		if (left > 2) range.push(-1);
 		for (let i = left; i <= right; i++) range.push(i);
-		if (right < totalPages - 1) range.push(-2); // Ellipsis
+		if (right < totalPages - 1) range.push(-2);
 		if (totalPages > 1) range.push(totalPages);
 
 		return range;
