@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 export interface Interview {
   id: string;
@@ -11,33 +11,31 @@ export interface Interview {
   date: string;
 }
 
+const fetchInterviews = async (): Promise<Interview[]> => {
+  const res = await fetch("/api/interviews/me");
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch interviews");
+  }
+
+  const data = await res.json();
+  return data.interviews;
+};
+
 export function useGetInterviews() {
-  const [interviews, setInterviews] = useState<Interview[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const {
+    data: interviews = [],
+    isLoading: loading,
+    isError,
+    error,
+  } = useQuery<Interview[], Error>({
+    queryKey: ["interviews", "me"],
+    queryFn: fetchInterviews,
+  });
 
-  useEffect(() => {
-    const fetchInterviews = async () => {
-      try {
-        const res = await fetch("/api/interviews/me", {
-          method: "GET",
-        });
-
-        if (!res.ok) {
-          throw new Error("Failed to fetch interviews");
-        }
-
-        const data = await res.json();
-        setInterviews(data.interviews);
-      } catch (err: any) {
-        setError(err.message ?? "Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchInterviews();
-  }, []);
-
-  return { interviews, loading, error };
+  return {
+    interviews,
+    loading,
+    error: isError ? error.message : null,
+  };
 }
