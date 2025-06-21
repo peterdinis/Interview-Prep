@@ -1,11 +1,14 @@
 "use client";
 
-import { Plus } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { useCreateInterview } from "@/hooks/interviews/useCreateInterview";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { Loader2, Plus } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { useState } from "react";
 import type { FC } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Button } from "../ui/button";
 import {
 	Dialog,
@@ -25,9 +28,6 @@ import {
 	FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { useCreateInterview } from "@/hooks/interviews/useCreateInterview";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { AlertTriangle } from "lucide-react";
 
 const formSchema = z.object({
 	position: z.string().min(2, "Position must be at least 2 characters"),
@@ -64,7 +64,7 @@ const DashboardDialog: FC = () => {
 				onError: (error: Error) => {
 					setErrorMessage(error.message || "Something went wrong.");
 				},
-			}
+			},
 		);
 	};
 
@@ -95,7 +95,10 @@ const DashboardDialog: FC = () => {
 					)}
 
 					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
+						<form
+							onSubmit={form.handleSubmit(onSubmit)}
+							className="space-y-4 mt-4"
+						>
 							<FormField
 								control={form.control}
 								name="position"
@@ -126,14 +129,20 @@ const DashboardDialog: FC = () => {
 
 							<DialogFooter className="mt-6 space-x-2">
 								<DialogClose asChild>
-									<Button type="button" variant="outline">Cancel</Button>
+									<Button type="button" variant="outline">
+										Cancel
+									</Button>
 								</DialogClose>
 								<Button
 									type="submit"
 									className="bg-sky-600 text-white"
 									disabled={loading}
 								>
-									{loading ? "Creating..." : "Create"}
+									{loading ? (
+										<Loader2 className="animate-spin w-8 h-8" />
+									) : (
+										"Create"
+									)}
 								</Button>
 							</DialogFooter>
 						</form>

@@ -16,7 +16,9 @@ const DashboardWrapper = () => {
 				<div className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white shadow-xl">
 					<div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
 						<div>
-							<h1 className="text-3xl font-bold mb-2">Welcome back {user?.email}👋</h1>
+							<h1 className="text-3xl font-bold mb-2">
+								Welcome back {user?.email}👋
+							</h1>
 							<p className="text-blue-100 text-lg">
 								Ready to practice and improve your interview skills today?
 							</p>
