@@ -15,3 +15,10 @@ CREATE TABLE `interviews` (
 	`date` text,
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );
+--> statement-breakpoint
+CREATE TABLE `users` (
+	`id` text PRIMARY KEY NOT NULL,
+	`first_name` text,
+	`last_name` text,
+	`email` text
+);

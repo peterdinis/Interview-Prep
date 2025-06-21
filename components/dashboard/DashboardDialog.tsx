@@ -1,4 +1,10 @@
+"use client";
+
 import { Plus } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useState } from "react";
 import type { FC } from "react";
 import { Button } from "../ui/button";
 import {
@@ -10,12 +16,61 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "../ui/dialog";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
+import { useCreateInterview } from "@/hooks/interviews/useCreateInterview";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { AlertTriangle } from "lucide-react";
+
+const formSchema = z.object({
+	position: z.string().min(2, "Position must be at least 2 characters"),
+	company: z.string().min(2, "Company must be at least 2 characters"),
+});
+
+type InterviewFormValues = z.infer<typeof formSchema>;
 
 const DashboardDialog: FC = () => {
+	const [isOpen, setIsOpen] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
+	const { createInterview, loading } = useCreateInterview();
+
+	const form = useForm<InterviewFormValues>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			position: "",
+			company: "",
+		},
+	});
+
+	const onSubmit = (values: InterviewFormValues) => {
+		setErrorMessage(""); // Reset predchádzajúce chyby
+		createInterview(
+			{
+				...values,
+				date: new Date().toISOString(),
+			},
+			{
+				onSuccess: () => {
+					form.reset();
+					setIsOpen(false); // zatvoriť modal po úspechu
+				},
+				onError: (error: Error) => {
+					setErrorMessage(error.message || "Something went wrong.");
+				},
+			}
+		);
+	};
+
 	return (
 		<div className="mt-6 lg:mt-0">
-			<Dialog>
+			<Dialog open={isOpen} onOpenChange={setIsOpen}>
 				<DialogTrigger asChild>
 					<Button
 						className="bg-sky-600 hover:bg-sky-900 rounded-lg text-base"
@@ -31,17 +86,58 @@ const DashboardDialog: FC = () => {
 						<DialogTitle>Create New Interview</DialogTitle>
 					</DialogHeader>
 
-					<div className="space-y-4 mt-2">
-						<Input placeholder="Interview Title" />
-						<Input placeholder="Category" />
-					</div>
+					{errorMessage && (
+						<Alert variant="destructive">
+							<AlertTriangle className="h-5 w-5" />
+							<AlertTitle>Error</AlertTitle>
+							<AlertDescription>{errorMessage}</AlertDescription>
+						</Alert>
+					)}
 
-					<DialogFooter className="mt-6 space-x-2">
-						<DialogClose asChild>
-							<Button variant="outline">Cancel</Button>
-						</DialogClose>
-						<Button className="bg-sky-600 text-white">Create</Button>
-					</DialogFooter>
+					<Form {...form}>
+						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
+							<FormField
+								control={form.control}
+								name="position"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Position</FormLabel>
+										<FormControl>
+											<Input placeholder="e.g. Frontend Developer" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="company"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Company</FormLabel>
+										<FormControl>
+											<Input placeholder="e.g. OpenAI" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<DialogFooter className="mt-6 space-x-2">
+								<DialogClose asChild>
+									<Button type="button" variant="outline">Cancel</Button>
+								</DialogClose>
+								<Button
+									type="submit"
+									className="bg-sky-600 text-white"
+									disabled={loading}
+								>
+									{loading ? "Creating..." : "Create"}
+								</Button>
+							</DialogFooter>
+						</form>
+					</Form>
 				</DialogContent>
 			</Dialog>
 		</div>
