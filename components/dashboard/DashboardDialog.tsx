@@ -16,9 +16,18 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "../ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
 import { useCreateInterview } from "@/hooks/interviews/useCreateInterview";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { AlertTriangle } from "lucide-react";
 
 const formSchema = z.object({
 	position: z.string().min(2, "Position must be at least 2 characters"),
@@ -29,6 +38,7 @@ type InterviewFormValues = z.infer<typeof formSchema>;
 
 const DashboardDialog: FC = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
 	const { createInterview, loading } = useCreateInterview();
 
 	const form = useForm<InterviewFormValues>({
@@ -40,6 +50,7 @@ const DashboardDialog: FC = () => {
 	});
 
 	const onSubmit = (values: InterviewFormValues) => {
+		setErrorMessage(""); // Reset predchádzajúce chyby
 		createInterview(
 			{
 				...values,
@@ -48,7 +59,10 @@ const DashboardDialog: FC = () => {
 			{
 				onSuccess: () => {
 					form.reset();
-					setIsOpen(false);
+					setIsOpen(false); // zatvoriť modal po úspechu
+				},
+				onError: (error: Error) => {
+					setErrorMessage(error.message || "Something went wrong.");
 				},
 			}
 		);
@@ -71,6 +85,14 @@ const DashboardDialog: FC = () => {
 					<DialogHeader>
 						<DialogTitle>Create New Interview</DialogTitle>
 					</DialogHeader>
+
+					{errorMessage && (
+						<Alert variant="destructive">
+							<AlertTriangle className="h-5 w-5" />
+							<AlertTitle>Error</AlertTitle>
+							<AlertDescription>{errorMessage}</AlertDescription>
+						</Alert>
+					)}
 
 					<Form {...form}>
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
