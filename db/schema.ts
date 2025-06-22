@@ -24,3 +24,9 @@ export const interviewQuestions = sqliteTable("interview_questions", {
 	question: text("question"),
 	answer: text("answer"),
 });
+
+export const mockInterviews = sqliteTable("mock_interviews", {
+	id: text("id").primaryKey(),
+	interviewId: text("interview_id").references(() => interviews.id),
+	content: text("content"),
+});
