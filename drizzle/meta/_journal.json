@@ -15,6 +15,13 @@
       "when": 1750593856472,
       "tag": "0001_complex_sentinels",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1750594540510,
+      "tag": "0002_luxuriant_midnight",
+      "breakpoints": true
     }
   ]
 }
