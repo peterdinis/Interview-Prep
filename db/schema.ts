@@ -13,6 +13,9 @@ export const interviews = sqliteTable("interviews", {
 	position: text("position"),
 	company: text("company"),
 	date: text("date"),
+	level: text("level"),
+	years: text("years"),
+	questionsLength: text("questionsLength")
 });
 
 export const interviewQuestions = sqliteTable("interview_questions", {

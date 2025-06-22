@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { interviews} from "@/db/schema";
+import { interviews } from "@/db/schema";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 		}
 
 		const body = await req.json();
-		const { position, company, date } = body;
+		const { position, company, date, level, years, questionsLength } = body;
 
 		if (!position || !company || !date) {
 			return NextResponse.json(
@@ -29,6 +29,9 @@ export async function POST(req: Request) {
 			position,
 			company,
 			date,
+			level: level || "",
+			years: years || "",
+			questionsLength: questionsLength || "",
 		};
 
 		await db.insert(interviews).values(newInterview);
