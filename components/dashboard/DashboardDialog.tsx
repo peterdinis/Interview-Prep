@@ -30,6 +30,9 @@ import { Input } from "../ui/input";
 const formSchema = z.object({
 	position: z.string().min(2, "Position must be at least 2 characters"),
 	company: z.string().min(2, "Company must be at least 2 characters"),
+	level: z.string().optional(),
+	years: z.string().optional(),
+	questionsLength: z.string().optional(),
 });
 
 type InterviewFormValues = z.infer<typeof formSchema>;
@@ -44,6 +47,9 @@ const DashboardDialog: FC = () => {
 		defaultValues: {
 			position: "",
 			company: "",
+			level: "",
+			years: "",
+			questionsLength: "",
 		},
 	});
 
@@ -119,6 +125,48 @@ const DashboardDialog: FC = () => {
 										<FormLabel>Company</FormLabel>
 										<FormControl>
 											<Input placeholder="e.g. OpenAI" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="level"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Level</FormLabel>
+										<FormControl>
+											<Input placeholder="e.g. Junior, Senior" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="years"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Years of Experience</FormLabel>
+										<FormControl>
+											<Input placeholder="e.g. 3" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="questionsLength"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Questions Count</FormLabel>
+										<FormControl>
+											<Input placeholder="e.g. 5" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>

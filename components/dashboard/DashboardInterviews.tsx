@@ -7,6 +7,7 @@ import { Ghost } from "lucide-react";
 import { useMemo, useState } from "react";
 import DashboardPagination from "./DashboardPagination";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 const DashboardInterviews = () => {
 	const [page, setPage] = useState(1);
@@ -77,7 +78,9 @@ const DashboardInterviews = () => {
 										<p>Date: {new Date(interview.date).toLocaleDateString()}</p>
 									</CardContent>
 									<CardFooter>
-										<Button variant={"link"}>Start Interview</Button>
+										<Button variant={"link"}>
+											<Link href={`/interview/start/${interview.id}`}>Start Interview</Link>
+										</Button>
 									</CardFooter>
 								</Card>
 							))}
