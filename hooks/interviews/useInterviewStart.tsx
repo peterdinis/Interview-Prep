@@ -12,7 +12,7 @@ export function useMockInterview(interviewId: string | undefined) {
     queryFn: async () => {
       if (!interviewId) throw new Error("Interview ID is required");
 
-      const res = await fetch(`/api/mock-interview/${interviewId}`);
+      const res = await fetch(`/api/interviews/start/${interviewId}`);
       if (!res.ok) {
         throw new Error(`Failed to fetch mock interview: ${res.statusText}`);
       }
