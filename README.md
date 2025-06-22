@@ -1,5 +1,7 @@
 # 🎯 Interview Prep – AI Mock Interviews
 
+> 🚧 **This project is currently under active development.** Some features may be incomplete or subject to change.
+
 **Interview Prep** is a modern Next.js application designed to help you prepare for job interviews. With the power of AI, it allows you to generate realistic mock interviews and improve your answers to both technical and behavioral questions.
 
 ---
@@ -22,7 +24,6 @@
 - 🤖 **AI Interviews** – Generate interview questions using AI
 - 📋 **Answer History** – Save and view previous mock interview sessions
 - 🔐 **User Authentication** – Sign up and log in with Knide Auth
-- ⚙️ **Admin Features** – (if applicable) manage users or questions
 - 🎨 **Modern UI** – Beautifully styled with Tailwind CSS
  
 ---
@@ -36,4 +37,3 @@
    cd interview-prep
    pnpm install
    pnpm run dev
-   ```
