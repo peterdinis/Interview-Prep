@@ -1,7 +1,6 @@
 import { db } from "@/db";
-import { interviews, users } from "@/db/schema";
+import { interviews} from "@/db/schema";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
 
@@ -22,20 +21,6 @@ export async function POST(req: Request) {
 				{ error: "Missing required fields" },
 				{ status: 400 },
 			);
-		}
-
-		// ✅ Ensure user exists in users table
-		const existingUser = await db.query.users.findFirst({
-			where: eq(users.id, user.id),
-		});
-
-		if (!existingUser) {
-			await db.insert(users).values({
-				id: user.id,
-				firstName: user.given_name ?? "",
-				lastName: user.family_name ?? "",
-				email: user.email ?? "",
-			});
 		}
 
 		const newInterview = {
