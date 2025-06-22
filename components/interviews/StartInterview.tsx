@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import {
   Card,
   CardContent,
@@ -10,19 +10,31 @@ import {
 } from "../ui/card";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { useMockInterview } from "@/hooks/interviews/useInterviewStart";
 
-const aiQuestions = [
-  "Tell me about yourself.",
-  "What are your strengths?",
-  "Describe a challenging project you've worked on.",
-  "Why do you want this position?",
-];
+interface Props {
+  interviewId: string;
+}
 
-const StartInterview: FC = () => {
-  const [answers, setAnswers] = useState<string[]>(
-    Array(aiQuestions.length).fill("")
-  );
+const StartInterview: FC<Props> = ({ interviewId }) => {
+  const { data, isLoading, error } = useMockInterview(interviewId);
+  const [answers, setAnswers] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
+
+  const questions = useMemo(() => {
+    if (!data?.content) return [];
+
+    return data.content
+      .split(/\n+/)
+      .filter((line) => /^\d+\.\s/.test(line)) 
+      .map((line) => line.replace(/^\d+\.\s*/, "").trim());
+  }, [data]);
+
+  useEffect(() => {
+    if (questions.length) {
+      setAnswers(Array(questions.length).fill(""));
+    }
+  }, [questions]);
 
   const handleAnswerChange = (index: number, value: string) => {
     const newAnswers = [...answers];
@@ -35,12 +47,15 @@ const StartInterview: FC = () => {
   };
 
   const handleRestart = () => {
-    setAnswers(Array(aiQuestions.length).fill(""));
+    setAnswers(Array(questions.length).fill(""));
     setSubmitted(false);
   };
 
-  // Count non-empty answers for a fake "score"
   const score = answers.filter((a) => a.trim().length > 0).length;
+
+  if (isLoading) return <p className="p-4">Loading interview questions...</p>;
+  if (error) return <p className="p-4 text-red-500">Error loading questions.</p>;
+  if (!questions.length) return <p className="p-4">No questions found.</p>;
 
   if (submitted) {
     return (
@@ -53,14 +68,12 @@ const StartInterview: FC = () => {
           <CardContent className="space-y-4">
             <p>
               You answered <strong>{score}</strong> out of{" "}
-              <strong>{aiQuestions.length}</strong> questions.
+              <strong>{questions.length}</strong> questions.
             </p>
             <ul className="list-disc list-inside space-y-2">
               {answers.map((answer, index) => (
                 <li key={index}>
-                  <span className="font-semibold">
-                    {aiQuestions[index]}
-                  </span>
+                  <span className="font-semibold">{questions[index]}</span>
                   <br />
                   <span className="text-muted-foreground">
                     {answer.trim() ? answer : <em>No answer provided.</em>}
@@ -88,7 +101,7 @@ const StartInterview: FC = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {aiQuestions.map((question, index) => (
+          {questions.map((question, index) => (
             <div key={index} className="p-3 bg-background rounded-md shadow-sm">
               <p className="font-semibold">
                 {index + 1}. {question}
@@ -105,7 +118,7 @@ const StartInterview: FC = () => {
           <CardDescription>Write your answers here.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          {aiQuestions.map((question, index) => (
+          {questions.map((question, index) => (
             <div key={index}>
               <label
                 htmlFor={`answer-${index}`}

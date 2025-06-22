@@ -1,8 +1,12 @@
+"use client"
+
 import StartInterview from "@/components/interviews/StartInterview";
 import { NextPage } from "next";
+import { useParams } from "next/navigation";
 
 const InterviewDetailPage: NextPage = () => {
-    return <StartInterview />
+    const {id} = useParams()
+    return <StartInterview interviewId={id as unknown as string} />
 }
 
 export default InterviewDetailPage
