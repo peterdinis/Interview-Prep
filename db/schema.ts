@@ -12,7 +12,6 @@ export const interviews = sqliteTable("interviews", {
 	userId: text("user_id").references(() => users.id),
 	position: text("position"),
 	company: text("company"),
-	result: text("result"),
 	date: text("date"),
 });
 

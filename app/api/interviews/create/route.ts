@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 		}
 
 		const body = await req.json();
-		const { position, company, result, date } = body;
+		const { position, company, date } = body;
 
 		if (!position || !company || !date) {
 			return NextResponse.json(
@@ -28,7 +28,6 @@ export async function POST(req: Request) {
 			userId: user.id,
 			position,
 			company,
-			result: result ?? "",
 			date,
 		};
 

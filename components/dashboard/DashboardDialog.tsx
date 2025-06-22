@@ -50,7 +50,7 @@ const DashboardDialog: FC = () => {
 	});
 
 	const onSubmit = (values: InterviewFormValues) => {
-		setErrorMessage(""); // Reset predchádzajúce chyby
+		setErrorMessage("");
 		createInterview(
 			{
 				...values,
@@ -59,7 +59,7 @@ const DashboardDialog: FC = () => {
 			{
 				onSuccess: () => {
 					form.reset();
-					setIsOpen(false); // zatvoriť modal po úspechu
+					setIsOpen(false);
 				},
 				onError: (error: Error) => {
 					setErrorMessage(error.message || "Something went wrong.");

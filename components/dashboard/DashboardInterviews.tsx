@@ -1,11 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetInterviews } from "@/hooks/interviews/useGetInterviews";
 import { Ghost } from "lucide-react";
 import { useState } from "react";
 import DashboardPagination from "./DashboardPagination";
+import { Button } from "../ui/button";
 
 const DashboardInterviews = () => {
 	const [page, setPage] = useState(1);
@@ -60,8 +61,10 @@ const DashboardInterviews = () => {
 									</CardHeader>
 									<CardContent className="text-sm text-muted-foreground">
 										<p>Date: {new Date(interview.date).toLocaleDateString()}</p>
-										<p>Result: {interview.result || "Pending"}</p>
 									</CardContent>
+									<CardFooter>
+										<Button variant={"link"}>Start Interview</Button>
+									</CardFooter>
 								</Card>
 							))}
 						</div>
