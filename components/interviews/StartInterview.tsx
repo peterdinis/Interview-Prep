@@ -10,6 +10,7 @@ import {
 } from "../ui/card";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../ui/dialog";
 import { useMockInterview } from "@/hooks/interviews/useInterviewStart";
 import { useSubmitInterviewAnswers } from "@/hooks/interviews/useSubmitInterviewsAnswers";
 
@@ -21,6 +22,7 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
   const { data, isLoading, error } = useMockInterview(id);
   const [answers, setAnswers] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
 
   const {
     mutate,
@@ -61,6 +63,7 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
       {
         onSuccess: () => {
           setSubmitted(true);
+          setShowDialog(true); // Open dialog on success
         },
       }
     );
@@ -69,105 +72,99 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
   const handleRestart = () => {
     setAnswers(Array(questions.length).fill(""));
     setSubmitted(false);
+    setShowDialog(false);
   };
 
   const score = answers.filter((a) => a.trim().length > 0).length;
+  const total = questions.length;
+
+  const generateFeedback = () => {
+    if (score === total) return "Perfect! You answered all questions.";
+    if (score >= total * 0.75) return "Great job! You answered most of the questions.";
+    if (score >= total * 0.5) return "Good effort! Try to answer a few more next time.";
+    return "Looks like you struggled. Give it another go!";
+  };
 
   if (isLoading) return <p className="p-4">Loading interview questions...</p>;
   if (error) return <p className="p-4 text-red-500">Error loading questions.</p>;
   if (!questions.length) return <p className="p-4">No questions found.</p>;
 
-  if (submitted) {
-    return (
-      <div className="p-6 max-w-3xl mx-auto">
-        <Card>
+  return (
+    <>
+      <div className="flex flex-col md:flex-row gap-6 p-4">
+        {/* Left: AI Questions */}
+        <Card className="flex-1 max-h-[70vh] overflow-y-auto">
           <CardHeader>
-            <CardTitle>Interview Summary</CardTitle>
-            <CardDescription>Here’s how you did!</CardDescription>
+            <CardTitle>AI Generated Questions</CardTitle>
+            <CardDescription>
+              Read the questions on the left and write your answers on the right.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p>
-              You answered <strong>{score}</strong> out of{" "}
-              <strong>{questions.length}</strong> questions.
-            </p>
-            <ul className="list-disc list-inside space-y-2">
-              {answers.map((answer, index) => (
-                <li key={index}>
-                  <span className="font-semibold">{questions[index]}</span>
-                  <br />
-                  <span className="text-muted-foreground">
-                    {answer.trim() ? answer : <em>No answer provided.</em>}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <Button className="mt-6" onClick={handleRestart}>
-              Start Again
+            {questions.map((question, index) => (
+              <div key={index} className="p-3 bg-background rounded-md shadow-sm">
+                <p className="font-semibold">
+                  {index + 1}. {question}
+                </p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Right: Answer Form */}
+        <Card className="flex-1 max-h-[70vh] overflow-y-auto">
+          <CardHeader>
+            <CardTitle>Your Answers</CardTitle>
+            <CardDescription>Write your answers here.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {questions.map((question, index) => (
+              <div key={index}>
+                <label
+                  htmlFor={`answer-${index}`}
+                  className="block mb-1 font-semibold"
+                >
+                  {index + 1}. {question}
+                </label>
+                <Textarea
+                  id={`answer-${index}`}
+                  placeholder="Type your answer..."
+                  value={answers[index]}
+                  onChange={(e) => handleAnswerChange(index, e.target.value)}
+                  rows={4}
+                  className="resize-none"
+                />
+              </div>
+            ))}
+            {isPending && <p className="text-blue-500">Submitting your answers...</p>}
+            {isError && (
+              <p className="text-red-500">
+                Failed to submit: {submitError?.message}
+              </p>
+            )}
+            <Button onClick={handleSubmit} className="mt-4">
+              Submit Answers
             </Button>
           </CardContent>
         </Card>
       </div>
-    );
-  }
-
-  return (
-    <div className="flex flex-col md:flex-row gap-6 p-4">
-      {/* Left: AI Questions */}
-      <Card className="flex-1 max-h-[70vh] overflow-y-auto">
-        <CardHeader>
-          <CardTitle>AI Generated Questions</CardTitle>
-          <CardDescription>
-            Read the questions on the left and write your answers on the right.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {questions.map((question, index) => (
-            <div key={index} className="p-3 bg-background rounded-md shadow-sm">
-              <p className="font-semibold">
-                {index + 1}. {question}
-              </p>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
-
-      {/* Right: Answer Form */}
-      <Card className="flex-1 max-h-[70vh] overflow-y-auto">
-        <CardHeader>
-          <CardTitle>Your Answers</CardTitle>
-          <CardDescription>Write your answers here.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {questions.map((question, index) => (
-            <div key={index}>
-              <label
-                htmlFor={`answer-${index}`}
-                className="block mb-1 font-semibold"
-              >
-                {index + 1}. {question}
-              </label>
-              <Textarea
-                id={`answer-${index}`}
-                placeholder="Type your answer..."
-                value={answers[index]}
-                onChange={(e) => handleAnswerChange(index, e.target.value)}
-                rows={4}
-                className="resize-none"
-              />
-            </div>
-          ))}
-          {isPending && <p className="text-blue-500">Submitting your answers...</p>}
-          {isError && (
-            <p className="text-red-500">
-              Failed to submit: {submitError?.message}
-            </p>
-          )}
-          <Button onClick={handleSubmit} className="mt-4">
-            Submit Answers
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
+      
+      <Dialog open={showDialog} onOpenChange={setShowDialog}>
+        <DialogContent>
+          <DialogTitle>AI Evaluation</DialogTitle>
+          <DialogDescription>
+            {generateFeedback()} You answered <strong>{score}</strong> out of{" "}
+            <strong>{total}</strong> questions.
+          </DialogDescription>
+          <div className="flex justify-end gap-2 mt-4">
+            <Button variant="outline" onClick={() => setShowDialog(false)}>
+              Close
+            </Button>
+            <Button onClick={handleRestart}>Try Again</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 
