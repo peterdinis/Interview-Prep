@@ -1,4 +1,4 @@
-import { sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("users", {
 	id: text("id").primaryKey(),
@@ -8,14 +8,15 @@ export const users = sqliteTable("users", {
 });
 
 export const interviews = sqliteTable("interviews", {
-	id: text("id").primaryKey(),
-	userId: text("user_id").references(() => users.id),
-	position: text("position"),
-	company: text("company"),
-	date: text("date"),
-	level: text("level"),
-	years: text("years"),
-	questionsLength: text("questionsLength")
+  id: text("id").primaryKey(),
+  userId: text("user_id").references(() => users.id),
+  position: text("position"),
+  company: text("company"),
+  date: text("date"),
+  level: text("level"),
+  isFinished: integer("is_finished").default(0), // 👈 SQLite "boolean"
+  years: text("years"),
+  questionsLength: text("questions_length"),
 });
 
 export const interviewQuestions = sqliteTable("interview_questions", {
