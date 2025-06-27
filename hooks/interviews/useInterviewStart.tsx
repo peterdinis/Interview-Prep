@@ -6,7 +6,7 @@ type MockInterview = {
   content: string;
 };
 
-export function useMockInterview(interviewId: string | undefined) {
+export function useMockInterview(interviewId: string) {
   return useQuery<MockInterview>({
     queryKey: ["mockInterview", interviewId],
     queryFn: async () => {

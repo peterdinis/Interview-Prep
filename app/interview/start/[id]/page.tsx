@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 
 const InterviewDetailPage: NextPage = () => {
     const {id} = useParams()
-    return <StartInterview interviewId={id as unknown as string} />
+    return <StartInterview id={id as unknown as string} />
 }
 
 export default InterviewDetailPage

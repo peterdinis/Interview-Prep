@@ -4,14 +4,16 @@ import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { interviewId: string } }
+  _req: Request,
+  context: { params: { id: string } }
 ) {
   try {
-    const { interviewId } = params;
+    const interviewId = context.params.id;
 
-    if (!interviewId) {
-      return NextResponse.json({ error: "Missing interviewId" }, { status: 400 });
+    console.log("Received interviewId:", interviewId);
+
+    if (!interviewId || typeof interviewId !== "string") {
+      return NextResponse.json({ error: "Missing or invalid interviewId" }, { status: 400 });
     }
 
     const result = await db
