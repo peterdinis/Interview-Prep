@@ -78,7 +78,7 @@ const DashboardInterviews = () => {
 										<p>Date: {new Date(interview.date).toLocaleDateString()}</p>
 									</CardContent>
 									<CardFooter>
-										<Button variant={"link"}>
+										<Button variant={"default"}>
 											<Link href={`/interview/start/${interview.id}`}>Start Interview</Link>
 										</Button>
 									</CardFooter>
