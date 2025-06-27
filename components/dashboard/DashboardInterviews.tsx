@@ -13,7 +13,7 @@ import {
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-} from "@/components/ui/tabs"; // 👈 Import ShadCN Tabs
+} from "@/components/ui/tabs";
 
 const DashboardInterviews = () => {
 	const [page, setPage] = useState(1);
