@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useMemo, useState} from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import {
   Card,
   CardContent,
@@ -11,22 +11,30 @@ import {
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { useMockInterview } from "@/hooks/interviews/useInterviewStart";
+import { useSubmitInterviewAnswers } from "@/hooks/interviews/useSubmitInterviewsAnswers";
 
 interface Props {
   id: string;
 }
 
 const StartInterview: FC<Props> = ({ id }: Props) => {
-  const { data, isLoading, error } = useMockInterview(id[0]);
+  const { data, isLoading, error } = useMockInterview(id);
   const [answers, setAnswers] = useState<string[]>([]);
-  const [submitted, setSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState(false);
+
+  const {
+    mutate,
+    isPending,
+    isError,
+    error: submitError,
+  } = useSubmitInterviewAnswers();
 
   const questions = useMemo(() => {
     if (!data?.content) return [];
 
     return data.content
       .split(/\n+/)
-      .filter((line) => /^\d+\.\s/.test(line)) 
+      .filter((line) => /^\d+\.\s/.test(line))
       .map((line) => line.replace(/^\d+\.\s*/, "").trim());
   }, [data]);
 
@@ -43,7 +51,19 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
   };
 
   const handleSubmit = () => {
-    setSubmitted(true);
+    const formattedAnswers = questions.map((question, index) => ({
+      question,
+      answer: answers[index] ?? "",
+    }));
+
+    mutate(
+      { interviewId: id, answers: formattedAnswers },
+      {
+        onSuccess: () => {
+          setSubmitted(true);
+        },
+      }
+    );
   };
 
   const handleRestart = () => {
@@ -136,6 +156,12 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
               />
             </div>
           ))}
+          {isPending && <p className="text-blue-500">Submitting your answers...</p>}
+          {isError && (
+            <p className="text-red-500">
+              Failed to submit: {submitError?.message}
+            </p>
+          )}
           <Button onClick={handleSubmit} className="mt-4">
             Submit Answers
           </Button>
