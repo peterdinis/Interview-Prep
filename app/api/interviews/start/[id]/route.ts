@@ -1,26 +1,23 @@
 import { db } from "@/db";
 import { mockInterviews } from "@/db/schema";
-import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import {eq} from "drizzle-orm"
 
 export async function GET(
   _req: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const interviewId = context.params.id;
-
-    console.log("Received interviewId:", interviewId);
+    const interviewId = (await context.params).id;
 
     if (!interviewId || typeof interviewId !== "string") {
       return NextResponse.json({ error: "Missing or invalid interviewId" }, { status: 400 });
     }
 
-    const result = await db
+     const result = await db
       .select()
       .from(mockInterviews)
       .where(eq(mockInterviews.interviewId, interviewId));
-
     if (result.length === 0) {
       return NextResponse.json({ error: "Mock interview not found" }, { status: 404 });
     }

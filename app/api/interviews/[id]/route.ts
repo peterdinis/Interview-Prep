@@ -4,11 +4,9 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-export async function GET(
-	req: Request,
-	{ params }: { params: { id: string } },
-) {
-	try {
+export async function GET(req: Request, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
+    try {
 		const { getUser } = getKindeServerSession();
 		const user = await getUser();
 
@@ -43,11 +41,9 @@ export async function GET(
 	}
 }
 
-export async function DELETE(
-	req: Request,
-	{ params }: { params: { id: string } },
-) {
-	try {
+export async function DELETE(req: Request, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
+    try {
 		const { getUser } = getKindeServerSession();
 		const user = await getUser();
 
