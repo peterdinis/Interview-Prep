@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState} from "react";
 import {
   Card,
   CardContent,
@@ -13,13 +13,14 @@ import { Button } from "../ui/button";
 import { useMockInterview } from "@/hooks/interviews/useInterviewStart";
 
 interface Props {
-  interviewId: string;
+  id: string;
 }
 
-const StartInterview: FC<Props> = ({ interviewId }) => {
-  const { data, isLoading, error } = useMockInterview(interviewId);
+const StartInterview: FC<Props> = ({ id }: Props) => {
+  console.log(id[0])
+  const { data, isLoading, error } = useMockInterview(id[0]);
   const [answers, setAnswers] = useState<string[]>([]);
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState(false)
 
   const questions = useMemo(() => {
     if (!data?.content) return [];
