@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { mockInterviews } from "@/db/schema";
-import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import {eq} from "drizzle-orm"
 
 export async function GET(
   _req: Request,
@@ -16,10 +16,10 @@ export async function GET(
       return NextResponse.json({ error: "Missing or invalid interviewId" }, { status: 400 });
     }
 
-    const result = await db
+     const result = await db
       .select()
       .from(mockInterviews)
-      //TODO maybe eq logic here
+      .where(eq(mockInterviews.interviewId, interviewId));
     if (result.length === 0) {
       return NextResponse.json({ error: "Mock interview not found" }, { status: 404 });
     }
