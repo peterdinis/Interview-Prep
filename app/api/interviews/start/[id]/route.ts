@@ -10,8 +10,6 @@ export async function GET(
   try {
     const interviewId = (await context.params).id;
 
-    console.log("Received interviewId:", interviewId);
-
     if (!interviewId || typeof interviewId !== "string") {
       return NextResponse.json({ error: "Missing or invalid interviewId" }, { status: 400 });
     }
