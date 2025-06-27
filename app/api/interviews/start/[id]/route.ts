@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   _req: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const interviewId = context.params.id;
+    const interviewId = (await context.params).id;
 
     console.log("Received interviewId:", interviewId);
 
@@ -19,8 +19,7 @@ export async function GET(
     const result = await db
       .select()
       .from(mockInterviews)
-      .where(eq(mockInterviews.interviewId, interviewId));
-
+      //TODO maybe eq logic here
     if (result.length === 0) {
       return NextResponse.json({ error: "Mock interview not found" }, { status: 404 });
     }

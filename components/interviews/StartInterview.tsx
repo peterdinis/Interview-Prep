@@ -17,7 +17,6 @@ interface Props {
 }
 
 const StartInterview: FC<Props> = ({ id }: Props) => {
-  console.log(id[0])
   const { data, isLoading, error } = useMockInterview(id[0]);
   const [answers, setAnswers] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false)
