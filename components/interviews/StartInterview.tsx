@@ -10,7 +10,12 @@ import {
 } from "../ui/card";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "../ui/dialog";
 import { useMockInterview } from "@/hooks/interviews/useInterviewStart";
 import { useSubmitInterviewAnswers } from "@/hooks/interviews/useSubmitInterviewsAnswers";
 
@@ -61,9 +66,17 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
     mutate(
       { interviewId: id, answers: formattedAnswers },
       {
-        onSuccess: () => {
+        onSuccess: async () => {
+          await fetch(`/api/interviews/${id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ isFinished: 1 }),
+          });
+
           setSubmitted(true);
-          setShowDialog(true); // Open dialog on success
+          setShowDialog(true);
         },
       }
     );
@@ -92,7 +105,6 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
   return (
     <>
       <div className="flex flex-col md:flex-row gap-6 p-4">
-        {/* Left: AI Questions */}
         <Card className="flex-1 max-h-[70vh] overflow-y-auto">
           <CardHeader>
             <CardTitle>AI Generated Questions</CardTitle>
@@ -111,7 +123,6 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
           </CardContent>
         </Card>
 
-        {/* Right: Answer Form */}
         <Card className="flex-1 max-h-[70vh] overflow-y-auto">
           <CardHeader>
             <CardTitle>Your Answers</CardTitle>
@@ -148,7 +159,7 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
           </CardContent>
         </Card>
       </div>
-      
+
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent>
           <DialogTitle>AI Evaluation</DialogTitle>

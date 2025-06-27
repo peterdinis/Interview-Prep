@@ -8,6 +8,12 @@ import { useMemo, useState } from "react";
 import DashboardPagination from "./DashboardPagination";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import {
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from "@/components/ui/tabs";
 
 const DashboardInterviews = () => {
 	const [page, setPage] = useState(1);
@@ -32,6 +38,42 @@ const DashboardInterviews = () => {
 
 		return range;
 	}, [meta]);
+
+	const activeInterviews = interviews.filter((i) => !i.isFinished);
+	const finishedInterviews = interviews.filter((i) => i.isFinished);
+
+	const renderInterviews = (list: typeof interviews) => {
+		if (list.length === 0) {
+			return (
+				<p className="text-muted-foreground flex items-center gap-2">
+					<Ghost className="animate-bounce w-8 h-8" />
+					No interviews here.
+				</p>
+			);
+		}
+
+		return (
+			<div className="grid gap-4">
+				{list.map((interview) => (
+					<Card key={interview.id}>
+						<CardHeader>
+							<CardTitle>
+								{interview.position} @ {interview.company}
+							</CardTitle>
+						</CardHeader>
+						<CardContent className="text-sm text-muted-foreground">
+							<p>Date: {new Date(interview.date).toLocaleDateString()}</p>
+						</CardContent>
+						<CardFooter>
+							<Button variant={"default"}>
+								<Link href={`/interview/start/${interview.id}`}>Start Interview</Link>
+							</Button>
+						</CardFooter>
+					</Card>
+				))}
+			</div>
+		);
+	};
 
 	return (
 		<>
@@ -59,32 +101,17 @@ const DashboardInterviews = () => {
 					</div>
 				) : error ? (
 					<p className="text-red-500">Error: {error}</p>
-				) : interviews.length === 0 ? (
-					<p className="text-muted-foreground flex items-center gap-2">
-						<Ghost className="animate-bounce w-8 h-8" />
-						You do not create any interviews.
-					</p>
 				) : (
 					<>
-						<div className="grid gap-4">
-							{interviews.map((interview) => (
-								<Card key={interview.id}>
-									<CardHeader>
-										<CardTitle>
-											{interview.position} @ {interview.company}
-										</CardTitle>
-									</CardHeader>
-									<CardContent className="text-sm text-muted-foreground">
-										<p>Date: {new Date(interview.date).toLocaleDateString()}</p>
-									</CardContent>
-									<CardFooter>
-										<Button variant={"default"}>
-											<Link href={`/interview/start/${interview.id}`}>Start Interview</Link>
-										</Button>
-									</CardFooter>
-								</Card>
-							))}
-						</div>
+						<Tabs defaultValue="active" className="w-full">
+							<TabsList className="mb-4">
+								<TabsTrigger value="active">Active</TabsTrigger>
+								<TabsTrigger value="finished">Finished</TabsTrigger>
+							</TabsList>
+
+							<TabsContent value="active">{renderInterviews(activeInterviews)}</TabsContent>
+							<TabsContent value="finished">{renderInterviews(finishedInterviews)}</TabsContent>
+						</Tabs>
 
 						<DashboardPagination
 							getPageNumbers={() => getPageNumbers}
