@@ -14,7 +14,7 @@ export const interviews = sqliteTable("interviews", {
   company: text("company"),
   date: text("date"),
   level: text("level"),
-  isFinished: integer("is_finished").default(0), // 👈 SQLite "boolean"
+  isFinished: integer("is_finished").default(0),
   years: text("years"),
   questionsLength: text("questions_length"),
 });
