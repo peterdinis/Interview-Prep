@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -7,6 +6,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { type KindeUser, LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
+import Link from "next/link";
 import type { FC } from "react";
 
 type ProfileDropdownProps = {
@@ -26,6 +26,11 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({ user }) => {
 				</Avatar>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56" align="start">
+				<DropdownMenuItem asChild>
+					<Link href="/dashboard">
+						Dashboard
+					</Link>
+				</DropdownMenuItem>
 				<DropdownMenuItem asChild>
 					<LogoutLink className="w-full text-left cursor-pointer">
 						Logout
