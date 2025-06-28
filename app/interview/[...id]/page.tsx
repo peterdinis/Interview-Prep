@@ -1,12 +1,18 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import { useInterviewDetail } from "@/hooks/interviews/useInterviewDetail";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useInterviewDetail } from "@/hooks/interviews/useInterviewDetail";
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { CalendarDays, Briefcase, Building2, CheckCircle2, Clock } from "lucide-react";
+import {
+	Briefcase,
+	Building2,
+	CalendarDays,
+	CheckCircle2,
+	Clock,
+} from "lucide-react";
+import { useParams } from "next/navigation";
 
 const InterviewDetailPage = () => {
 	const { id } = useParams();
@@ -32,7 +38,9 @@ const InterviewDetailPage = () => {
 	}
 
 	if (!interview) {
-		return <p className="text-muted-foreground text-center">Interview not found.</p>;
+		return (
+			<p className="text-muted-foreground text-center">Interview not found.</p>
+		);
 	}
 
 	return (

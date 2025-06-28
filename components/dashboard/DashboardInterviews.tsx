@@ -10,7 +10,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetInterviews } from "@/hooks/interviews/useGetInterviews";
-import { Ghost, Eye, Play } from "lucide-react";
+import { Eye, Ghost, Play } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Button } from "../ui/button";
@@ -149,7 +149,10 @@ const DashboardInterviews = () => {
 						</TabsList>
 
 						<TabsContent value="active">
-							{renderInterviews(paginate(activeInterviews, activePage), "active")}
+							{renderInterviews(
+								paginate(activeInterviews, activePage),
+								"active",
+							)}
 
 							<DashboardPagination
 								getPageNumbers={() =>
