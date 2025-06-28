@@ -106,9 +106,6 @@ const StartInterview: FC<Props> = ({ id }) => {
 		setAiFeedback(null);
 	};
 
-	const score = answers.filter((a) => a.trim().length > 0).length;
-	const total = questions.length;
-
 	if (isLoading) return <p className="p-4">Loading interview questions...</p>;
 	if (error)
 		return <p className="p-4 text-red-500">Error loading questions.</p>;
