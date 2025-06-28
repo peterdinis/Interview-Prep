@@ -2,8 +2,8 @@
 
 import { useCreateInterview } from "@/hooks/interviews/useCreateInterview";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, Plus, AlertTriangle } from "lucide-react";
-import { useState, FC } from "react";
+import { AlertTriangle, Loader2, Plus } from "lucide-react";
+import { type FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";

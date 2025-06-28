@@ -1,32 +1,46 @@
 "use client";
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetInterviews } from "@/hooks/interviews/useGetInterviews";
 import { Ghost } from "lucide-react";
-import { useMemo, useState } from "react";
-import DashboardPagination from "./DashboardPagination";
-import { Button } from "../ui/button";
 import Link from "next/link";
-import {
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from "@/components/ui/tabs";
+import { useMemo, useState } from "react";
+import { Button } from "../ui/button";
+import DashboardPagination from "./DashboardPagination";
 
 const DashboardInterviews = () => {
-	const [page, setPage] = useState(1);
+	const [activePage, setActivePage] = useState(1);
+	const [finishedPage, setFinishedPage] = useState(1);
 	const limit = 5;
 
-	const { interviews, meta, loading, error } = useGetInterviews(page, limit);
+	const { interviews, loading, error } = useGetInterviews(1, 1000);
 
-	const getPageNumbers = useMemo(() => {
-		if (!meta?.totalPages) return [];
-		const totalPages = meta.totalPages;
-		const current = meta.page;
+	const { activeInterviews, finishedInterviews } = useMemo(() => {
+		return {
+			activeInterviews: interviews.filter((i) => !i.isFinished),
+			finishedInterviews: interviews.filter((i) => i.isFinished),
+		};
+	}, [interviews]);
+
+	const paginate = (data: typeof interviews, page: number) => {
+		const start = (page - 1) * limit;
+		return data.slice(start, start + limit);
+	};
+
+	const getPageNumbers = (total: number, current: number) => {
+		const totalPages = Math.ceil(total / limit);
+		if (totalPages <= 1) return [];
 		const delta = 2;
 		const range: (number | -1 | -2)[] = [];
+
 		const left = Math.max(2, current - delta);
 		const right = Math.min(totalPages - 1, current + delta);
 
@@ -34,13 +48,10 @@ const DashboardInterviews = () => {
 		if (left > 2) range.push(-1);
 		for (let i = left; i <= right; i++) range.push(i);
 		if (right < totalPages - 1) range.push(-2);
-		if (totalPages > 1) range.push(totalPages);
+		range.push(totalPages);
 
 		return range;
-	}, [meta]);
-
-	const activeInterviews = interviews.filter((i) => !i.isFinished);
-	const finishedInterviews = interviews.filter((i) => i.isFinished);
+	};
 
 	const renderInterviews = (list: typeof interviews) => {
 		if (list.length === 0) {
@@ -66,7 +77,9 @@ const DashboardInterviews = () => {
 						</CardContent>
 						<CardFooter>
 							<Button variant={"default"}>
-								<Link href={`/interview/start/${interview.id}`}>Start Interview</Link>
+								<Link href={`/interview/start/${interview.id}`}>
+									Start Interview
+								</Link>
 							</Button>
 						</CardFooter>
 					</Card>
@@ -102,27 +115,46 @@ const DashboardInterviews = () => {
 				) : error ? (
 					<p className="text-red-500">Error: {error}</p>
 				) : (
-					<>
-						<Tabs defaultValue="active" className="w-full">
-							<TabsList className="mb-4">
-								<TabsTrigger value="active">Active</TabsTrigger>
-								<TabsTrigger value="finished">Finished</TabsTrigger>
-							</TabsList>
+					<Tabs defaultValue="active" className="w-full">
+						<TabsList className="mb-4">
+							<TabsTrigger value="active">Active</TabsTrigger>
+							<TabsTrigger value="finished">Finished</TabsTrigger>
+						</TabsList>
 
-							<TabsContent value="active">{renderInterviews(activeInterviews)}</TabsContent>
-							<TabsContent value="finished">{renderInterviews(finishedInterviews)}</TabsContent>
-						</Tabs>
+						<TabsContent value="active">
+							{renderInterviews(paginate(activeInterviews, activePage))}
 
-						<DashboardPagination
-							getPageNumbers={() => getPageNumbers}
-							handlePageChange={(newPage: number) => {
-								if (newPage >= 1 && newPage <= meta.totalPages) {
-									setPage(newPage);
+							<DashboardPagination
+								getPageNumbers={() =>
+									getPageNumbers(activeInterviews.length, activePage)
 								}
-							}}
-							currentPage={meta.page}
-						/>
-					</>
+								handlePageChange={(newPage: number) => {
+									const maxPage = Math.ceil(activeInterviews.length / limit);
+									if (newPage >= 1 && newPage <= maxPage) {
+										setActivePage(newPage);
+									}
+								}}
+								currentPage={activePage}
+							/>
+						</TabsContent>
+
+						<TabsContent value="finished">
+							{renderInterviews(paginate(finishedInterviews, finishedPage))}
+
+							<DashboardPagination
+								getPageNumbers={() =>
+									getPageNumbers(finishedInterviews.length, finishedPage)
+								}
+								handlePageChange={(newPage: number) => {
+									const maxPage = Math.ceil(finishedInterviews.length / limit);
+									if (newPage >= 1 && newPage <= maxPage) {
+										setFinishedPage(newPage);
+									}
+								}}
+								currentPage={finishedPage}
+							/>
+						</TabsContent>
+					</Tabs>
 				)}
 			</div>
 		</>
