@@ -9,7 +9,7 @@ export interface Interview {
 	company: string;
 	result?: string;
 	date: string;
-	isFinished?: number
+	isFinished?: number;
 }
 
 export interface InterviewsResponse {

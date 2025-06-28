@@ -4,9 +4,12 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request, props: { params: Promise<{ id: string }> }) {
-    const params = await props.params;
-    try {
+export async function GET(
+	req: Request,
+	props: { params: Promise<{ id: string }> },
+) {
+	const params = await props.params;
+	try {
 		const { getUser } = getKindeServerSession();
 		const user = await getUser();
 
@@ -41,9 +44,12 @@ export async function GET(req: Request, props: { params: Promise<{ id: string }>
 	}
 }
 
-export async function DELETE(req: Request, props: { params: Promise<{ id: string }> }) {
-    const params = await props.params;
-    try {
+export async function DELETE(
+	req: Request,
+	props: { params: Promise<{ id: string }> },
+) {
+	const params = await props.params;
+	try {
 		const { getUser } = getKindeServerSession();
 		const user = await getUser();
 
@@ -80,7 +86,10 @@ export async function DELETE(req: Request, props: { params: Promise<{ id: string
 	}
 }
 
-export async function PUT(req: Request, props: { params: Promise<{ id: string }> }) {
+export async function PUT(
+	req: Request,
+	props: { params: Promise<{ id: string }> },
+) {
 	const params = await props.params;
 
 	try {
@@ -108,17 +117,17 @@ export async function PUT(req: Request, props: { params: Promise<{ id: string }>
 			.select()
 			.from(interviews)
 			.where(
-				and(eq(interviews.id, interviewId), eq(interviews.userId, user.id))
+				and(eq(interviews.id, interviewId), eq(interviews.userId, user.id)),
 			)
 			.limit(1);
 
 		if (existingInterview.length === 0) {
 			return NextResponse.json(
 				{ error: "Interview not found or access denied" },
-				{ status: 404 }
+				{ status: 404 },
 			);
 		}
-		
+
 		await db
 			.update(interviews)
 			.set({
@@ -137,7 +146,7 @@ export async function PUT(req: Request, props: { params: Promise<{ id: string }>
 		console.error("[INTERVIEW_UPDATE]", error);
 		return NextResponse.json(
 			{ error: "Internal Server Error" },
-			{ status: 500 }
+			{ status: 500 },
 		);
 	}
 }

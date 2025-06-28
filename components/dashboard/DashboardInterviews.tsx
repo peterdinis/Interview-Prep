@@ -1,19 +1,20 @@
 "use client";
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetInterviews } from "@/hooks/interviews/useGetInterviews";
 import { Ghost } from "lucide-react";
-import { useMemo, useState } from "react";
-import DashboardPagination from "./DashboardPagination";
-import { Button } from "../ui/button";
 import Link from "next/link";
-import {
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from "@/components/ui/tabs";
+import { useMemo, useState } from "react";
+import { Button } from "../ui/button";
+import DashboardPagination from "./DashboardPagination";
 
 const DashboardInterviews = () => {
 	const [page, setPage] = useState(1);
@@ -66,7 +67,9 @@ const DashboardInterviews = () => {
 						</CardContent>
 						<CardFooter>
 							<Button variant={"default"}>
-								<Link href={`/interview/start/${interview.id}`}>Start Interview</Link>
+								<Link href={`/interview/start/${interview.id}`}>
+									Start Interview
+								</Link>
 							</Button>
 						</CardFooter>
 					</Card>
@@ -79,12 +82,16 @@ const DashboardInterviews = () => {
 		<>
 			<div className="mb-8">
 				<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-					<div className="animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+					<div
+						className="animate-fade-in-up"
+						style={{ animationDelay: "200ms" }}
+					>
 						<h2 className="text-2xl dark:text-sky-50 font-bold text-gray-900 mb-2">
 							Your Test Interviews
 						</h2>
 						<p className="text-gray-600 dark:text-blue-100">
-							Practice and improve your interview skills with personalized mock interviews.
+							Practice and improve your interview skills with personalized mock
+							interviews.
 						</p>
 					</div>
 				</div>
@@ -109,8 +116,12 @@ const DashboardInterviews = () => {
 								<TabsTrigger value="finished">Finished</TabsTrigger>
 							</TabsList>
 
-							<TabsContent value="active">{renderInterviews(activeInterviews)}</TabsContent>
-							<TabsContent value="finished">{renderInterviews(finishedInterviews)}</TabsContent>
+							<TabsContent value="active">
+								{renderInterviews(activeInterviews)}
+							</TabsContent>
+							<TabsContent value="finished">
+								{renderInterviews(finishedInterviews)}
+							</TabsContent>
 						</Tabs>
 
 						<DashboardPagination
