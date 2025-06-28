@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { OpenAI } from "openai";
 
 const openai = new OpenAI({
@@ -10,11 +10,11 @@ export async function POST(
 	context: { params: Promise<{ id: string }> },
 ) {
 	const { answers } = await req.json();
-    const interviewId = (await context.params).id;
+	const interviewId = (await context.params).id;
 	if (!interviewId) {
 		return NextResponse.json(
 			{ error: "Missing interview ID" },
-			{ status: 400 }
+			{ status: 400 },
 		);
 	}
 
@@ -31,11 +31,11 @@ Interview ID: ${interviewId}
 
 Questions and answers:
 ${answers
-		.map(
-			(item: { question: string; answer: string }, i: number) =>
-				`${i + 1}. Q: ${item.question}\nA: ${item.answer}`
-		)
-		.join("\n\n")}
+	.map(
+		(item: { question: string; answer: string }, i: number) =>
+			`${i + 1}. Q: ${item.question}\nA: ${item.answer}`,
+	)
+	.join("\n\n")}
 `;
 
 	const completion = await openai.chat.completions.create({
