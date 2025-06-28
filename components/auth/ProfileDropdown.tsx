@@ -27,9 +27,7 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({ user }) => {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56" align="start">
 				<DropdownMenuItem asChild>
-					<Link href="/dashboard">
-						Dashboard
-					</Link>
+					<Link href="/dashboard">Dashboard</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem asChild>
 					<LogoutLink className="w-full text-left cursor-pointer">
