@@ -9,7 +9,6 @@ type MockInterview = {
 };
 
 export function useMockInterview(interviewId: string) {
-	console.log(interviewId, "Hook");
 	return useQuery<MockInterview>({
 		queryKey: ["mockInterview", interviewId],
 		queryFn: async () => {
