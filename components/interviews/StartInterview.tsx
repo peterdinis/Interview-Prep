@@ -19,6 +19,7 @@ import {
 	DialogTitle,
 } from "../ui/dialog";
 import { Textarea } from "../ui/textarea";
+import Link from "next/link";
 
 interface Props {
 	id: string;
@@ -186,7 +187,7 @@ const StartInterview: FC<Props> = ({ id }) => {
 			</div>
 
 			<Dialog open={showDialog} onOpenChange={setShowDialog}>
-				<DialogContent>
+				<DialogContent className="max-w-4xl w-full">
 					<DialogTitle>AI Evaluation</DialogTitle>
 					<DialogDescription>
 						{aiFeedback ? (
@@ -197,7 +198,9 @@ const StartInterview: FC<Props> = ({ id }) => {
 					</DialogDescription>
 					<div className="flex justify-end gap-2 mt-4">
 						<Button variant="outline" onClick={() => setShowDialog(false)}>
-							Close
+							<Link href={"/dashboard"}>
+								Close and return to dashboard
+							</Link>
 						</Button>
 						<Button onClick={handleRestart}>Try Again</Button>
 					</div>
