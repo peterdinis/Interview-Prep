@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-export interface Interview {
+interface Interview {
 	id: string;
 	userId: string;
 	position: string;
@@ -12,7 +12,7 @@ export interface Interview {
 	isFinished?: number;
 }
 
-export interface InterviewsResponse {
+interface InterviewsResponse {
 	interviews: Interview[];
 	meta: {
 		page: number;

@@ -19,6 +19,7 @@ import {
 	DialogTitle,
 } from "../ui/dialog";
 import { Textarea } from "../ui/textarea";
+import Link from "next/link";
 
 interface Props {
 	id: string;
@@ -105,9 +106,6 @@ const StartInterview: FC<Props> = ({ id }) => {
 		setAiFeedback(null);
 	};
 
-	const score = answers.filter((a) => a.trim().length > 0).length;
-	const total = questions.length;
-
 	if (isLoading) return <p className="p-4">Loading interview questions...</p>;
 	if (error)
 		return <p className="p-4 text-red-500">Error loading questions.</p>;
@@ -178,31 +176,35 @@ const StartInterview: FC<Props> = ({ id }) => {
 								Feedback error: {(feedbackError as Error)?.message}
 							</p>
 						)}
-						<Button onClick={handleSubmit} className="mt-4">
+						<Button disabled={answers.some((a) => a.trim() === "") || isPending || isFeedbackLoading} onClick={handleSubmit} className="mt-4">
 							Submit Answers
 						</Button>
 					</CardContent>
 				</Card>
 			</div>
 
-			<Dialog open={showDialog} onOpenChange={setShowDialog}>
-				<DialogContent>
+			<div className="w-[700px]">
+				<Dialog open={showDialog} onOpenChange={setShowDialog}>
+				<DialogContent className="max-w-4xl w-full">
 					<DialogTitle>AI Evaluation</DialogTitle>
 					<DialogDescription>
 						{aiFeedback ? (
-							<pre className="whitespace-pre-wrap text-sm">{aiFeedback}</pre>
+							<pre className="whitespace-pre-wrap max-h-80 overflow-auto text-sm">{aiFeedback}</pre>
 						) : (
 							<p>Loading feedback...</p>
 						)}
 					</DialogDescription>
 					<div className="flex justify-end gap-2 mt-4">
 						<Button variant="outline" onClick={() => setShowDialog(false)}>
-							Close
+							<Link href={"/dashboard"}>
+								Close and return to dashboard
+							</Link>
 						</Button>
 						<Button onClick={handleRestart}>Try Again</Button>
 					</div>
 				</DialogContent>
 			</Dialog>
+			</div>
 		</>
 	);
 };
