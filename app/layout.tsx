@@ -19,7 +19,6 @@ export const metadata: Metadata = {
 	],
 	authors: [{ name: "Your Name", url: "https://yourwebsite.com" }],
 	applicationName: "Interview Prep",
-	viewport: "width=device-width, initial-scale=1",
 	robots: {
 		index: true,
 		follow: true,
