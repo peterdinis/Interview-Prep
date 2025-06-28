@@ -13,7 +13,8 @@
 		"db:studio": "drizzle-kit studio",
 		"db:migrate": "drizzle-kit migrate",
 		"format": "pnpm biome check --write .",
-		"seed": "tsx ./db/seed.ts"
+		"seed": "tsx ./db/seed.ts",
+		"knip:fix": "pnpm knip --fix"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.1.1",

@@ -1,6 +1,11 @@
 {
-	"entry": ["src/pages/**/*.tsx", "src/app/**/*.tsx"],
-	"ignore": ["next.config.js"],
-	"project": ["src/**/*.ts", "src/**/*.tsx"],
-	"preset": "next"
+    "$schema": "https://unpkg.com/knip@latest/knip.schema.json",
+    "entry": ["next.config.js", "app/**/*.tsx", "pages/**/*.tsx"],
+    "project": ["**/*.ts", "**/*.tsx"],
+    "ignore": [
+        "**/*.stories.tsx",
+        "**/__tests__/**",
+        "**/*.test.tsx",
+        "**/*.spec.ts"
+    ]
 }
