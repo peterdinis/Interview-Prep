@@ -10,7 +10,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetInterviews } from "@/hooks/interviews/useGetInterviews";
-import { Ghost } from "lucide-react";
+import { Ghost, Eye, Play } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Button } from "../ui/button";
@@ -53,7 +53,10 @@ const DashboardInterviews = () => {
 		return range;
 	};
 
-	const renderInterviews = (list: typeof interviews) => {
+	const renderInterviews = (
+		list: typeof interviews,
+		type: "active" | "finished",
+	) => {
 		if (list.length === 0) {
 			return (
 				<p className="text-muted-foreground flex items-center gap-2">
@@ -66,7 +69,10 @@ const DashboardInterviews = () => {
 		return (
 			<div className="grid gap-4">
 				{list.map((interview) => (
-					<Card key={interview.id}>
+					<Card
+						key={interview.id}
+						className="transition-shadow hover:shadow-xl duration-200"
+					>
 						<CardHeader>
 							<CardTitle>
 								{interview.position} @ {interview.company}
@@ -76,9 +82,26 @@ const DashboardInterviews = () => {
 							<p>Date: {new Date(interview.date).toLocaleDateString()}</p>
 						</CardContent>
 						<CardFooter>
-							<Button variant={"default"}>
-								<Link href={`/interview/start/${interview.id}`}>
-									Start Interview
+							<Button asChild variant={"default"}>
+								<Link
+									href={
+										type === "active"
+											? `/interview/start/${interview.id}`
+											: `/interview/${interview.id}`
+									}
+									className="flex items-center gap-2"
+								>
+									{type === "active" ? (
+										<>
+											<Play className="w-4 h-4" />
+											Start Interview
+										</>
+									) : (
+										<>
+											<Eye className="w-4 h-4" />
+											View Details
+										</>
+									)}
 								</Link>
 							</Button>
 						</CardFooter>
@@ -126,7 +149,7 @@ const DashboardInterviews = () => {
 						</TabsList>
 
 						<TabsContent value="active">
-							{renderInterviews(paginate(activeInterviews, activePage))}
+							{renderInterviews(paginate(activeInterviews, activePage), "active")}
 
 							<DashboardPagination
 								getPageNumbers={() =>
@@ -143,7 +166,10 @@ const DashboardInterviews = () => {
 						</TabsContent>
 
 						<TabsContent value="finished">
-							{renderInterviews(paginate(finishedInterviews, finishedPage))}
+							{renderInterviews(
+								paginate(finishedInterviews, finishedPage),
+								"finished",
+							)}
 
 							<DashboardPagination
 								getPageNumbers={() =>
