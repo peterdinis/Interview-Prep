@@ -21,7 +21,7 @@ const DashboardInterviews = () => {
 	const [finishedPage, setFinishedPage] = useState(1);
 	const limit = 5;
 
-	const { interviews, loading, error } = useGetInterviews(1, 1000); // Fetch all and paginate client-side
+	const { interviews, loading, error } = useGetInterviews(1, 1000);
 
 	const { activeInterviews, finishedInterviews } = useMemo(() => {
 		return {
