@@ -2,6 +2,7 @@
 
 import { useMockInterview } from "@/hooks/interviews/useInterviewStart";
 import { useSubmitInterviewAnswers } from "@/hooks/interviews/useSubmitInterviewsAnswers";
+import { useInterviewFeedback } from "@/hooks/interviews/useInterviewFeedback";
 import { type FC, useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
 import {
@@ -23,18 +24,25 @@ interface Props {
 	id: string;
 }
 
-const StartInterview: FC<Props> = ({ id }: Props) => {
+const StartInterview: FC<Props> = ({ id }) => {
 	const { data, isLoading, error } = useMockInterview(id);
 	const [answers, setAnswers] = useState<string[]>([]);
 	const [submitted, setSubmitted] = useState(false);
 	const [showDialog, setShowDialog] = useState(false);
+	const [aiFeedback, setAiFeedback] = useState<string | null>(null);
 
 	const {
-		mutate,
+		mutate: submitAnswers,
 		isPending,
 		isError,
 		error: submitError,
 	} = useSubmitInterviewAnswers();
+
+	const {
+		mutate: getFeedback,
+		isPending: isFeedbackLoading,
+		error: feedbackError,
+	} = useInterviewFeedback();
 
 	const questions = useMemo(() => {
 		if (!data?.content) return [];
@@ -63,7 +71,7 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
 			answer: answers[index] ?? "",
 		}));
 
-		mutate(
+		submitAnswers(
 			{ interviewId: id, answers: formattedAnswers },
 			{
 				onSuccess: async () => {
@@ -75,10 +83,18 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
 						body: JSON.stringify({ isFinished: 1 }),
 					});
 
-					setSubmitted(true);
-					setShowDialog(true);
+					getFeedback(
+						{ interviewId: id, answers: formattedAnswers },
+						{
+							onSuccess: (data) => {
+								setAiFeedback(data.feedback);
+								setSubmitted(true);
+								setShowDialog(true);
+							},
+						}
+					);
 				},
-			},
+			}
 		);
 	};
 
@@ -86,19 +102,11 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
 		setAnswers(Array(questions.length).fill(""));
 		setSubmitted(false);
 		setShowDialog(false);
+		setAiFeedback(null);
 	};
 
 	const score = answers.filter((a) => a.trim().length > 0).length;
 	const total = questions.length;
-
-	const generateFeedback = () => {
-		if (score === total) return "Perfect! You answered all questions.";
-		if (score >= total * 0.75)
-			return "Great job! You answered most of the questions.";
-		if (score >= total * 0.5)
-			return "Good effort! Try to answer a few more next time.";
-		return "Looks like you struggled. Give it another go!";
-	};
 
 	if (isLoading) return <p className="p-4">Loading interview questions...</p>;
 	if (error)
@@ -157,9 +165,17 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
 						{isPending && (
 							<p className="text-blue-500">Submitting your answers...</p>
 						)}
+						{isFeedbackLoading && (
+							<p className="text-blue-500">Generating AI feedback...</p>
+						)}
 						{isError && (
 							<p className="text-red-500">
 								Failed to submit: {submitError?.message}
+							</p>
+						)}
+						{feedbackError && (
+							<p className="text-red-500">
+								Feedback error: {(feedbackError as Error)?.message}
 							</p>
 						)}
 						<Button onClick={handleSubmit} className="mt-4">
@@ -173,8 +189,11 @@ const StartInterview: FC<Props> = ({ id }: Props) => {
 				<DialogContent>
 					<DialogTitle>AI Evaluation</DialogTitle>
 					<DialogDescription>
-						{generateFeedback()} You answered <strong>{score}</strong> out of{" "}
-						<strong>{total}</strong> questions.
+						{aiFeedback ? (
+							<pre className="whitespace-pre-wrap text-sm">{aiFeedback}</pre>
+						) : (
+							<p>Loading feedback...</p>
+						)}
 					</DialogDescription>
 					<div className="flex justify-end gap-2 mt-4">
 						<Button variant="outline" onClick={() => setShowDialog(false)}>

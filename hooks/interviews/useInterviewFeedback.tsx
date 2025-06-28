@@ -2,16 +2,25 @@
 
 import { useMutation } from "@tanstack/react-query";
 
-export const useSubmitInterviewAnswers = () => {
+interface InterviewAnswer {
+	question: string;
+	answer: string;
+}
+
+interface FeedbackResponse {
+	feedback: string;
+}
+
+export function useInterviewFeedback() {
 	return useMutation({
 		mutationFn: async ({
 			interviewId,
 			answers,
 		}: {
 			interviewId: string;
-			answers: { question: string; answer: string }[];
-		}) => {
-			const res = await fetch(`/api/interviews/${interviewId}/feedback`, {
+			answers: InterviewAnswer[];
+		}): Promise<FeedbackResponse> => {
+			const response = await fetch(`/api/interviews/${interviewId}/feedback`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -19,11 +28,12 @@ export const useSubmitInterviewAnswers = () => {
 				body: JSON.stringify({ answers }),
 			});
 
-			if (!res.ok) {
-				throw new Error("Failed to get feedback");
+			if (!response.ok) {
+				const error = await response.json();
+				throw new Error(error?.error || "Failed to get feedback");
 			}
 
-			return res.json(); // expects { feedback: string }
+			return await response.json();
 		},
 	});
-};
+}
