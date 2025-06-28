@@ -40,8 +40,12 @@ const DashboardInterviews = () => {
 		return range;
 	}, [meta]);
 
-	const activeInterviews = interviews.filter((i) => !i.isFinished);
-	const finishedInterviews = interviews.filter((i) => i.isFinished);
+	const { activeInterviews, finishedInterviews } = useMemo(() => {
+		return {
+			activeInterviews: interviews.filter((i) => !i.isFinished),
+			finishedInterviews: interviews.filter((i) => i.isFinished),
+		};
+	}, [interviews]);
 
 	const renderInterviews = (list: typeof interviews) => {
 		if (list.length === 0) {
