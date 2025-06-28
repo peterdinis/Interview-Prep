@@ -1,6 +1,6 @@
 {
-  "entry": ["src/pages/**/*.tsx", "src/app/**/*.tsx"],
-  "ignore": ["next.config.js"],
-  "project": ["src/**/*.ts", "src/**/*.tsx"],
-  "preset": "next"
+	"entry": ["src/pages/**/*.tsx", "src/app/**/*.tsx"],
+	"ignore": ["next.config.js"],
+	"project": ["src/**/*.ts", "src/**/*.tsx"],
+	"preset": "next"
 }

@@ -1,8 +1,8 @@
 "use client";
 
+import { useInterviewFeedback } from "@/hooks/interviews/useInterviewFeedback";
 import { useMockInterview } from "@/hooks/interviews/useInterviewStart";
 import { useSubmitInterviewAnswers } from "@/hooks/interviews/useSubmitInterviewsAnswers";
-import { useInterviewFeedback } from "@/hooks/interviews/useInterviewFeedback";
 import { type FC, useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
 import {
@@ -91,10 +91,10 @@ const StartInterview: FC<Props> = ({ id }) => {
 								setSubmitted(true);
 								setShowDialog(true);
 							},
-						}
+						},
 					);
 				},
-			}
+			},
 		);
 	};
 
