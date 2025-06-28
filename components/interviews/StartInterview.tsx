@@ -3,6 +3,7 @@
 import { useInterviewFeedback } from "@/hooks/interviews/useInterviewFeedback";
 import { useMockInterview } from "@/hooks/interviews/useInterviewStart";
 import { useSubmitInterviewAnswers } from "@/hooks/interviews/useSubmitInterviewsAnswers";
+import Link from "next/link";
 import { type FC, useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
 import {
@@ -19,7 +20,6 @@ import {
 	DialogTitle,
 } from "../ui/dialog";
 import { Textarea } from "../ui/textarea";
-import Link from "next/link";
 
 interface Props {
 	id: string;
@@ -176,7 +176,15 @@ const StartInterview: FC<Props> = ({ id }) => {
 								Feedback error: {(feedbackError as Error)?.message}
 							</p>
 						)}
-						<Button disabled={answers.some((a) => a.trim() === "") || isPending || isFeedbackLoading} onClick={handleSubmit} className="mt-4">
+						<Button
+							disabled={
+								answers.some((a) => a.trim() === "") ||
+								isPending ||
+								isFeedbackLoading
+							}
+							onClick={handleSubmit}
+							className="mt-4"
+						>
 							Submit Answers
 						</Button>
 					</CardContent>
@@ -185,25 +193,25 @@ const StartInterview: FC<Props> = ({ id }) => {
 
 			<div className="w-[700px]">
 				<Dialog open={showDialog} onOpenChange={setShowDialog}>
-				<DialogContent className="max-w-4xl w-full">
-					<DialogTitle>AI Evaluation</DialogTitle>
-					<DialogDescription>
-						{aiFeedback ? (
-							<pre className="whitespace-pre-wrap max-h-80 overflow-auto text-sm">{aiFeedback}</pre>
-						) : (
-							<p>Loading feedback...</p>
-						)}
-					</DialogDescription>
-					<div className="flex justify-end gap-2 mt-4">
-						<Button variant="outline" onClick={() => setShowDialog(false)}>
-							<Link href={"/dashboard"}>
-								Close and return to dashboard
-							</Link>
-						</Button>
-						<Button onClick={handleRestart}>Try Again</Button>
-					</div>
-				</DialogContent>
-			</Dialog>
+					<DialogContent className="max-w-4xl w-full">
+						<DialogTitle>AI Evaluation</DialogTitle>
+						<DialogDescription>
+							{aiFeedback ? (
+								<pre className="whitespace-pre-wrap max-h-80 overflow-auto text-sm">
+									{aiFeedback}
+								</pre>
+							) : (
+								<p>Loading feedback...</p>
+							)}
+						</DialogDescription>
+						<div className="flex justify-end gap-2 mt-4">
+							<Button variant="outline" onClick={() => setShowDialog(false)}>
+								<Link href={"/dashboard"}>Close and return to dashboard</Link>
+							</Button>
+							<Button onClick={handleRestart}>Try Again</Button>
+						</div>
+					</DialogContent>
+				</Dialog>
 			</div>
 		</>
 	);
