@@ -1,52 +1,31 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-
-type Interview = {
-	id: string;
-	position: string;
-	company: string;
-	date: string;
-	level: string;
-	isFinished: boolean;
-	years: string;
-	questionsLength: number;
-};
+import { useInterviewDetail } from "@/hooks/interviews/useInterviewDetail";
 
 const InterviewDetailPage = () => {
 	const { id } = useParams();
-	const [interview, setInterview] = useState<Interview | null>(null);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+	const interviewId = typeof id === "string" ? id : undefined;
 
-	useEffect(() => {
-		const fetchInterview = async () => {
-			try {
-				const res = await fetch(`/api/interviews/${id}`);
-				if (!res.ok) {
-					throw new Error("Failed to fetch interview");
-				}
-				const data = await res.json();
-				setInterview(data.interview);
-			} catch (err) {
-				setError("Unable to load interview.");
-			} finally {
-				setLoading(false);
-			}
-		};
+	const {
+		data: interview,
+		isLoading,
+		isError,
+		error,
+	} = useInterviewDetail(interviewId);
 
-		if (id) fetchInterview();
-	}, [id]);
-
-	if (loading) {
+	if (isLoading) {
 		return <Skeleton className="w-full h-48 rounded-xl" />;
 	}
 
-	if (error) {
-		return <p className="text-red-500">{error}</p>;
+	if (isError) {
+		return (
+			<p className="text-red-500">
+				{error instanceof Error ? error.message : "Unable to load interview."}
+			</p>
+		);
 	}
 
 	if (!interview) {
