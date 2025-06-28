@@ -179,19 +179,20 @@ const StartInterview: FC<Props> = ({ id }) => {
 								Feedback error: {(feedbackError as Error)?.message}
 							</p>
 						)}
-						<Button onClick={handleSubmit} className="mt-4">
+						<Button disabled={answers.some((a) => a.trim() === "") || isPending || isFeedbackLoading} onClick={handleSubmit} className="mt-4">
 							Submit Answers
 						</Button>
 					</CardContent>
 				</Card>
 			</div>
 
-			<Dialog open={showDialog} onOpenChange={setShowDialog}>
+			<div className="w-[700px]">
+				<Dialog open={showDialog} onOpenChange={setShowDialog}>
 				<DialogContent className="max-w-4xl w-full">
 					<DialogTitle>AI Evaluation</DialogTitle>
 					<DialogDescription>
 						{aiFeedback ? (
-							<pre className="whitespace-pre-wrap text-sm">{aiFeedback}</pre>
+							<pre className="whitespace-pre-wrap max-h-80 overflow-auto text-sm">{aiFeedback}</pre>
 						) : (
 							<p>Loading feedback...</p>
 						)}
@@ -206,6 +207,7 @@ const StartInterview: FC<Props> = ({ id }) => {
 					</div>
 				</DialogContent>
 			</Dialog>
+			</div>
 		</>
 	);
 };
