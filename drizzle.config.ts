@@ -1,12 +1,10 @@
 import { defineConfig } from "drizzle-kit";
 
-// TODO: Before deploy change for postgresql
-
 export default defineConfig({
 	out: "./drizzle",
 	schema: "./db/schema.ts",
-	dialect: "sqlite",
+	dialect: "postgresql",
 	dbCredentials: {
-		url: "sqlite.db",
+		url: process.env.DATABASE_URL!
 	},
 });
