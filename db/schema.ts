@@ -1,6 +1,6 @@
 import { pgTable, text, integer, pgEnum } from "drizzle-orm/pg-core";
 
-const planEnum = pgEnum("plan", ["free", "pro"]);
+export const planEnum = pgEnum("plan", ["free", "pro"]);
 
 export const users = pgTable("users", {
 	id: text("id").primaryKey(),
