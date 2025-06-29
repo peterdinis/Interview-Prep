@@ -1,41 +1,48 @@
 {
-	"version": "7",
-	"dialect": "sqlite",
-	"entries": [
-		{
-			"idx": 0,
-			"version": "6",
-			"when": 1750490768379,
-			"tag": "0000_brave_zuras",
-			"breakpoints": true
-		},
-		{
-			"idx": 1,
-			"version": "6",
-			"when": 1750593856472,
-			"tag": "0001_complex_sentinels",
-			"breakpoints": true
-		},
-		{
-			"idx": 2,
-			"version": "6",
-			"when": 1750594540510,
-			"tag": "0002_luxuriant_midnight",
-			"breakpoints": true
-		},
-		{
-			"idx": 3,
-			"version": "6",
-			"when": 1750608027687,
-			"tag": "0003_tired_jetstream",
-			"breakpoints": true
-		},
-		{
-			"idx": 4,
-			"version": "6",
-			"when": 1751035672262,
-			"tag": "0004_classy_starhawk",
-			"breakpoints": true
-		}
-	]
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1750490768379,
+      "tag": "0000_brave_zuras",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1750593856472,
+      "tag": "0001_complex_sentinels",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1750594540510,
+      "tag": "0002_luxuriant_midnight",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1750608027687,
+      "tag": "0003_tired_jetstream",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1751035672262,
+      "tag": "0004_classy_starhawk",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1751185687628,
+      "tag": "0005_modern_lord_tyger",
+      "breakpoints": true
+    }
+  ]
 }
