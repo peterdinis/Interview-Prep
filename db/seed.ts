@@ -19,6 +19,7 @@ async function seed() {
 		firstName: "John",
 		lastName: "Doe",
 		email: "john.doe@example.com",
+		plan: "pro", // 👈 pridali sme plán (free alebo pro)
 	});
 
 	await db.insert(interviews).values({
