@@ -5,6 +5,7 @@ export const users = sqliteTable("users", {
 	firstName: text("first_name"),
 	lastName: text("last_name"),
 	email: text("email"),
+	plan: text("plan", { enum: ["free", "pro"] }).default("free"),
 });
 
 export const interviews = sqliteTable("interviews", {
