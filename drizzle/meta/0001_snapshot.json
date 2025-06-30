@@ -1,6 +1,6 @@
 {
-  "id": "7f78626a-9fbf-4f0a-8696-9e28a6ecfee3",
-  "prevId": "e5b20f9c-d692-4459-9f92-ce1019bce345",
+  "id": "bb879833-daa0-4e7c-b142-9363b3783f36",
+  "prevId": "06e8dbb1-ba53-4e97-94b3-c2ed9fc974c4",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -234,7 +234,8 @@
       "schema": "public",
       "values": [
         "free",
-        "pro"
+        "pro",
+        "enterprise"
       ]
     }
   },

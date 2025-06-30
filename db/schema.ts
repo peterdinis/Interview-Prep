@@ -1,11 +1,13 @@
-import { pgTable, text, integer} from "drizzle-orm/pg-core";
+import { pgTable, text, pgEnum, integer} from "drizzle-orm/pg-core";
+
+export const planEnum = pgEnum("plan", ["free", "pro", "enterprise"]);
 
 export const users = pgTable("users", {
 	id: text("id").primaryKey(),
 	firstName: text("first_name"),
 	lastName: text("last_name"),
 	email: text("email"),
-	plan: text("plan").default("free"),
+	plan: planEnum("plan").default("free"),
 });
 
 export const interviews = pgTable("interviews", {
