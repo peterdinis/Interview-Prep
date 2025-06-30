@@ -6,97 +6,104 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { redis } from "@/lib/redis";
 
-const openai = new OpenAI({
-	apiKey: process.env.OPENAI_KEY,
-});
+const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
 export async function POST(req: Request) {
 	try {
 		const { getUser } = getKindeServerSession();
 		const user = await getUser();
 
-		if (!user || !user.id) {
+		if (!user?.id) {
 			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 		}
 
-		// Rate limiting
-		const today = new Date().toISOString().slice(0, 10);
-		const redisKey = `interview_limit:${user.id}:${today}`;
+		// Rate limiting per day
+		const today = new Date().toISOString().split("T")[0];
+		const rateLimitKey = `interview_limit:${user.id}:${today}`;
+		const count = await redis.incr(rateLimitKey);
 
-		const currentCount = await redis.incr(redisKey);
-		if (currentCount === 1) {
-			await redis.expire(redisKey, 60 * 60 * 24);
+		if (count === 1) {
+			await redis.expire(rateLimitKey, 60 * 60 * 24); // 1 day
 		}
 
-		if (currentCount > 4) {
+		if (count > 4) {
 			return NextResponse.json(
 				{ error: "Rate limit exceeded: max 4 interviews per day" },
-				{ status: 429 },
+				{ status: 429 }
 			);
 		}
 
 		const body = await req.json();
-		const { position, company, date, level, years, questionsLength } = body;
+		const { position, company, date, level = "", years = "", questionsLength = 5 } = body;
 
 		if (!position || !company || !date) {
 			return NextResponse.json(
 				{ error: "Missing required fields: position, company, or date" },
-				{ status: 400 },
+				{ status: 400 }
 			);
 		}
 
+		const interviewId = nanoid();
+
 		const newInterview = {
-			id: nanoid(),
+			id: interviewId,
 			userId: user.id,
 			position,
 			company,
 			date,
-			level: level || "",
-			years: years || "",
-			questionsLength: questionsLength || "",
+			level,
+			years,
+			questionsLength,
 		};
 
 		await db.insert(interviews).values(newInterview);
 
-		const prompt = `Generate a mock interview for a ${position} role at ${company}. The candidate has ${years || "some"} years of experience at ${level || "an unspecified level"}. Provide ${questionsLength || 5} relevant and realistic interview questions.`;
+		const prompt = [
+			`Create a mock interview for a candidate applying to the role of **${position}** at **${company}**.`,
+			`- Candidate experience: ${years || "unspecified"} years`,
+			`- Seniority level: ${level || "unspecified"}`,
+			`- Generate **${questionsLength}** realistic, relevant interview questions.`,
+			`Respond only with the questions, numbered and clearly formatted.`
+		].join("\n");
 
-		let generatedInterview = "";
+		let generatedContent = "";
 
 		try {
-			const completion = await openai.chat.completions.create({
+			const response = await openai.chat.completions.create({
 				model: "gpt-4",
 				messages: [{ role: "user", content: prompt }],
 				temperature: 0.7,
 			});
 
-			generatedInterview = completion.choices[0].message.content ?? "";
-		} catch (openaiError) {
-			console.error("[OPENAI_ERROR]", openaiError);
+			generatedContent = response.choices[0]?.message?.content?.trim() ?? "";
+		} catch (err) {
+			console.error("[OPENAI_ERROR]", err);
 			return NextResponse.json(
 				{ error: "Failed to generate mock interview using OpenAI." },
-				{ status: 502 },
+				{ status: 502 }
 			);
 		}
 
 		await db.insert(mockInterviews).values({
 			id: nanoid(),
-			interviewId: newInterview.id,
-			content: generatedInterview,
+			interviewId,
+			content: generatedContent,
 		});
 
 		return NextResponse.json(
-			{ interview: newInterview, mockInterview: generatedInterview },
-			{ status: 201 },
+			{ interview: newInterview, mockInterview: generatedContent },
+			{ status: 201 }
 		);
-	} catch (error: any) {
+	} catch (err: any) {
 		console.error("[INTERVIEWS_POST]", {
-			message: error?.message,
-			stack: error?.stack,
-			error,
+			message: err?.message,
+			stack: err?.stack,
+			error: err,
 		});
+
 		return NextResponse.json(
 			{ error: "Unexpected server error. Please try again later." },
-			{ status: 500 },
+			{ status: 500 }
 		);
 	}
 }
