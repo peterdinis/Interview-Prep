@@ -18,7 +18,8 @@ export async function POST(req: Request) {
 		if (!user || !user.id) {
 			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 		}
-		
+
+		// Rate limiting
 		const today = new Date().toISOString().slice(0, 10);
 		const redisKey = `interview_limit:${user.id}:${today}`;
 
@@ -39,7 +40,7 @@ export async function POST(req: Request) {
 
 		if (!position || !company || !date) {
 			return NextResponse.json(
-				{ error: "Missing required fields" },
+				{ error: "Missing required fields: position, company, or date" },
 				{ status: 400 },
 			);
 		}
@@ -59,18 +60,23 @@ export async function POST(req: Request) {
 
 		const prompt = `Generate a mock interview for a ${position} role at ${company}. The candidate has ${years || "some"} years of experience at ${level || "an unspecified level"}. Provide ${questionsLength || 5} relevant and realistic interview questions.`;
 
-		const completion = await openai.chat.completions.create({
-			model: "gpt-4",
-			messages: [
-				{
-					role: "user",
-					content: prompt,
-				},
-			],
-			temperature: 0.7,
-		});
+		let generatedInterview = "";
 
-		const generatedInterview = completion.choices[0].message.content ?? "";
+		try {
+			const completion = await openai.chat.completions.create({
+				model: "gpt-4",
+				messages: [{ role: "user", content: prompt }],
+				temperature: 0.7,
+			});
+
+			generatedInterview = completion.choices[0].message.content ?? "";
+		} catch (openaiError) {
+			console.error("[OPENAI_ERROR]", openaiError);
+			return NextResponse.json(
+				{ error: "Failed to generate mock interview using OpenAI." },
+				{ status: 502 },
+			);
+		}
 
 		await db.insert(mockInterviews).values({
 			id: nanoid(),
@@ -82,10 +88,14 @@ export async function POST(req: Request) {
 			{ interview: newInterview, mockInterview: generatedInterview },
 			{ status: 201 },
 		);
-	} catch (error) {
-		console.error("[INTERVIEWS_POST]", error);
+	} catch (error: any) {
+		console.error("[INTERVIEWS_POST]", {
+			message: error?.message,
+			stack: error?.stack,
+			error,
+		});
 		return NextResponse.json(
-			{ error: "Internal Server Error" },
+			{ error: "Unexpected server error. Please try again later." },
 			{ status: 500 },
 		);
 	}

@@ -55,6 +55,7 @@ const DashboardDialog: FC = () => {
 
 	const onSubmit = (values: InterviewFormValues) => {
 		setErrorMessage("");
+
 		createInterview(
 			{
 				...values,
@@ -65,8 +66,14 @@ const DashboardDialog: FC = () => {
 					form.reset();
 					setIsOpen(false);
 				},
-				onError: (error: Error) => {
-					setErrorMessage(error.message || "Something went wrong.");
+				onError: (error: Error & { status?: number }) => {
+					if (error.status === 429) {
+						setErrorMessage("You've reached your daily limit of interviews.");
+					} else if (error.status === 400) {
+						setErrorMessage("Please fill in all required fields correctly.");
+					} else {
+						setErrorMessage("Something went wrong. Please try again later.");
+					}
 				},
 			},
 		);
@@ -74,7 +81,13 @@ const DashboardDialog: FC = () => {
 
 	return (
 		<div className="mt-6 lg:mt-0">
-			<Dialog open={isOpen} onOpenChange={setIsOpen}>
+			<Dialog
+				open={isOpen}
+				onOpenChange={(open) => {
+					setIsOpen(open);
+					if (open) setErrorMessage("");
+				}}
+			>
 				<DialogTrigger asChild>
 					<Button
 						className="bg-sky-600 hover:bg-sky-900 rounded-lg text-base"
