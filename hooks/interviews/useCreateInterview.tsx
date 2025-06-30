@@ -19,8 +19,19 @@ async function createInterviewRequest(data: InterviewPayload) {
 	});
 
 	if (!res.ok) {
-		const errorData = await res.json();
-		throw new Error(errorData.error || "Failed to create interview");
+		let message = "Failed to create interview";
+		let status = res.status;
+
+		try {
+			const errorData = await res.json();
+			message = errorData.error || message;
+		} catch {
+			// fallback if response is not JSON
+		}
+
+		const error = new Error(message) as Error & { status?: number };
+		error.status = status;
+		throw error;
 	}
 
 	const result = await res.json();
@@ -38,7 +49,6 @@ export function useCreateInterview() {
 	} = useMutation({
 		mutationFn: createInterviewRequest,
 		onSuccess: () => {
-			// Invalidate interview queries to refetch updated data
 			queryClient.invalidateQueries({ queryKey: ["interviews", "me"] });
 		},
 	});
@@ -46,6 +56,6 @@ export function useCreateInterview() {
 	return {
 		createInterview,
 		loading,
-		error: isError ? (error as Error).message : null,
+		error: isError ? (error as Error & { status?: number }) : null,
 	};
 }
