@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 type LimitData = {
 	count: number;
@@ -8,26 +8,28 @@ type LimitData = {
 	limit: number;
 };
 
+const fetchInterviewLimit = async (): Promise<LimitData> => {
+	const res = await fetch("/api/interviews/limit");
+	if (!res.ok) {
+		throw new Error("Failed to fetch limit");
+	}
+	return res.json();
+};
+
 export const useInterviewLimit = () => {
-	const [data, setData] = useState<LimitData | null>(null);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+	const {
+		data,
+		isLoading: loading,
+		isError,
+		error,
+	} = useQuery<LimitData, Error>({
+		queryKey: ["interviewLimit"],
+		queryFn: fetchInterviewLimit,
+	});
 
-	useEffect(() => {
-		const fetchLimit = async () => {
-			try {
-				const res = await fetch("/api/interviews/limit");
-				if (!res.ok) throw new Error("Failed to fetch limit");
-				const json = await res.json();
-				setData(json);
-			} catch (err: any) {
-				setError(err.message);
-			} finally {
-				setLoading(false);
-			}
-		};
-		fetchLimit();
-	}, []);
-
-	return { data, loading, error };
+	return {
+		data,
+		loading,
+		error: isError ? error.message : null,
+	};
 };
