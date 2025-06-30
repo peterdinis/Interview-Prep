@@ -4,6 +4,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { redis } from "@/lib/redis";
 
 const openai = new OpenAI({
 	apiKey: process.env.OPENAI_KEY,
@@ -16,6 +17,21 @@ export async function POST(req: Request) {
 
 		if (!user || !user.id) {
 			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+		}
+		
+		const today = new Date().toISOString().slice(0, 10);
+		const redisKey = `interview_limit:${user.id}:${today}`;
+
+		const currentCount = await redis.incr(redisKey);
+		if (currentCount === 1) {
+			await redis.expire(redisKey, 60 * 60 * 24);
+		}
+
+		if (currentCount > 4) {
+			return NextResponse.json(
+				{ error: "Rate limit exceeded: max 4 interviews per day" },
+				{ status: 429 },
+			);
 		}
 
 		const body = await req.json();
