@@ -27,8 +27,7 @@ CREATE TABLE "users" (
 	"id" text PRIMARY KEY NOT NULL,
 	"first_name" text,
 	"last_name" text,
-	"email" text,
-	"plan" "plan" DEFAULT 'free'
+	"email" text
 );
 --> statement-breakpoint
 ALTER TABLE "interview_questions" ADD CONSTRAINT "interview_questions_interview_id_interviews_id_fk" FOREIGN KEY ("interview_id") REFERENCES "public"."interviews"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint

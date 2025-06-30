@@ -1,5 +1,5 @@
 {
-  "id": "e5b20f9c-d692-4459-9f92-ce1019bce345",
+  "id": "06e8dbb1-ba53-4e97-94b3-c2ed9fc974c4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -209,14 +209,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
-        },
-        "plan": {
-          "name": "plan",
-          "type": "plan",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'free'"
         }
       },
       "indexes": {},

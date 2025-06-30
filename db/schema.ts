@@ -5,7 +5,6 @@ export const users = pgTable("users", {
 	firstName: text("first_name"),
 	lastName: text("last_name"),
 	email: text("email"),
-	plan: text("plan").default("free"),
 });
 
 export const interviews = pgTable("interviews", {
