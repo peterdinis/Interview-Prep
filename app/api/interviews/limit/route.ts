@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redis } from "@/lib/redis";
-
-const DAILY_LIMIT = 4;
+import { DAILY_LIMIT } from "@/constants/applicationConstants";
 
 export async function GET() {
 	try {
