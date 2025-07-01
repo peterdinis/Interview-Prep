@@ -15,7 +15,7 @@ export async function POST(req: Request) {
 		const values = answers.map(
 			(item: { question: string; answer: string }) => ({
 				id: nanoid(),
-				interviewId,
+				interview_id: interviewId,
 				question: item.question,
 				answer: item.answer,
 			}),
