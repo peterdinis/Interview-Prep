@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 		if (!interviewId || !Array.isArray(answers)) {
 			return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
 		}
-
+ 
 		const values = answers.map(
 			(item: { question: string; answer: string }) => ({
 				id: nanoid(),
