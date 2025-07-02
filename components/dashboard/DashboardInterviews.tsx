@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Button } from "../ui/button";
 import DashboardPagination from "./DashboardPagination";
+import UserPlanBadge from "../payments/UserPlanBadge";
 
 const DashboardInterviews = () => {
 	const [activePage, setActivePage] = useState(1);
@@ -160,6 +161,7 @@ const DashboardInterviews = () => {
 
 			<div className="space-y-6">
 				<h1 className="text-2xl font-semibold">My Interviews</h1>
+				<UserPlanBadge />
 
 				{loading ? (
 					<div className="space-y-4">
