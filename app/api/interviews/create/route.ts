@@ -1,10 +1,10 @@
 import { db } from "@/db";
 import { interviews, mockInterviews } from "@/db/schema";
+import { redis } from "@/lib/redis";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
-import { redis } from "@/lib/redis";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
@@ -28,17 +28,24 @@ export async function POST(req: Request) {
 		if (count > 4) {
 			return NextResponse.json(
 				{ error: "Rate limit exceeded: max 4 interviews per day" },
-				{ status: 429 }
+				{ status: 429 },
 			);
 		}
 
 		const body = await req.json();
-		const { position, company, date, level = "", years = "", questionsLength = 5 } = body;
+		const {
+			position,
+			company,
+			date,
+			level = "",
+			years = "",
+			questionsLength = 5,
+		} = body;
 
 		if (!position || !company || !date) {
 			return NextResponse.json(
 				{ error: "Missing required fields: position, company, or date" },
-				{ status: 400 }
+				{ status: 400 },
 			);
 		}
 
@@ -62,7 +69,7 @@ export async function POST(req: Request) {
 			`- Candidate experience: ${years || "unspecified"} years`,
 			`- Seniority level: ${level || "unspecified"}`,
 			`- Generate **${questionsLength}** realistic, relevant interview questions.`,
-			`Respond only with the questions, numbered and clearly formatted.`
+			`Respond only with the questions, numbered and clearly formatted.`,
 		].join("\n");
 
 		let generatedContent = "";
@@ -79,7 +86,7 @@ export async function POST(req: Request) {
 			console.error("[OPENAI_ERROR]", err);
 			return NextResponse.json(
 				{ error: "Failed to generate mock interview using OpenAI." },
-				{ status: 502 }
+				{ status: 502 },
 			);
 		}
 
@@ -91,7 +98,7 @@ export async function POST(req: Request) {
 
 		return NextResponse.json(
 			{ interview: newInterview, mockInterview: generatedContent },
-			{ status: 201 }
+			{ status: 201 },
 		);
 	} catch (err: any) {
 		console.error("[INTERVIEWS_POST]", {
@@ -102,7 +109,7 @@ export async function POST(req: Request) {
 
 		return NextResponse.json(
 			{ error: "Unexpected server error. Please try again later." },
-			{ status: 500 }
+			{ status: 500 },
 		);
 	}
 }

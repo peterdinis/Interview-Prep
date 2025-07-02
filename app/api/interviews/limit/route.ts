@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { redis } from "@/lib/redis";
 import { DAILY_LIMIT } from "@/constants/applicationConstants";
+import { redis } from "@/lib/redis";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { NextResponse } from "next/server";
 
 export async function GET() {
 	try {

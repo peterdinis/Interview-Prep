@@ -20,7 +20,7 @@ async function createInterviewRequest(data: InterviewPayload) {
 
 	if (!res.ok) {
 		let message = "Failed to create interview";
-		let status = res.status;
+		const status = res.status;
 
 		try {
 			const errorData = await res.json();
