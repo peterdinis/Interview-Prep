@@ -17,13 +17,12 @@ export async function POST(req: Request) {
 			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 		}
 
-		// Rate limiting per day
 		const today = new Date().toISOString().split("T")[0];
 		const rateLimitKey = `interview_limit:${user.id}:${today}`;
 		const count = await redis.incr(rateLimitKey);
 
 		if (count === 1) {
-			await redis.expire(rateLimitKey, 60 * 60 * 24); // 1 day
+			await redis.expire(rateLimitKey, 60 * 60 * 24);
 		}
 
 		if (count > 4) {

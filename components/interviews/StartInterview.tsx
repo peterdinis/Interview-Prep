@@ -20,6 +20,7 @@ import {
 	DialogTitle,
 } from "../ui/dialog";
 import { Textarea } from "../ui/textarea";
+import { Loader2 } from "lucide-react";
 
 interface Props {
 	id: string;
@@ -106,7 +107,7 @@ const StartInterview: FC<Props> = ({ id }) => {
 		setAiFeedback(null);
 	};
 
-	if (isLoading) return <p className="p-4">Loading interview questions...</p>;
+	if (isLoading) return <p className="p-4"><Loader2 className="animate-spin w-8 h-8" /></p>;
 	if (error)
 		return <p className="p-4 text-red-500">Error loading questions.</p>;
 	if (!questions.length) return <p className="p-4">No questions found.</p>;
@@ -201,7 +202,7 @@ const StartInterview: FC<Props> = ({ id }) => {
 									{aiFeedback}
 								</pre>
 							) : (
-								<p>Loading feedback...</p>
+								<Loader2 className="animate-spin w-8 h-8" />
 							)}
 						</DialogDescription>
 						<div className="flex justify-end gap-2 mt-4">
