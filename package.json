@@ -13,7 +13,7 @@
 		"db:studio": "drizzle-kit studio",
 		"db:migrate": "drizzle-kit migrate",
 		"format": "pnpm biome check --write .",
-		"seed": "tsx ./db/seed.ts",
+		"seed": "tsx ./db/seeder.ts",
 		"knip:fix": "pnpm knip --fix"
 	},
 	"dependencies": {
