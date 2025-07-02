@@ -1,6 +1,7 @@
 import CTASeciton from "@/components/hero/CTASection";
 import FeaturesSection from "@/components/hero/FeaturesSection";
 import HeroSection from "@/components/hero/HeroSection";
+import PaymentInfo from "@/components/hero/PaymentInfo";
 import StatsSection from "@/components/hero/StatsSection";
 import Footer from "@/components/shared/Footer";
 import type { NextPage } from "next";
@@ -14,6 +15,7 @@ const LandingPage: NextPage = () => {
 				<StatsSection />
 			</div>
 			<CTASeciton />
+			<PaymentInfo />
 			<Footer />
 		</>
 	);
