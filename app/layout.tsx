@@ -17,19 +17,12 @@ export const metadata: Metadata = {
 		"interview questions",
 		"practice",
 	],
-	authors: [{ name: "Your Name", url: "https://yourwebsite.com" }],
+	authors: [{ name: "Peter Dinis", url: "https://portfolio-peter-dinis.vercel.app/" }],
 	applicationName: "Interview Prep",
 	robots: {
 		index: true,
 		follow: true,
 		nocache: false,
-	},
-	openGraph: {
-		title: "Interview Prep",
-		description:
-			"Ace your job interviews with our structured preparation tools.",
-		url: "https://interviewprep.example.com",
-		siteName: "Interview Prep",
 	},
 };
 
