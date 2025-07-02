@@ -1,4 +1,4 @@
-import { pgTable, text, pgEnum, integer} from "drizzle-orm/pg-core";
+import { integer, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
 
 export const planEnum = pgEnum("plan", ["free", "pro", "enterprise"]);
 

@@ -17,7 +17,9 @@ export const metadata: Metadata = {
 		"interview questions",
 		"practice",
 	],
-	authors: [{ name: "Peter Dinis", url: "https://portfolio-peter-dinis.vercel.app/" }],
+	authors: [
+		{ name: "Peter Dinis", url: "https://portfolio-peter-dinis.vercel.app/" },
+	],
 	applicationName: "Interview Prep",
 	robots: {
 		index: true,

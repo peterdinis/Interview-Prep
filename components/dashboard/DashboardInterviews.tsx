@@ -10,18 +10,23 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetInterviews } from "@/hooks/interviews/useGetInterviews";
+import { useInterviewLimit } from "@/hooks/interviews/useInterviewLimit";
 import { Eye, Ghost, Play } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Button } from "../ui/button";
 import DashboardPagination from "./DashboardPagination";
-import { useInterviewLimit } from "@/hooks/interviews/useInterviewLimit";
+import UserPlanBadge from "../payments/UserPlanBadge";
 
 const DashboardInterviews = () => {
 	const [activePage, setActivePage] = useState(1);
 	const [finishedPage, setFinishedPage] = useState(1);
 	const limit = 5;
-	const { data: limitData, loading: limitLoading, error: limitError } = useInterviewLimit();
+	const {
+		data: limitData,
+		loading: limitLoading,
+		error: limitError,
+	} = useInterviewLimit();
 	const { interviews, loading, error } = useGetInterviews(1, 1000);
 
 	const { activeInterviews, finishedInterviews } = useMemo(() => {
@@ -135,7 +140,8 @@ const DashboardInterviews = () => {
 				<div className="text-sm text-muted-foreground mb-4">
 					{limitData.remaining > 0 ? (
 						<p>
-							You can create <span className="font-medium">{limitData.remaining}</span> more{" "}
+							You can create{" "}
+							<span className="font-medium">{limitData.remaining}</span> more{" "}
 							{limitData.remaining === 1 ? "interview" : "interviews"} today (
 							{limitData.count}/{limitData.limit})
 						</p>
@@ -148,11 +154,14 @@ const DashboardInterviews = () => {
 			)}
 
 			{limitError && (
-				<p className="text-sm text-red-500 mb-4">Failed to load interview limit.</p>
+				<p className="text-sm text-red-500 mb-4">
+					Failed to load interview limit.
+				</p>
 			)}
 
 			<div className="space-y-6">
 				<h1 className="text-2xl font-semibold">My Interviews</h1>
+				<UserPlanBadge />
 
 				{loading ? (
 					<div className="space-y-4">

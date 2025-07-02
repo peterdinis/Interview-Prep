@@ -3,6 +3,7 @@
 import { useInterviewFeedback } from "@/hooks/interviews/useInterviewFeedback";
 import { useMockInterview } from "@/hooks/interviews/useInterviewStart";
 import { useSubmitInterviewAnswers } from "@/hooks/interviews/useSubmitInterviewsAnswers";
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { type FC, useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";
@@ -20,7 +21,6 @@ import {
 	DialogTitle,
 } from "../ui/dialog";
 import { Textarea } from "../ui/textarea";
-import { Loader2 } from "lucide-react";
 
 interface Props {
 	id: string;
@@ -107,7 +107,12 @@ const StartInterview: FC<Props> = ({ id }) => {
 		setAiFeedback(null);
 	};
 
-	if (isLoading) return <p className="p-4"><Loader2 className="animate-spin w-8 h-8" /></p>;
+	if (isLoading)
+		return (
+			<p className="p-4">
+				<Loader2 className="animate-spin w-8 h-8" />
+			</p>
+		);
 	if (error)
 		return <p className="p-4 text-red-500">Error loading questions.</p>;
 	if (!questions.length) return <p className="p-4">No questions found.</p>;
