@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { useUserPlan } from "@/hooks/payments/useUserPlan";
-import { Loader2 } from "lucide-react";
+import { Loader2, Sparkles } from "lucide-react";
 import {
 	Dialog,
 	DialogContent,
@@ -13,11 +13,12 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Sparkles } from "lucide-react";
+import { useUpgradeToPro } from "@/hooks/payments/useUpradeToPro";
 
 const UserPlanBadge = () => {
 	const { plan, loading } = useUserPlan();
 	const [open, setOpen] = useState(false);
+	const { upgrade, loading: upgrading, error } = useUpgradeToPro();
 
 	if (loading) {
 		return (
@@ -64,11 +65,21 @@ const UserPlanBadge = () => {
 							</ul>
 						</div>
 
-						<Button className="w-full mt-6" onClick={() => {
-							console.log("Redirecting to upgrade...");
-							setOpen(false);
-						}}>
-							Upgrade to Pro
+						{error && (
+							<p className="mt-2 text-sm text-red-500">
+								{error}
+							</p>
+						)}
+
+						<Button
+							className="w-full mt-6"
+							onClick={() => {
+								upgrade();
+								setOpen(false);
+							}}
+							disabled={upgrading}
+						>
+							{upgrading ? "Redirecting..." : "Upgrade to Pro"}
 						</Button>
 					</DialogContent>
 				</Dialog>
