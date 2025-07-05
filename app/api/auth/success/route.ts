@@ -2,15 +2,15 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { eq } from "drizzle-orm";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
 	const { getUser } = getKindeServerSession();
 	const user = await getUser();
 
 	if (!user || !user.id) {
 		throw new Error(
-			"something went wrong with authentication: " + JSON.stringify(user),
+			"Something went wrong with authentication: " + JSON.stringify(user),
 		);
 	}
 
@@ -25,5 +25,12 @@ export async function GET() {
 		});
 	}
 
-	return NextResponse.redirect(`${process.env.APP_URL}/dashboard`);
+	const host = req.headers.get("host");
+	
+	const baseUrl =
+		host?.includes("localhost") || host?.startsWith("127.")
+			? "http://localhost:3000"
+			: process.env.APP_URL;
+
+	return NextResponse.redirect(`${baseUrl}/dashboard`);
 }
