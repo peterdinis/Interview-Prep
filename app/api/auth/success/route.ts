@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { eq } from "drizzle-orm";
-import { NextResponse, NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
 	const { getUser } = getKindeServerSession();
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
 	}
 
 	const host = req.headers.get("host");
-	
+
 	const baseUrl =
 		host?.includes("localhost") || host?.startsWith("127.")
 			? "http://localhost:3000"

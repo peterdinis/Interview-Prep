@@ -24,7 +24,10 @@ export async function POST(req: Request) {
 		});
 
 		if (!dbUser) {
-			return NextResponse.json({ error: "User not found in database" }, { status: 404 });
+			return NextResponse.json(
+				{ error: "User not found in database" },
+				{ status: 404 },
+			);
 		}
 
 		const isPro = dbUser.plan === "pro" || dbUser.plan === "enterprise";
