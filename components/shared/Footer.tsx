@@ -14,7 +14,7 @@ const Footer: FC = () => {
 						<span className="text-2xl font-bold">InterviewPrep</span>
 					</div>
 					<div className="text-black dark:text-sky-50 text-lg">
-						© 2025 InterviewPrep. All rights reserved. Made with ❤️ for
+						© 2025 Interview-Prep. All rights reserved. Made with ❤️ for
 						developers.
 					</div>
 				</div>
