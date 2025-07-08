@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { mockInterviews } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(
 	_req: NextRequest,

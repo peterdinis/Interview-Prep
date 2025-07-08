@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { interviewQuestions } from "@/db/schema";
 import { nanoid } from "nanoid";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
 	try {

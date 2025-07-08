@@ -4,9 +4,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-export async function GET(
-	props: { params: Promise<{ id: string }> },
-) {
+export async function GET(props: { params: Promise<{ id: string }> }) {
 	const params = await props.params;
 	try {
 		const { getUser } = getKindeServerSession();
