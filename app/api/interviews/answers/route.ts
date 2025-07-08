@@ -1,9 +1,9 @@
 import { db } from "@/db";
 import { interviewQuestions } from "@/db/schema";
 import { nanoid } from "nanoid";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
 	try {
 		const body = await req.json();
 		const { interviewId, answers } = body;

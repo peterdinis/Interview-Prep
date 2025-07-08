@@ -5,7 +5,6 @@ import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET(
-	req: Request,
 	props: { params: Promise<{ id: string }> },
 ) {
 	const params = await props.params;

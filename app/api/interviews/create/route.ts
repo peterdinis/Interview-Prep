@@ -4,12 +4,12 @@ import { redis } from "@/lib/redis";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
 	try {
 		const { getUser } = getKindeServerSession();
 		const user = await getUser();
@@ -18,7 +18,6 @@ export async function POST(req: Request) {
 			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 		}
 
-		// Get the user's plan from the DB
 		const dbUser = await db.query.users.findFirst({
 			where: eq(users.id, user.id),
 		});
@@ -32,7 +31,6 @@ export async function POST(req: Request) {
 
 		const isPro = dbUser.plan === "pro" || dbUser.plan === "enterprise";
 
-		// Rate limit only free users
 		if (!isPro) {
 			const today = new Date().toISOString().split("T")[0];
 			const rateLimitKey = `interview_limit:${user.id}:${today}`;

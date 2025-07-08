@@ -1,10 +1,10 @@
 import { db } from "@/db";
 import { mockInterviews } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-	_req: Request,
+	_req: NextRequest,
 	context: { params: Promise<{ id: string }> },
 ) {
 	try {
