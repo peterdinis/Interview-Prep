@@ -3,5 +3,6 @@ onlyBuiltDependencies:
   - '@tailwindcss/oxide'
   - better-sqlite3
   - esbuild
+  - oxc-resolver
   - sharp
   - unrs-resolver
