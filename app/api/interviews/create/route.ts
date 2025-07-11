@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 			const count = await redis.incr(rateLimitKey);
 
 			if (count === 1) {
-				await redis.expire(rateLimitKey, 60 * 60 * 24); // 24 hours
+				await redis.expire(rateLimitKey, 60 * 60 * 24);
 			}
 
 			if (count > 4) {

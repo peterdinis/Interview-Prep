@@ -1,12 +1,9 @@
 import { db } from "@/db";
 import { mockInterviews } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(
-	_req: NextRequest,
-	context: { params: Promise<{ id: string }> },
-) {
+export async function GET(context: { params: Promise<{ id: string }> }) {
 	try {
 		const interviewId = (await context.params).id;
 

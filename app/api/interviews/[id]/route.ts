@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { interviews } from "@/db/schema";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { and, eq } from "drizzle-orm";
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(props: { params: Promise<{ id: string }> }) {
 	const params = await props.params;
@@ -41,10 +41,7 @@ export async function GET(props: { params: Promise<{ id: string }> }) {
 	}
 }
 
-export async function DELETE(
-	req: Request,
-	props: { params: Promise<{ id: string }> },
-) {
+export async function DELETE(props: { params: Promise<{ id: string }> }) {
 	const params = await props.params;
 	try {
 		const { getUser } = getKindeServerSession();
@@ -84,7 +81,7 @@ export async function DELETE(
 }
 
 export async function PUT(
-	req: Request,
+	req: NextRequest,
 	props: { params: Promise<{ id: string }> },
 ) {
 	const params = await props.params;
