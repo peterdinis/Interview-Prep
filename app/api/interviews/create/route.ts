@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { interviews, mockInterviews, users } from "@/db/schema";
 import { redis } from "@/lib/redis";
+import type { AppError } from "@/types/ErrorTypes";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
@@ -116,12 +117,13 @@ export async function POST(req: NextRequest) {
 			{ interview: newInterview, mockInterview: generatedContent },
 			{ status: 201 },
 		);
-	} catch (err: any) {
-		console.error("[INTERVIEWS_POST]", {
-			message: err?.message,
-			stack: err?.stack,
-			error: err,
-		});
+	} catch (err: unknown) {
+		const error: AppError =
+			err instanceof Error
+				? { message: err.message, stack: err.stack }
+				: { message: "Unexpected unknown error" };
+
+		console.error("[INTERVIEWS_POST]", error);
 
 		return NextResponse.json(
 			{ error: "Unexpected server error. Please try again later." },

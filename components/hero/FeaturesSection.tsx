@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import Image from "next/image";
 import type { FC } from "react";
 
 const testimonials = [
@@ -61,10 +62,12 @@ const FeaturesSection: FC = () => {
 							<div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 							<div className="relative">
 								<div className="flex items-center mb-6">
-									<img
+									<Image
 										src={testimonial.avatar}
 										alt={testimonial.name}
-										className="w-12 h-12 rounded-full object-cover mr-4 ring-2 ring-blue-100 group-hover:ring-blue-300 transition-all"
+										width={48}
+										height={48}
+										className="rounded-full object-cover mr-4 ring-2 ring-blue-100 group-hover:ring-blue-300 transition-all"
 									/>
 									<div>
 										<div className="font-bold text-gray-900">
@@ -84,7 +87,7 @@ const FeaturesSection: FC = () => {
 									))}
 								</div>
 								<p className="text-gray-600 leading-relaxed italic">
-									"{testimonial.content}"
+									&ldquo;{testimonial.content}&rdquo;
 								</p>
 							</div>
 						</div>
