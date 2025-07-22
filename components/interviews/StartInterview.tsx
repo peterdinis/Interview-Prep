@@ -29,7 +29,6 @@ interface Props {
 const StartInterview: FC<Props> = ({ id }) => {
 	const { data, isLoading, error } = useMockInterview(id);
 	const [answers, setAnswers] = useState<string[]>([]);
-	const [submitted, setSubmitted] = useState(false);
 	const [showDialog, setShowDialog] = useState(false);
 	const [aiFeedback, setAiFeedback] = useState<string | null>(null);
 
@@ -90,7 +89,6 @@ const StartInterview: FC<Props> = ({ id }) => {
 						{
 							onSuccess: (data) => {
 								setAiFeedback(data.feedback);
-								setSubmitted(true);
 								setShowDialog(true);
 							},
 						},
@@ -102,7 +100,6 @@ const StartInterview: FC<Props> = ({ id }) => {
 
 	const handleRestart = () => {
 		setAnswers(Array(questions.length).fill(""));
-		setSubmitted(false);
 		setShowDialog(false);
 		setAiFeedback(null);
 	};

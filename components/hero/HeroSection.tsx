@@ -1,4 +1,4 @@
-import { ArrowRight, Play, Zap } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import type { FC } from "react";
 import { Button } from "../ui/button";
 
