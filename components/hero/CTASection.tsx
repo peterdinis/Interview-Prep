@@ -17,7 +17,7 @@ const CTASection: FC = () => {
 					</h2>
 					<p className="text-xl text-gray-600 dark:text-blue-100 mb-10 leading-relaxed">
 						Join over 50,000 developers who have successfully prepared with
-						InterviewAce. Start your journey today - completely free, no credit
+						Interview Prep. Start your journey today - completely free, no credit
 						card required!
 					</p>
 					<Button

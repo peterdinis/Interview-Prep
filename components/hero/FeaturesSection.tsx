@@ -7,7 +7,7 @@ const testimonials = [
 		name: "Sarah Chen",
 		role: "Senior Software Engineer at Google",
 		content:
-			"InterviewAce transformed my preparation strategy. The AI-powered questions felt incredibly realistic and helped me identify my weak spots.",
+			"Interview Prep transformed my preparation strategy. The AI-powered questions felt incredibly realistic and helped me identify my weak spots.",
 		rating: 5,
 		avatar:
 			"https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop",
@@ -48,7 +48,7 @@ const FeaturesSection: FC = () => {
 					</h2>
 					<p className="text-xl text-gray-600 dark:text-blue-100 max-w-2xl mx-auto">
 						Join thousands of successful developers who transformed their
-						careers with InterviewAce.
+						careers with Interview Prep.
 					</p>
 				</div>
 
